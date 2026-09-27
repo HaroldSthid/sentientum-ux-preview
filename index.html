@@ -586,6 +586,44 @@
   .tip-body li b { color: var(--wf-text-primary); }
   .tip-body .tip-c { color: var(--wf-text-muted); }
   @media (prefers-reduced-motion: reduce) { .tip-ico::after { animation: none; opacity: 1; } }
+
+  /* ---------- Help in the navigation: step-bar button, non-modal panel, mini player ---------- */
+  .s-topbar { flex-wrap: wrap; }
+  .help-nav { display: inline-flex; align-items: center; gap: 6px; }
+  .help-open, .help-mini, .help-inline { border: 1px solid var(--wf-accent-border); background: var(--wf-accent-soft); color: var(--wf-accent-text); font: 700 11.5px var(--s-display); cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+  .help-open { padding: 2px 10px 2px 2px; border-radius: 14px 0 0 14px; }
+  .help-open:hover, .help-mini:hover, .help-inline:hover { background: color-mix(in srgb, var(--wf-accent) 22%, transparent); border-color: var(--wf-accent); }
+  .help-open:focus-visible, .help-mini:focus-visible, .help-inline:focus-visible, .hp-close:focus-visible { outline: 2px solid var(--wf-accent); outline-offset: 2px; }
+  .help-open[aria-expanded="true"] { background: var(--wf-accent); color: var(--wf-on-accent); border-color: var(--wf-accent); }
+  .ho-ico, .hi-ico { position: relative; width: 22px; height: 22px; border-radius: 50%; background: var(--wf-accent); color: var(--wf-on-accent); display: grid; place-items: center; flex: none; }
+  .help-open[aria-expanded="true"] .ho-ico { background: var(--wf-on-accent); color: var(--wf-accent); }
+  .ho-ico svg, .hi-ico svg, .help-mini svg.i-pause, .help-mini svg.i-resume { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .help-mini svg.i-resume { fill: currentColor; stroke: none; }
+  .help-nav.unheard .ho-ico::after, .help-inline.unheard .hi-ico::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 1.5px solid var(--psi-gold); opacity: 0; animation: ficha-pulse 2.4s ease-out infinite; }
+  .help-mini { position: relative; width: 28px; height: 28px; padding: 0; border-radius: 50%; justify-content: center; }
+  .help-mini[hidden] { display: none; }
+  .help-mini .hm-ring { position: absolute; inset: -1px; width: 28px; height: 28px; transform: rotate(-90deg); fill: none; stroke-width: 2; }
+  .help-mini .hm-ring circle { stroke: transparent; }
+  .help-mini .hm-ring .hm-bar { stroke: var(--psi-gold); stroke-dasharray: calc(var(--p, 0) * 100) 100; }
+  .help-nav[data-state="paused"] .help-mini .i-pause, .help-nav[data-state="playing"] .help-mini .i-resume { display: none; }
+  .help-inline { padding: 2px 10px 2px 2px; border-radius: 14px 0 0 14px; margin-left: auto; align-self: center; }
+  .help-panel { position: fixed; z-index: 40; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); right: 24px; width: min(380px, calc(100vw - 48px)); max-height: calc(100vh - 160px); overflow: auto; background: var(--wf-bg-page); color: var(--wf-text-primary); border: 1px solid var(--wf-border-strong); border-top: 3px solid var(--psi-gold); padding: 16px 18px 18px; display: grid; gap: 12px; }
+  .help-panel[hidden] { display: none; }
+  .hp-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+  .hp-eyebrow { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .hp-title { margin: 4px 0 0; font: 800 18px/1.15 var(--s-display); letter-spacing: -0.02em; }
+  .hp-close { border: 1px solid var(--wf-border-strong); background: none; color: var(--wf-text-primary); width: 28px; height: 28px; font: 400 18px/1 var(--s-display); cursor: pointer; flex: none; }
+  .hp-player { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .hp-player .tip-btn { margin-left: 0; }
+  .hp-keep { margin: 0; font-size: 11px; color: var(--wf-text-muted); border-top: 1px solid var(--wf-border-subtle); padding-top: 10px; }
+  .hp-soon-t { margin: 0; font: 700 12px var(--s-display); color: var(--wf-text-secondary); }
+  .hp-soon-d { margin: 4px 0 0; font-size: 12.5px; color: var(--wf-text-secondary); line-height: 1.55; }
+  @media (max-width: 560px) {
+    .help-panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 62vh; border-left: 0; border-right: 0; border-bottom: 0; padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+    .ho-lbl { display: none; }
+    .help-open { padding: 2px; border-radius: 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .help-nav.unheard .ho-ico::after, .help-inline.unheard .hi-ico::after { animation: none; opacity: 1; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -743,7 +781,7 @@
         <div class="screen">
           <div class="s-topbar">
             <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
-            <div class="s-steps"><span class="on"><span data-i18n="stepBrief">01 Brief</span></span><span><span data-i18n="stepRun">02 Corrida</span></span><span><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
+            <div class="s-steps"><span class="on"><span data-i18n="stepBrief">01 Brief</span></span><span><span data-i18n="stepRun">02 Corrida</span></span><span><span data-i18n="stepAnswer">03 Respuesta</span></span></div><div class="help-nav" data-state="idle"><button type="button" class="help-mini" aria-label="Pausar el hack" hidden><svg class="hm-ring" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12"/><circle class="hm-bar" cx="14" cy="14" r="12" pathLength="100"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg><svg class="i-resume" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button><button type="button" class="help-open" aria-expanded="false" aria-controls="help-panel"><span class="ho-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg></span><span class="ho-lbl">Ayuda</span></button></div>
             <div class="s-tools">Español · Claro · Ajustes</div>
           </div>
           <div class="s-split">
@@ -765,12 +803,8 @@
               </div>
               <div class="s-sec">
                 <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3" data-i18n="hAudience">Audiencia</h3>
-                  <button type="button" class="tip-btn" data-tip="constitution" aria-pressed="false"><span class="tip-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg></span><span class="tip-lbl">Escuchar el hack</span><span class="tip-dur">0:38</span><i class="tip-prog"></i></button></div>
+                  <button type="button" class="help-inline" data-open-help="brief" aria-expanded="false"><span class="hi-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg></span><span class="hi-lbl">Hack en audio</span></button></div>
                 <p class="s-help">4 arquetipos leídos de la constitución; A-4 no declara su PSI completo.</p>
-                <div class="tip-row">
-                  <div class="tip-voice" role="group" aria-label="Voz del hack"><span class="tip-voice-l">Voz</span><button type="button" data-voice="mentor" aria-pressed="true">Mentor</button><button type="button" data-voice="harold" aria-pressed="false">Harold</button></div>
-                  <details class="tip-text"><summary>Leer en texto</summary><div class="tip-body"></div></details>
-                </div>
                 <div class="s-rows">
                   <div class="s-row"><span class="code">A-1</span><span>Ejecutivo de presupuesto<br><span class="meta">O .55 C .90 E .70 A .35 N .40 · Competencia .90</span> <span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
                   <div class="s-row"><span class="code">A-2</span><span>Mando medio de operaciones<br><span class="meta">O .35 C .80 E .45 A .60 N .70 · Certeza .85</span> <span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span>
@@ -833,7 +867,7 @@
         <div class="screen">
           <div class="s-topbar">
             <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
-            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="on"><span data-i18n="stepRun">02 Corrida</span></span><span><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
+            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="on"><span data-i18n="stepRun">02 Corrida</span></span><span><span data-i18n="stepAnswer">03 Respuesta</span></span></div><div class="help-nav" data-state="idle"><button type="button" class="help-mini" aria-label="Pausar el hack" hidden><svg class="hm-ring" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12"/><circle class="hm-bar" cx="14" cy="14" r="12" pathLength="100"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg><svg class="i-resume" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button><button type="button" class="help-open" aria-expanded="false" aria-controls="help-panel"><span class="ho-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg></span><span class="ho-lbl">Ayuda</span></button></div>
             <div class="s-tools" data-i18n="pause">Pausar lote</div>
           </div>
           <div class="bar" aria-hidden="true"><i style="width:60%"></i></div>
@@ -889,7 +923,7 @@
         <div class="screen">
           <div class="s-topbar">
             <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
-            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="done"><span data-i18n="stepRun">02 Corrida</span> ✓</span><span class="on"><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
+            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="done"><span data-i18n="stepRun">02 Corrida</span> ✓</span><span class="on"><span data-i18n="stepAnswer">03 Respuesta</span></span></div><div class="help-nav" data-state="idle"><button type="button" class="help-mini" aria-label="Pausar el hack" hidden><svg class="hm-ring" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12"/><circle class="hm-bar" cx="14" cy="14" r="12" pathLength="100"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg><svg class="i-resume" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button><button type="button" class="help-open" aria-expanded="false" aria-controls="help-panel"><span class="ho-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg></span><span class="ho-lbl">Ayuda</span></button></div>
             <div class="s-tools" data-i18n="exportMemo">Exportar memo</div>
           </div>
           <div class="s-split">
@@ -989,7 +1023,7 @@
         <div class="screen">
           <div class="s-topbar">
             <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
-            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="done"><span data-i18n="stepRun">02 Corrida</span> ✓</span><span class="on"><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
+            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="done"><span data-i18n="stepRun">02 Corrida</span> ✓</span><span class="on"><span data-i18n="stepAnswer">03 Respuesta</span></span></div><div class="help-nav" data-state="idle"><button type="button" class="help-mini" aria-label="Pausar el hack" hidden><svg class="hm-ring" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12"/><circle class="hm-bar" cx="14" cy="14" r="12" pathLength="100"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg><svg class="i-resume" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button><button type="button" class="help-open" aria-expanded="false" aria-controls="help-panel"><span class="ho-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg></span><span class="ho-lbl">Ayuda</span></button></div>
             <div class="s-tools" data-i18n="exportMemo">Exportar memo</div>
           </div>
           <div class="ws">
@@ -1115,7 +1149,7 @@
           <div><h4>P13 · Paleta alternativa (exploración)</h4><span class="src">Inspirado en: Pantone Basil 16-6216, Potting Soil 19-1218, Cherry Tomato 17-1563</span><ul><li>Se mapea sobre los mismos tokens <code>--wf-*</code>: no cambia ningún componente, solo valores.</li><li>Potting Soil = estructura, texto y botón; Basil = completado; Cherry Tomato = activo y foco.</li><li>El error pasa a carmesí para no confundirse con el acento rojo, y siempre va escrito.</li><li>Todas las combinaciones de texto pasan AA en los dos temas.</li><li><b>Excepción en evaluación · marca en Cherry Tomato</b>: solo el titular del Home y la palabra «sentientum» (texto grande, 19 px o más en 800). Rompe en parte «el color significa estado», así que se deja como alternativa para decidir. Tono por fondo: #E94B3C en claro (3,4–3,6:1), #F26B5B en oscuro (6,1–6,6:1), #FF7A6B sobre Basil profundo (5,4:1). Sobre Basil claro el Cherry Tomato puro da 1,3:1, así que se usa tomate profundo #8E1F14 (3,1:1). Pregunta abierta: si la marca es roja, ¿el rojo de peligro sigue leyéndose como alerta?</li><li><b>Fondo Basil</b>: el texto solo en Potting Soil profundo (5,5:1); el rojo nunca como texto (1,3:1 sobre Basil), solo como relleno con texto crema (4,7:1); estados en tonos profundos. En oscuro, Basil profundo #243024 con texto crema (11,5:1).</li></ul></div>
           <div><h4>P14 · La multitud</h4><span class="src">Inspirado en: un afiche con multitud en duotono</span><ul><li>Cada cabeza es un agente; las filas crecen hacia abajo, como vistas desde el escenario.</li><li>Duotono Basil y Potting Soil; los agentes que deliberan, en Cherry Tomato, cambian cada pocos segundos.</li><li>Ocupa la mitad inferior; el texto va arriba, sobre la página.</li><li>Canvas 2D; quieta con <code>prefers-reduced-motion</code>.</li></ul></div>
           <div><h4>P15 · Card de agente con radar</h4><span class="src">Inspirado en: cartas coleccionables y el ecualizador de un mezclador</span><ul><li>Frente: retrato ilustrado y sonriente, código, rol y de dónde salen sus rasgos. Al pasar el mouse o dar foco, el retrato saluda en un loop de 3 s (WebP animado); con <i>reduced motion</i> queda la imagen fija. Dorso: radar con OCEAN (5 ejes) y PSI (3 ejes, en dorado) superpuestos.</li><li>La línea punteada es lo que dice la constitución; el área es el valor actual. Editar muestra la diferencia, nunca la oculta.</li><li>Solo se ecualizan los agentes que salen de un arquetipo, y el cambio aplica a todo el arquetipo. Las entidades del grafo se ven, no se editan, y la card dice por qué.</li><li>En la card y en la ficha del Brief, el mismo radar con dos capas: OCEAN en el color activo y PSI superpuesto en dorado translúcido (22 %), con sus 3 ejes entre los de OCEAN. El dorado identifica la serie PSI, no un estado. Las barras debajo dan el valor exacto. El avatar circular es la única excepción al «sin radio»: es contenido, no contenedor.</li><li>«Ver ficha» invita a abrirla: mini avatar con un anillo dorado que late, borde izquierdo en semicírculo concéntrico con el avatar (se detiene al abrir y con <i>reduced motion</i>), color activo, pista «OCEAN · PSI» y una flecha que gira. Abierta dice «Ocultar ficha».</li><li>Sin sombra ni radio: la card es una celda de la grilla separada por 1 px. El giro respeta <i>reduced motion</i> y la cara oculta queda inerte.</li></ul></div>
-          <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Mismo chip que «Ver ficha»: círculo con auriculares, anillo dorado que late hasta que se escucha una vez, y una barra dorada de progreso.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
+          <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Vive en la navegación: un botón «Ayuda» en la barra de pasos abre un panel <b>no modal</b> (acoplado a la derecha en desktop, hoja inferior en el teléfono). No oscurece ni bloquea: se sigue revisando el paso mientras se escucha.</li><li>El audio sigue aunque se cierre el panel: la barra muestra un mini reproductor con pausa y un anillo dorado de progreso. Esc cierra el panel y el foco vuelve al botón que lo abrió.</li><li>El panel es contextual: muestra el hack del paso actual. En la sección donde aplica queda una entrada compacta («Hack en audio») que abre el mismo panel. El anillo dorado late hasta la primera escucha.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
         </div>
       </section>
 
@@ -1169,6 +1203,21 @@
   </div>
 </main>
 
+  <aside id="help-panel" class="help-panel" role="dialog" aria-modal="false" aria-labelledby="help-title" hidden>
+    <header class="hp-head">
+      <div><span class="hp-eyebrow">Hack en audio · 01 Brief</span><h3 id="help-title" class="hp-title">La constitución</h3></div>
+      <button type="button" class="hp-close" aria-label="Cerrar">×</button>
+    </header>
+    <div class="hp-has">
+      <div class="hp-player">
+        <button type="button" class="tip-btn" data-tip="constitution" aria-pressed="false"><span class="tip-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg></span><span class="tip-lbl">Escuchar el hack</span><span class="tip-dur">0:39</span><i class="tip-prog"></i></button>
+        <div class="tip-voice" role="group" aria-label="Voz del hack"><span class="tip-voice-l">Voz</span><button type="button" data-voice="mentor" aria-pressed="true">Mentor</button><button type="button" data-voice="harold" aria-pressed="false">Harold</button></div>
+      </div>
+      <div class="tip-body"></div>
+      <p class="hp-keep">Puedes seguir revisando: el audio sigue aunque cierres este panel.</p>
+    </div>
+    <div class="hp-soon" hidden><p class="hp-soon-t">Próximamente</p><p class="hp-soon-d"></p></div>
+  </aside>
 <script>
   (function () {
     var views = { home: document.getElementById('view-home'), desktop: document.getElementById('view-desktop'), mobile: document.getElementById('view-mobile'), guide: document.getElementById('view-guide'), agents: document.getElementById('view-agents') };
@@ -1397,12 +1446,72 @@
     var tipPlayer = TIP_AUDIO ? new Audio() : null, tipKey = null, tipVoice = 'mentor';
     try { tipVoice = localStorage.getItem('sentientum-redesign-voice') || tipVoice; } catch (e) {}
     function tipButtons() { return document.querySelectorAll('.tip-btn'); }
+    var HELP_UI = {
+      es: { help: 'Ayuda', eyebrow: 'Hack en audio', inline: 'Hack en audio', close: 'Cerrar', pause: 'Pausar el hack', resume: 'Seguir escuchando', keep: 'Puedes seguir revisando: el audio sigue aunque cierres este panel.', soon: 'Próximamente', steps: { brief: '01 Brief', run: '02 Corrida', answer: '03 Respuesta' }, titles: { brief: 'La constitución', run: 'La corrida', answer: 'La respuesta' }, planned: { run: 'Un hack para leer la matriz de condiciones × réplicas: qué significa que una réplica no se estabilice.', answer: 'Un hack para distinguir una cita verificada de una cercana antes de citarla en un memo.' } },
+      'pt-BR': { help: 'Ajuda', eyebrow: 'Dica em áudio', inline: 'Dica em áudio', close: 'Fechar', pause: 'Pausar a dica', resume: 'Continuar ouvindo', keep: 'Você pode continuar revisando: o áudio segue mesmo se fechar este painel.', soon: 'Em breve', steps: { brief: '01 Brief', run: '02 Execução', answer: '03 Resposta' }, titles: { brief: 'A constituição', run: 'A execução', answer: 'A resposta' }, planned: { run: 'Uma dica para ler a matriz de condições × réplicas: o que significa uma réplica não se estabilizar.', answer: 'Uma dica para distinguir uma citação verificada de uma próxima antes de usá-la num memorando.' } },
+      en: { help: 'Help', eyebrow: 'Audio tip', inline: 'Audio tip', close: 'Close', pause: 'Pause the tip', resume: 'Keep listening', keep: 'Keep reviewing: the audio goes on even if you close this panel.', soon: 'Coming soon', steps: { brief: '01 Brief', run: '02 Run', answer: '03 Answer' }, titles: { brief: 'The constitution', run: 'The run', answer: 'The answer' }, planned: { run: 'A tip for reading the conditions × replicates matrix: what it means when a replicate does not stabilize.', answer: 'A tip for telling a verified quote from a nearby one before you cite it in a memo.' } }
+    };
+    var HACK_STEPS = { brief: true };
+    var helpPanel = document.getElementById('help-panel'), helpStep = 'brief', helpOpener = null, heard = false, tipStarted = false;
+    try { heard = localStorage.getItem('sentientum-redesign-heard') === '1'; } catch (e) {}
+    function stepOf(el) {
+      var on = el.closest('.s-topbar') && el.closest('.s-topbar').querySelector('.s-steps .on [data-i18n]');
+      var k = on ? on.getAttribute('data-i18n') : 'stepBrief';
+      return k === 'stepRun' ? 'run' : k === 'stepAnswer' ? 'answer' : 'brief';
+    }
+    function renderHelp() {
+      var h = HELP_UI[lang] || HELP_UI.es;
+      helpPanel.querySelector('.hp-eyebrow').textContent = h.eyebrow + ' · ' + h.steps[helpStep];
+      helpPanel.querySelector('.hp-title').textContent = h.titles[helpStep];
+      helpPanel.querySelector('.hp-close').setAttribute('aria-label', h.close);
+      helpPanel.querySelector('.hp-keep').textContent = h.keep;
+      helpPanel.querySelector('.hp-keep').hidden = !tipPlayer;
+      helpPanel.querySelector('.hp-has').hidden = !HACK_STEPS[helpStep];
+      helpPanel.querySelector('.hp-soon').hidden = !!HACK_STEPS[helpStep];
+      helpPanel.querySelector('.hp-soon-t').textContent = h.soon;
+      helpPanel.querySelector('.hp-soon-d').textContent = h.planned[helpStep] || '';
+    }
+    function setExpanded(open) {
+      document.querySelectorAll('.help-open, .help-inline').forEach(function (b) {
+        var mine = open && b === helpOpener;
+        b.setAttribute('aria-expanded', String(mine));
+      });
+    }
+    function openHelp(step, opener) {
+      helpStep = step; helpOpener = opener; renderHelp();
+      helpPanel.hidden = false; setExpanded(true);
+      helpPanel.querySelector('.hp-close').focus({ preventScroll: true });
+    }
+    function closeHelp() {
+      helpPanel.hidden = true; setExpanded(false);
+      if (helpOpener && helpOpener.offsetParent) helpOpener.focus({ preventScroll: true });
+    }
+    helpPanel.querySelector('.hp-close').addEventListener('click', closeHelp);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !helpPanel.hidden) closeHelp(); });
+    function syncNav() {
+      var h = HELP_UI[lang] || HELP_UI.es;
+      var started = !!tipPlayer && tipStarted;
+      var state = !started ? 'idle' : tipPlayer.paused ? 'paused' : 'playing';
+      document.querySelectorAll('.help-nav').forEach(function (n) {
+        n.setAttribute('data-state', state);
+        n.classList.toggle('unheard', !heard && stepOf(n) === 'brief');
+        n.querySelector('.ho-lbl').textContent = h.help;
+        var mini = n.querySelector('.help-mini');
+        mini.hidden = state === 'idle';
+        mini.setAttribute('aria-label', state === 'playing' ? h.pause : h.resume);
+      });
+      document.querySelectorAll('.help-inline').forEach(function (b) {
+        b.classList.toggle('unheard', !heard);
+        b.querySelector('.hi-lbl').textContent = h.inline;
+      });
+      if (!helpPanel.hidden) renderHelp();
+    }
     function syncTip() {
       var ui = TIP_UI[lang] || TIP_UI.es, key = tipVoice + '|' + lang;
       if (tipPlayer && tipKey !== key) {
         tipPlayer.pause();
         tipPlayer.src = (TIP_AUDIO[tipVoice] || TIP_AUDIO.mentor)[lang] || TIP_AUDIO.mentor.es;
-        tipKey = key;
+        tipKey = key; tipStarted = false;
         tipButtons().forEach(function (b) { b.style.setProperty('--p', 0); });
       }
       var playing = tipPlayer && !tipPlayer.paused;
@@ -1416,19 +1525,22 @@
         g.querySelector('.tip-voice-l').textContent = ui[4];
         g.querySelectorAll('button').forEach(function (v) { v.setAttribute('aria-pressed', String(v.getAttribute('data-voice') === tipVoice)); });
       });
-      document.querySelectorAll('details.tip-text').forEach(function (d) {
-        d.querySelector('summary').textContent = ui[2];
-        d.querySelector('.tip-body').innerHTML = TIP_TEXT[lang] || TIP_TEXT.es;
-      });
+      document.querySelectorAll('.tip-body').forEach(function (d) { d.innerHTML = TIP_TEXT[lang] || TIP_TEXT.es; });
+      document.querySelectorAll('.hp-player .tip-btn').forEach(function (b) { b.hidden = !tipPlayer; });
+      syncNav();
     }
     if (tipPlayer) {
       ['play', 'pause', 'ended'].forEach(function (ev) { tipPlayer.addEventListener(ev, function () {
-        if (ev === 'ended') tipButtons().forEach(function (b) { b.classList.add('heard'); b.style.setProperty('--p', 0); });
+        if (ev === 'ended') { tipButtons().forEach(function (b) { b.classList.add('heard'); b.style.setProperty('--p', 0); }); heard = true; try { localStorage.setItem('sentientum-redesign-heard', '1'); } catch (err) {} }
+        if (ev === 'play') tipStarted = true;
+        if (ev === 'ended') tipStarted = false;
+        if (ev === 'play' && !heard) { heard = true; try { localStorage.setItem('sentientum-redesign-heard', '1'); } catch (err) {} }
         syncTip();
       }); });
       tipPlayer.addEventListener('timeupdate', function () {
         var pr = tipPlayer.duration ? tipPlayer.currentTime / tipPlayer.duration : 0;
         tipButtons().forEach(function (b) { b.style.setProperty('--p', pr.toFixed(3)); });
+        document.querySelectorAll('.help-mini').forEach(function (m) { m.style.setProperty('--p', pr.toFixed(3)); });
       });
     }
     document.addEventListener('click', function (e) {
@@ -1438,9 +1550,14 @@
         try { localStorage.setItem('sentientum-redesign-voice', tipVoice); } catch (err) {}
         syncTip(); return;
       }
-      var b = e.target.closest && e.target.closest('.tip-btn');
-      if (!b) return;
-      if (!tipPlayer) { var d = b.closest('.s-sec').querySelector('details.tip-text'); if (d) d.open = !d.open; return; }
+      var o = e.target.closest && e.target.closest('.help-open, .help-inline');
+      if (o) {
+        var step = o.classList.contains('help-inline') ? o.getAttribute('data-open-help') : stepOf(o);
+        if (!helpPanel.hidden && helpOpener === o) closeHelp(); else openHelp(step, o);
+        return;
+      }
+      var b = e.target.closest && e.target.closest('.tip-btn, .help-mini');
+      if (!b || !tipPlayer) return;
       if (tipPlayer.paused) { var pl = tipPlayer.play(); if (pl && pl.catch) pl.catch(function () {}); } else tipPlayer.pause();
     });
 
