@@ -719,6 +719,51 @@
   .g-cmp dd { margin: 0; color: var(--wf-text-secondary); }
   .g-cmp .c-delta { font-size: 11px; color: var(--wf-text-muted); border-top: 1px solid var(--wf-border-subtle); padding-top: 6px; }
   @container (max-width: 640px) { .g-cmp { grid-template-columns: 1fr; } }
+
+  /* ---------- Graph like the product: dotted canvas, boxed edge labels, detail panel with the persona bio ---------- */
+  .g-hint { margin: 0; font-size: 11.5px; color: var(--wf-text-muted); }
+  .g-stage { position: relative; }
+  .g-scroll { background-image: radial-gradient(var(--wf-border-strong) 1px, transparent 1.2px); background-size: 18px 18px; border: 1px solid var(--wf-border-subtle); }
+  .g-svg .f-epill rect { fill: var(--wf-bg-page); stroke: var(--wf-border-strong); stroke-width: 1; }
+  .g-svg .f-epill text { font: 700 8.5px var(--s-mono); letter-spacing: 0.04em; fill: var(--wf-text-secondary); text-transform: uppercase; }
+  .g-stage .g-detail { position: absolute; top: 10px; right: 10px; bottom: 10px; width: min(340px, 48%); overflow: auto; display: block; grid-template-columns: none; background: var(--wf-bg-page); border: 1px solid var(--wf-border-strong); padding: 0; font-size: 12.5px; color: var(--wf-text-primary); }
+  .g-stage .g-detail[hidden] { display: none; }
+  .gd-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--wf-border-subtle); position: sticky; top: 0; background: var(--wf-bg-page); z-index: 1; }
+  .gd-top b { font: 700 12.5px var(--s-display); }
+  .gd-badge { font: 700 10.5px var(--s-display); padding: 2px 8px; color: var(--wf-on-accent); background: var(--wf-accent); margin-left: auto; }
+  .gd-badge.doc { background: var(--wf-invert-bg); color: var(--wf-invert-text); }
+  .g-close { border: 0; background: none; color: var(--wf-text-muted); font-size: 18px; line-height: 1; cursor: pointer; padding: 0 2px; }
+  .g-close:focus-visible { outline: 2px solid var(--wf-accent); outline-offset: 2px; }
+  .gd-body { padding: 12px; display: grid; gap: 14px; }
+  .gd-who { display: flex; gap: 10px; align-items: center; }
+  .gd-who img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; border: 2px solid var(--wf-border-strong); flex: none; }
+  .gd-who h4 { margin: 0; font: 800 17px/1.15 var(--s-display); letter-spacing: -0.02em; }
+  .gd-who p { margin: 2px 0 0; font-size: 11px; color: var(--wf-text-muted); }
+  .gd-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--wf-border-subtle); border-left: 1px solid var(--wf-border-subtle); }
+  .gd-tiles div { border-right: 1px solid var(--wf-border-subtle); border-bottom: 1px solid var(--wf-border-subtle); padding: 8px 10px; }
+  .gd-tiles span { display: block; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .gd-tiles b { font: 800 17px/1.3 var(--s-display); }
+  .gd-sec h5 { margin: 0 0 6px; font: 400 9.5px var(--s-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .gd-sec p { margin: 0; line-height: 1.6; color: var(--wf-text-secondary); }
+  .gd-chips { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: var(--wf-text-secondary); }
+  .gd-quote { font-style: italic; color: var(--wf-text-primary) !important; }
+  .dev { display: block; width: 100%; max-width: 100%; height: auto; }
+  .dev text { font: 400 9.5px var(--s-mono); fill: var(--wf-text-secondary); }
+  .dev text.psi { fill: var(--psi-gold); }
+  .dev text.ax { fill: var(--wf-text-muted); font-size: 8.5px; }
+  .dev .grid { stroke: var(--wf-border-subtle); }
+  .dev .zero { stroke: var(--wf-accent); stroke-dasharray: 3 2; }
+  .dev .row { stroke: var(--wf-border-subtle); stroke-dasharray: 1 3; }
+  .dev .pt { fill: var(--wf-text-muted); fill-opacity: 0.55; }
+  .dev .hl { stroke: var(--wf-bg-page); stroke-width: 1.2; }
+  .dev .hl-l { font: 700 8px var(--s-display); fill: var(--wf-bg-page); pointer-events: none; }
+  .dev .sel { fill: var(--psi-gold); }
+  .g-dev { display: grid; gap: 6px; border: 1px solid var(--wf-border-subtle); padding: 12px; }
+  .g-dev h5 { margin: 0; font: 800 14px/1.2 var(--s-display); }
+  .g-dev p { margin: 0; font-size: 12px; color: var(--wf-text-secondary); }
+  .g-dev .dev-note { color: var(--wf-text-muted); font-size: 11.5px; }
+  .g-dev .dev { max-width: 560px; }
+  @container (max-width: 700px) { .g-stage .g-detail { position: static; width: auto; margin-top: 10px; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -1152,14 +1197,15 @@
                 <div class="g-head">
                   <p class="g-count"><b>42 agentes</b> = 4 perfiles de Audiencia × 10 + 2 personas del documento · 3 organizaciones y 1 medio quedan como contexto · arrastra los nodos</p>
                   <p class="g-dep"></p>
+                  <p class="g-hint"></p>
                 </div>
-                <div class="g-scroll"><div class="g-svg"></div></div>
+                <div class="g-stage"><div class="g-scroll"><div class="g-svg"></div></div><aside class="g-detail" aria-live="polite" hidden></aside></div>
                 <div class="g-key"><span><i class="k-face"></i>perfil de Audiencia (arquetipo)</span><span><i class="k-person"></i>persona del documento</span><span><i class="k-emp"></i>Operaciones S.A.</span><span><i class="k-sind"></i>Sindicato</span><span><i class="k-min"></i>Ministerio</span><span><i class="k-tag k-org"></i>medio (etiqueta)</span><span><i class="k-spawn"></i>genera agentes</span><span>anillo naranja: también afiliado al sindicato</span></div>
-                <div class="g-detail" aria-live="polite"></div>
                 <section class="g-compare" aria-label="Un perfil, diez personas">
                   <h4 class="g-cmp-h">Un perfil de Audiencia, diez personas distintas</h4>
                   <p class="g-cmp-sub">A-2 genera 10 agentes. Sus números casi no cambian (±0,05); sus vidas, sí. Tres de ellos lado a lado:</p>
                   <div class="g-cmp"></div>
+                  <div class="g-dev"></div>
                 </section>
               </div>
               <div class="ws-body">
@@ -1264,7 +1310,7 @@
           <div><h4>P14 · La multitud</h4><span class="src">Inspirado en: un afiche con multitud en duotono</span><ul><li>Cada cabeza es un agente; las filas crecen hacia abajo, como vistas desde el escenario.</li><li>Duotono Basil y Potting Soil; los agentes que deliberan, en Cherry Tomato, cambian cada pocos segundos.</li><li>Ocupa la mitad inferior; el texto va arriba, sobre la página.</li><li>Canvas 2D; quieta con <code>prefers-reduced-motion</code>.</li></ul></div>
           <div><h4>P15 · Card de agente con radar</h4><span class="src">Inspirado en: cartas coleccionables y el ecualizador de un mezclador</span><ul><li>Frente: retrato ilustrado y sonriente, código, rol y de dónde salen sus rasgos. Al pasar el mouse o dar foco, el retrato saluda en un loop de 3 s (WebP animado); con <i>reduced motion</i> queda la imagen fija. Dorso: radar con OCEAN (5 ejes) y PSI (3 ejes, en dorado) superpuestos.</li><li>La línea punteada es lo que dice la constitución; el área es el valor actual. Editar muestra la diferencia, nunca la oculta.</li><li>Solo se ecualizan los agentes que salen de un arquetipo, y el cambio aplica a todo el arquetipo. Las entidades del grafo se ven, no se editan, y la card dice por qué.</li><li>En la card y en la ficha del Brief, el mismo radar con dos capas: OCEAN en el color activo y PSI superpuesto en dorado translúcido (22 %), con sus 3 ejes entre los de OCEAN. El dorado identifica la serie PSI, no un estado. Las barras debajo dan el valor exacto. El avatar circular es la única excepción al «sin radio»: es contenido, no contenedor.</li><li>«Ver ficha» invita a abrirla: mini avatar con un anillo dorado que late, borde izquierdo en semicírculo concéntrico con el avatar (se detiene al abrir y con <i>reduced motion</i>), color activo, pista «OCEAN · PSI» y una flecha que gira. Abierta dice «Ocultar ficha».</li><li>Sin sombra ni radio: la card es una celda de la grilla separada por 1 px. El giro respeta <i>reduced motion</i> y la cara oculta queda inerte.</li></ul></div>
           <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Vive en la navegación: un botón «Ayuda» en la barra de pasos abre un panel <b>no modal</b> (acoplado a la derecha en desktop, hoja inferior en el teléfono). No oscurece ni bloquea: se sigue revisando el paso mientras se escucha.</li><li>El audio sigue aunque se cierre el panel: la barra muestra un mini reproductor con pausa y un anillo dorado de progreso. Esc cierra el panel y el foco vuelve al botón que lo abrió.</li><li>El panel es contextual: muestra el hack del paso actual. En la sección donde aplica queda una entrada compacta («Hack en audio») que abre el mismo panel. El anillo dorado late hasta la primera escucha.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
-          <div><h4>P17 · Grafo de origen</h4><span class="src">Inspirado en: los diagramas de linaje de datos</span><ul><li>Grafo flotante (d3-force, como el grafo del producto): cada perfil de Audiencia, con su cara, rodeado de los 10 agentes que genera. Las personas del documento también llevan cara. Se puede arrastrar.</li><li>El color es la organización (identidad, no estado): una envolvente suave agrupa a sus miembros; el anillo naranja marca a quien también está afiliado al sindicato. El medio es una etiqueta. Paleta validada para daltonismo en los dos temas.</li><li>Cada arista dice qué es: escribe en, cubre, negocia con, trabaja en, afiliados a, genera 10.</li><li>Debajo, un perfil y dos de sus personas lado a lado (una con biografía completa): los radares casi iguales y las vidas distintas se ven de un vistazo.</li><li>Un contador arriba hace la cuenta: 40 de 4 arquetipos + 2 personas del documento = 42. Las organizaciones quedan como contexto, sin agente.</li><li>La forma dice el tipo (círculo persona, cuadrado organización, rombo medio); el color activo marca lo que genera agentes.</li><li>Al pasar sobre un arquetipo se iluminan sus 10 agentes. Al elegir un agente, su radar se dibuja sobre el del arquetipo: la diferencia es de ±0,05 como máximo. Mismos rasgos, distinta vida.</li></ul></div>
+          <div><h4>P17 · Grafo de origen</h4><span class="src">Inspirado en: los diagramas de linaje de datos</span><ul><li>Grafo flotante (d3-force, como el grafo del producto): cada perfil de Audiencia, con su cara, rodeado de los 10 agentes que genera. Las personas del documento también llevan cara. Se puede arrastrar.</li><li>El color es la organización (identidad, no estado): una envolvente suave agrupa a sus miembros; el anillo naranja marca a quien también está afiliado al sindicato. El medio es una etiqueta. Paleta validada para daltonismo en los dos temas.</li><li>Cada arista dice qué es: escribe en, cubre, negocia con, trabaja en, afiliados a, genera 10.</li><li>Debajo, un perfil y dos de sus personas lado a lado (una con biografía completa): los radares casi iguales y las vidas distintas se ven de un vistazo.</li><li>Diferencias chicas, escala propia: ±0,05 no se ve en un radar de 0 a 1. Se muestran como desvíos por rasgo sobre una escala ampliada y rotulada (−0,05 a +0,05), con una referencia de escala entre perfiles.</li><li>Al elegir una persona se abre un panel lateral con su biografía como la muestra el producto: edad, género, país y MBTI aparentes, biografía completa (nunca cortada), temas de la semilla y trasfondo.</li><li>Un contador arriba hace la cuenta: 40 de 4 arquetipos + 2 personas del documento = 42. Las organizaciones quedan como contexto, sin agente.</li><li>La forma dice el tipo (círculo persona, cuadrado organización, rombo medio); el color activo marca lo que genera agentes.</li><li>Al pasar sobre un arquetipo se iluminan sus 10 agentes. Al elegir un agente, su radar se dibuja sobre el del arquetipo: la diferencia es de ±0,05 como máximo. Mismos rasgos, distinta vida.</li></ul></div>
         </div>
       </section>
 
@@ -1940,8 +1986,10 @@
       var link = gLink.selectAll('path').data(links.filter(function (l) { return !l.hidden; })).join('path')
         .attr('class', function (l) { return 'f-link ' + l.kind; }).attr('data-arch', function (l) { return l.arch; })
         .style('stroke', function (l) { return l.kind === 'member' ? 'var(--org-' + (l.target.org || 'emp') + ')' : null; });
-      var elab = gElab.selectAll('text').data(links.filter(function (l) { return l.label; })).join('text')
-        .attr('class', 'f-elabel').attr('text-anchor', 'middle').attr('data-arch', function (l) { return l.arch; }).text(function (l) { return l.label; });
+      var elab = gElab.selectAll('g.f-epill').data(links.filter(function (l) { return l.label; })).join('g')
+        .attr('class', 'f-epill').attr('data-arch', function (l) { return l.arch; });
+      elab.append('rect').attr('x', function (l) { return -(l.label.length * 5.6 + 12) / 2; }).attr('y', -8).attr('height', 15).attr('width', function (l) { return l.label.length * 5.6 + 12; });
+      elab.append('text').attr('text-anchor', 'middle').attr('y', 3).text(function (l) { return l.label; });
       var spawnLab = gElab.selectAll('text.sp').data(G_ARCH).join('text').attr('class', 'f-elabel sp').attr('data-arch', function (a) { return a.code; })
         .attr('text-anchor', 'middle').text('genera 10 · ±0,05');
       var node = gNode.selectAll('g').data(nodes).join('g').attr('class', 'f-node').attr('data-arch', function (d) { return d.arch; });
@@ -1995,7 +2043,7 @@
           l.mx = mx; l.my = my;
           return 'M' + l.source.x + ',' + l.source.y + ' Q' + mx + ',' + my + ' ' + l.target.x + ',' + l.target.y;
         });
-        elab.attr('x', function (l) { return (l.source.x + 2 * l.mx + l.target.x) / 4; }).attr('y', function (l) { return (l.source.y + 2 * l.my + l.target.y) / 4 - 3; });
+        elab.attr('transform', function (l) { return 'translate(' + ((l.source.x + 2 * l.mx + l.target.x) / 4) + ',' + ((l.source.y + 2 * l.my + l.target.y) / 4) + ')'; });
         spawnLab.attr('x', function (a) { return byId[a.code].x; }).attr('y', function (a) { return byId[a.code].y + byId[a.code].r + 14; });
         node.attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
         cap.attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
@@ -2021,30 +2069,93 @@
           '<dl>' + pf.lines.map(function (l) { return '<div><dt>' + esc(l[0]) + '</dt><dd>' + esc(l[1]) + '</dd></div>'; }).join('') + '</dl>' + delta + '</article>';
       }).join('');
     }
-    var G_EMPTY = 'Mismos rasgos, distinta vida. Pasa el mouse sobre un arquetipo para ver sus 10 agentes; haz clic en un agente para ver su radar sobre el del arquetipo y su historia.';
+    var G_EMPTY = 'Pasa el mouse sobre un perfil para ver sus 10 agentes. Haz clic en cualquier persona para abrir su biografía.';
     document.querySelectorAll('.g-svg').forEach(function (h, i) { h.dataset.gid = 'g' + i; if (window.d3) { try { floatGraph(h); return; } catch (err) { h.innerHTML = ''; } } h.innerHTML = graphSvg(); });
     document.querySelectorAll('.g-cmp').forEach(compareCards);
+    document.querySelectorAll('.g-dev').forEach(devBlock);
     document.querySelectorAll('.g-dep').forEach(function (d) { d.textContent = GRAPH_DEP; });
-    document.querySelectorAll('.g-detail').forEach(function (d) { d.className = 'g-detail empty'; d.textContent = G_EMPTY; });
-    function showAgent(view, id) {
-      var det = view.querySelector('.g-detail'), name, meta, bio, base, cur, delta = '';
-      if (id.indexOf(':') > 0) {
-        var a = G_ARCH.filter(function (x) { return x.code === id.split(':')[0]; })[0], ag = a.agents[+id.split(':')[1]];
-        base = a.ocean.concat(a.psi); cur = ag.vec;
-        var best = 0, bi = 0;
-        cur.forEach(function (v, i) { var d = Math.abs(v - base[i]); if (d > best) { best = d; bi = i; } });
-        name = ag.name; meta = a.code + ' · ' + a.role + ' · agente ' + (ag.idx + 1) + ' de 10 · ' + ag.age + ' años'; bio = ag.bio;
-        delta = 'Su mayor diferencia con el arquetipo: <b>' + (cur[bi] >= base[bi] ? '+' : '−') + best.toFixed(2).replace('.', ',') + '</b> en ' + AXES[bi][1] + '. El resto de su diferencia está en la historia, no en los números.';
-      } else {
-        var d0 = G_DOC.people.filter(function (x) { return x.id === id; })[0];
-        base = d0.ocean.concat(d0.psi); cur = base;
-        name = d0.name; meta = d0.id + ' · entidad ' + d0.etype + ' del documento · ' + d0.age + ' años'; bio = d0.bio;
-        delta = 'Sin arquetipo: el modelo generó sus rasgos a partir del documento. Es 1 agente, no 10.';
+    document.querySelectorAll('.g-hint').forEach(function (d) { d.textContent = G_EMPTY; });
+    document.querySelectorAll('.g-detail').forEach(function (d) { d.hidden = true; });
+    // Persona as the product shows it (apparent age, gender, country, MBTI; bio; seed topics; background).
+    var FEMALE = { Gabriela: 1, 'Inés': 1, Carolina: 1, Natalia: 1, Paula: 1, Carmen: 1, Lorena: 1, 'Sofía': 1, Valeria: 1, Beatriz: 1, Tatiana: 1, Camila: 1, Daniela: 1, Laura: 1, Andrea: 1, Rosa: 1, 'Mónica': 1, Patricia: 1, Silvia: 1, Elena: 1 };
+    var TOPICS = { 'A-1': ['costos', 'retorno de la inversión', 'licencias', 'metas trimestrales'], 'A-2': ['turnos', 'formación en horario laboral', 'plazo de 90 días', 'carga operativa'],
+      'A-3': ['herramientas de datos', 'privacidad', 'certificación', 'tiempo protegido'], 'A-4': ['convenio colectivo', 'estabilidad laboral', 'métricas individuales', 'piloto voluntario'],
+      'Z-1': ['plan de adopción de IA', 'sindicato', 'empleo'], 'Z-2': ['norma de jornada', 'formación laboral', 'diálogo social'] };
+    var FEATURED = {};
+    [{"kind": "profile", "title": "Marta Quiroga", "tag": "Perfil A-2 · de la constitución", "facekey": "A-2", "lines": [["Qué es", "El perfil que se ve en Audiencia: un arquetipo, no una persona. De él salen 10 agentes."], ["Declara", "OCEAN O .35 C .80 E .45 A .60 N .70 · PSI Competencia .40, Afiliación .75, Certeza .85."], ["No declara", "Nombre, edad, familia ni historia: eso lo escribe el modelo para cada agente."]]}, {"kind": "agent", "id": "A-2:2", "title": "Lorena Díaz", "tag": "Agente 3 de 10 · biografía completa", "facekey": "lorena", "lines": [["Quién es", "51 años. Supervisora de turno en Operaciones S.A., 20 años en planta. Afiliada al sindicato."], ["Su vida", "Vive con su madre y dos hijos adolescentes; hace el turno noche desde 2019."], ["Su historia", "Vio fallar dos sistemas nuevos: el de inventario (2016) y el de turnos (2021). Desde entonces pide un piloto antes de cualquier despliegue."], ["Qué le importa", "Que la formación no salga de su tiempo libre y que alguien de su equipo pueda resolver una falla sin llamar a sistemas."], ["Cómo decide", "Escucha primero a sus operarios; desconfía de los plazos cortos."], ["Diría", "«Si el sistema se cae a las tres de la mañana, ¿a quién llamo?»"]]}, {"kind": "agent", "id": "A-2:1", "title": "Diego Ramírez", "tag": "Agente 2 de 10", "facekey": "diego", "lines": [["Quién es", "39 años. Planificador de turnos en Operaciones S.A., 8 años en la empresa. No está afiliado."], ["Su historia", "Arma los horarios con una planilla que él mismo mantiene."], ["Qué le importa", "Cada hora de formación es una hora sin cubrir."], ["Diría", "«Díganme cuántas horas son y lo encajo.»"]]}].forEach(function (pf) { if (pf.id) FEATURED[pf.id] = pf; });
+    function mbti(v) { return (v[2] >= 0.5 ? 'E' : 'I') + (v[0] >= 0.5 ? 'N' : 'S') + (v[3] >= 0.5 ? 'F' : 'T') + (v[1] >= 0.5 ? 'J' : 'P'); }
+    function handle(n, age) { return '@' + n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '_') + '_' + age; }
+    function persona(id) {
+      if (id.indexOf(':') < 0) {
+        var d = G_DOC.people.filter(function (x) { return x.id === id; })[0], v = d.ocean.concat(d.psi);
+        return { id: id, name: d.name, age: d.age, face: AGENTS[id === 'Z-1' ? 4 : 5].face, gender: FEMALE[d.name.split(' ')[0]] ? 'Mujer' : 'Hombre', vec: v, base: null, arch: null,
+          desc: d.etype + ' · persona del documento', bio: d.bio, topics: TOPICS[id],
+          background: d.name + ' aparece en el documento como ' + d.etype + '. Es una entidad que ZEP extrajo del texto, no un perfil de la constitución: el modelo generó sus rasgos y su historia a partir de lo que el documento dice de ' + (id === 'Z-1' ? 'ella' : 'él') + '. Es 1 agente, no 10.' };
       }
-      det.className = 'g-detail';
-      det.innerHTML = '<svg class="radar" viewBox="0 0 260 234" role="img" aria-label="Radar de ' + esc(name) + '">' + radarSvg(base, cur) + '</svg>' +
-        '<div><h4>' + esc(name) + '</h4><p class="g-meta">' + esc(meta) + '</p><p class="g-bio">' + esc(bio) + '</p><p class="g-delta">' + delta + '</p></div>';
+      var a = G_ARCH.filter(function (x) { return x.code === id.split(':')[0]; })[0], ag = a.agents[+id.split(':')[1]], f = FEATURED[id];
+      var org = a.code === 'A-4' ? 'Sindicato de Operarios' : 'Operaciones S.A.';
+      var bg = f ? f.lines.filter(function (l) { return l[0] !== 'Diría'; }).map(function (l) { return l[1]; }).join(' ')
+        : ag.name + ' tiene ' + ag.age + ' años y trabaja como ' + a.role.toLowerCase() + ' en ' + org + '. ' + ag.bio + ' Su perfil viene de ' + a.code + ' en la constitución; el modelo escribió esta historia a partir de ese perfil.';
+      var q = f ? f.lines.filter(function (l) { return l[0] === 'Diría'; })[0] : null;
+      return { id: id, name: ag.name, age: ag.age, face: f ? FEAT_FACE[f.facekey] : archFace(a.code), faceIsProfile: !f, gender: FEMALE[ag.name.split(' ')[0]] ? 'Mujer' : 'Hombre',
+        vec: ag.vec, base: a.ocean.concat(a.psi), arch: a, desc: a.role + ' · ' + org, bio: ag.bio, topics: TOPICS[a.code], background: bg, says: q ? q[1] : null };
+    }
+    // Deviation strip: each trait as a row, the profile at 0, agents as dots on an enlarged +/-0.05 scale.
+    function devSvg(a, selId, marks) {
+      var W = 420, L = 118, R = 404, top = 26, rh = 19, base = a.ocean.concat(a.psi), o = [], H = top + rh * 8 + 18;
+      function x(d) { return L + (Math.max(-0.05, Math.min(0.05, d)) + 0.05) / 0.1 * (R - L); }
+      [-0.05, -0.025, 0, 0.025, 0.05].forEach(function (t) {
+        o.push('<line class="' + (t === 0 ? 'zero' : 'grid') + '" x1="' + x(t) + '" y1="' + (top - 8) + '" x2="' + x(t) + '" y2="' + (top + rh * 8 - 6) + '"/>');
+        o.push('<text class="ax" x="' + x(t) + '" y="' + (top + rh * 8 + 8) + '" text-anchor="middle">' + (t === 0 ? 'perfil' : (t > 0 ? '+' : '−') + Math.abs(t).toFixed(t % 0.05 === 0 ? 2 : 3).replace('.', ',')) + '</text>');
+      });
+      o.push('<text class="ax" x="' + L + '" y="12">más bajo que el perfil</text><text class="ax" x="' + R + '" y="12" text-anchor="end">más alto que el perfil</text>');
+      AXES.forEach(function (ax, i) {
+        var y = top + i * rh;
+        o.push('<line class="row" x1="' + L + '" y1="' + y + '" x2="' + R + '" y2="' + y + '"/>');
+        o.push('<text class="' + (i > 4 ? 'psi' : '') + '" x="' + (L - 8) + '" y="' + (y + 3) + '" text-anchor="end">' + ax[1] + ' ' + base[i].toFixed(2).replace(/^0/, '') + '</text>');
+        a.agents.forEach(function (ag, k) {
+          var id = a.code + ':' + k, d = ag.vec[i] - base[i], cy = y + ((k % 3) - 1) * 3.2;
+          if (id === selId || marks[id]) return;
+          o.push('<circle class="pt" cx="' + x(d).toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="2.6"/>');
+        });
+        Object.keys(marks).concat(selId && !marks[selId] ? [selId] : []).forEach(function (id) {
+          var ag = a.agents[+id.split(':')[1]], d = ag.vec[i] - base[i], m = marks[id] || { letter: '●', color: 'var(--psi-gold)' };
+          var fill = id === selId ? 'var(--psi-gold)' : m.color;
+          o.push('<circle class="hl" cx="' + x(d).toFixed(1) + '" cy="' + y + '" r="6.5" style="fill:' + fill + '"/>');
+          if (m.letter !== '●') o.push('<text class="hl-l" x="' + x(d).toFixed(1) + '" y="' + (y + 2.8) + '" text-anchor="middle">' + m.letter + '</text>');
+        });
+      });
+      return '<svg class="dev" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Diferencia de cada rasgo con el perfil ' + a.code + ', escala ampliada de menos 0,05 a más 0,05">' + o.join('') + '</svg>';
+    }
+    function showAgent(view, id) {
+      var det = view.querySelector('.g-detail'), p = persona(id), v = p.vec;
+      var tiles = [['Edad aparente', p.age], ['Género aparente', p.gender], ['País/Región', 'Colombia'], ['MBTI aparente', mbti(v)]];
+      var traits = p.arch
+        ? '<div class="gd-sec"><h5>OCEAN y PSI frente al perfil ' + p.arch.code + ' · escala ampliada ±0,05</h5>' + devSvg(p.arch, id, {}) + '<p>El punto dorado es ' + esc(p.name.split(' ')[0]) + '; los grises, los otros 9 agentes del perfil.</p></div>'
+        : '<div class="gd-sec"><h5>OCEAN y PSI · generados por el modelo</h5><p>' + AXES.map(function (ax, i) { return ax[0] + ' ' + v[i].toFixed(2).replace(/^0/, ''); }).join(' · ') + '</p></div>';
+      det.innerHTML = '<div class="gd-top"><b>Detalles del agente</b><span class="gd-badge' + (p.arch ? '' : ' doc') + '">' + (p.arch ? p.arch.code : 'Documento') + '</span><button type="button" class="g-close" aria-label="Cerrar detalles">×</button></div>' +
+        '<div class="gd-body"><div class="gd-who"><img src="' + p.face + '" alt=""><div><h4>' + esc(p.name) + '</h4><p>' + handle(p.name, p.age) + ' · ' + esc(p.desc) + (p.faceIsProfile ? ' · retrato del perfil' : '') + '</p></div></div>' +
+        '<div class="gd-tiles">' + tiles.map(function (t) { return '<div><span>' + t[0] + '</span><b>' + esc(t[1]) + '</b></div>'; }).join('') + '</div>' +
+        '<div class="gd-sec"><h5>Biografía de la persona</h5><p>' + esc(p.bio) + '</p></div>' +
+        '<div class="gd-sec"><h5>Temas relacionados con la semilla de realidad</h5><div class="gd-chips">' + p.topics.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div></div>' +
+        '<div class="gd-sec"><h5>Trasfondo detallado de la persona</h5><p>' + esc(p.background) + '</p></div>' +
+        (p.says ? '<div class="gd-sec"><h5>Cómo respondería</h5><p class="gd-quote">' + esc(p.says) + '</p></div>' : '') + traits + '</div>';
+      det.hidden = false;
       view.querySelectorAll('[data-agent]').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-agent') === id); });
+    }
+    document.addEventListener('click', function (e) {
+      var c = e.target.closest && e.target.closest('.g-close');
+      if (!c) return;
+      var view = c.closest('.ws-graphview'), det = view.querySelector('.g-detail');
+      det.hidden = true;
+      view.querySelectorAll('[data-agent]').forEach(function (g) { g.classList.remove('sel'); });
+    });
+    function devBlock(host) {
+      var a = G_ARCH[1];
+      host.innerHTML = '<h5>Las diferencias en OCEAN y PSI, a escala</h5>' +
+        '<p>En un radar de 0 a 1, ±0,05 es el 5 % del radio: los tres se ven iguales. Aquí cada fila es un rasgo, el perfil A-2 está en el centro y la escala va de −0,05 a +0,05.</p>' +
+        devSvg(a, null, { 'A-2:2': { letter: 'L', color: 'var(--org-emp)' }, 'A-2:1': { letter: 'D', color: 'var(--wf-accent)' } }) +
+        '<p class="dev-note"><b>L</b> Lorena · <b>D</b> Diego · puntos grises: los otros 8 agentes de A-2. Para tener escala: entre A-2 y A-3 la Apertura difiere 0,50, diez veces el ancho de este gráfico.</p>';
     }
     function highlight(svg, code) {
       svg.querySelectorAll('[data-arch]').forEach(function (g) { g.classList.toggle('dim', !!code && g.getAttribute('data-arch') !== code && !(g.classList.contains('f-hull'))); });
