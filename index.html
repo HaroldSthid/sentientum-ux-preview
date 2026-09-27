@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sentientum en tres pantallas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* Tokens of the current Sentientum design system: light on :root, dark below. */
+  :root {
+    --wf-bg-page: #FAFAF8;
+    --wf-bg-page-strong: rgba(250, 250, 248, 0.92);
+    --wf-bg-card-strong: #F1F1EE;
+    --wf-bg-inset: rgba(10, 10, 11, 0.03);
+    --wf-text-primary: #1A1A1C;
+    --wf-text-secondary: #45454A;
+    --wf-text-muted: #66665F;
+    --wf-border-subtle: rgba(10, 10, 11, 0.12);
+    --wf-border-strong: rgba(10, 10, 11, 0.24);
+    --wf-accent: #6C4FD8;
+    --wf-accent-text: #5B41C9;
+    --wf-accent-soft: rgba(108, 79, 216, 0.10);
+    --wf-accent-border: rgba(108, 79, 216, 0.32);
+    --wf-on-accent: #FAFAF8;
+    --wf-success: #226240;
+    --wf-success-soft: rgba(34, 98, 64, 0.10);
+    --wf-warning: #A15B5B;
+    --wf-warning-text: #7E4141;
+    --wf-warning-soft: rgba(161, 91, 91, 0.12);
+    --wf-danger: #A82E2E;
+    --wf-danger-soft: rgba(168, 46, 46, 0.10);
+    --wf-invert-bg: #1A1A1C;
+    --wf-invert-text: #FAFAF8;
+    --ref-bg: #EFEEE9;
+    --ref-ink: #55554E;
+    --device: #1A1A1C;
+    --s-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    --s-display: 'Martian Mono', 'JetBrains Mono', ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --wf-bg-page: #0A0A0B; --wf-bg-page-strong: rgba(10, 10, 11, 0.92); --wf-bg-card-strong: #0F0F11; --wf-bg-inset: rgba(255, 255, 255, 0.03);
+      --wf-text-primary: #E8E8E4; --wf-text-secondary: #C9C9C5; --wf-text-muted: #8A8A86;
+      --wf-border-subtle: rgba(255, 255, 255, 0.10); --wf-border-strong: rgba(255, 255, 255, 0.20);
+      --wf-accent: #B9A6F7; --wf-accent-text: #B9A6F7; --wf-accent-soft: rgba(185, 166, 247, 0.12); --wf-accent-border: rgba(185, 166, 247, 0.36); --wf-on-accent: #0A0A0B;
+      --wf-success: #6FC79A; --wf-success-soft: rgba(111, 199, 154, 0.12);
+      --wf-warning: #D69A9A; --wf-warning-text: #E0B0B0; --wf-warning-soft: rgba(214, 154, 154, 0.12);
+      --wf-danger: #F08A8A; --wf-danger-soft: rgba(240, 138, 138, 0.12);
+      --wf-invert-bg: #E8E8E4; --wf-invert-text: #0A0A0B;
+      --ref-bg: #16161A; --ref-ink: #A3A39D; --device: #2A2A2E;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --wf-bg-page: #0A0A0B; --wf-bg-page-strong: rgba(10, 10, 11, 0.92); --wf-bg-card-strong: #0F0F11; --wf-bg-inset: rgba(255, 255, 255, 0.03);
+    --wf-text-primary: #E8E8E4; --wf-text-secondary: #C9C9C5; --wf-text-muted: #8A8A86;
+    --wf-border-subtle: rgba(255, 255, 255, 0.10); --wf-border-strong: rgba(255, 255, 255, 0.20);
+    --wf-accent: #B9A6F7; --wf-accent-text: #B9A6F7; --wf-accent-soft: rgba(185, 166, 247, 0.12); --wf-accent-border: rgba(185, 166, 247, 0.36); --wf-on-accent: #0A0A0B;
+    --wf-success: #6FC79A; --wf-success-soft: rgba(111, 199, 154, 0.12);
+    --wf-warning: #D69A9A; --wf-warning-text: #E0B0B0; --wf-warning-soft: rgba(214, 154, 154, 0.12);
+    --wf-danger: #F08A8A; --wf-danger-soft: rgba(240, 138, 138, 0.12);
+    --wf-invert-bg: #E8E8E4; --wf-invert-text: #0A0A0B;
+    --ref-bg: #16161A; --ref-ink: #A3A39D; --device: #2A2A2E;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--wf-bg-page); color: var(--wf-text-primary); font: 14px/1.6 var(--s-mono); }
+  a { color: var(--wf-accent-text); }
+  button { font: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--wf-accent); outline-offset: 2px; }
+
+  /* ---------- review toolbar (the Guruxy pattern) ---------- */
+  .toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--wf-bg-page-strong); backdrop-filter: blur(8px); border-bottom: 1px solid var(--wf-border-subtle); padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+  .toolbar h1 { margin: 0; font: 800 15px/1.2 var(--s-display); letter-spacing: -0.02em; }
+  .toolbar .sub { margin: 2px 0 0; font-size: 11.5px; color: var(--wf-text-muted); }
+  .seg { display: flex; border: 1px solid var(--wf-border-strong); }
+  .seg button { border: 0; background: transparent; color: var(--wf-text-secondary); padding: 8px 14px; font-size: 12px; letter-spacing: 0.02em; }
+  .seg button + button { border-left: 1px solid var(--wf-border-strong); }
+  .seg button[aria-pressed="true"] { background: var(--wf-invert-bg); color: var(--wf-invert-text); }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .wrap { padding-inline: 20px; padding-block: 28px 64px; display: grid; gap: 40px; max-width: 1360px; margin: 0 auto; }
+  .intro { display: grid; gap: 10px; max-width: 78ch; }
+  .intro .k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .intro h2 { margin: 0; font: 700 clamp(26px, 4vw, 40px)/1.1 var(--s-display); letter-spacing: -0.045em; text-wrap: balance; }
+  .intro p { margin: 0; color: var(--wf-text-secondary); }
+  .flow { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--wf-border-subtle); width: fit-content; max-width: 100%; }
+  .flow span { padding: 8px 14px; font-size: 12px; color: var(--wf-text-secondary); }
+  .flow span + span { border-left: 1px solid var(--wf-border-subtle); }
+  .flow b { font-family: var(--s-display); color: var(--wf-text-primary); }
+
+  /* ---------- reference notes (monospace strips, as in the Guruxy mockup) ---------- */
+  .ref { background: var(--ref-bg); color: var(--ref-ink); font-size: 11.5px; line-height: 1.55; padding: 8px 12px; border-top: 1px solid var(--wf-border-subtle); }
+  .ref b { color: var(--wf-text-primary); font-weight: 700; }
+
+  /* ---------- a screen of the product ---------- */
+  .screen-block { display: grid; gap: 0; border: 1px solid var(--wf-border-strong); background: var(--wf-bg-page); }
+  .screen-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding: 8px 12px; border-bottom: 1px solid var(--wf-border-subtle); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .screen { container-type: inline-size; background: var(--wf-bg-page); }
+
+  .s-topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 28px; border-bottom: 1px solid var(--wf-border-subtle); }
+  .s-brand { display: flex; align-items: baseline; gap: 10px; }
+  .s-brand b { font: 800 19px/1 var(--s-display); letter-spacing: -0.02em; }
+  .s-brand span { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .s-steps { display: flex; gap: 0; border: 1px solid var(--wf-border-subtle); }
+  .s-steps span { padding: 6px 12px; font-size: 11.5px; color: var(--wf-text-muted); white-space: nowrap; }
+  .s-steps span + span { border-left: 1px solid var(--wf-border-subtle); }
+  .s-steps span.on { color: var(--wf-accent-text); box-shadow: inset 0 -2px 0 var(--wf-accent); }
+  .s-steps span.done { color: var(--wf-text-secondary); }
+  .s-tools { font-size: 11.5px; color: var(--wf-text-muted); white-space: nowrap; }
+
+  .s-split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .s-pane { padding: 28px; display: grid; gap: 30px; align-content: start; min-width: 0; }
+  .s-pane + .s-pane { border-left: 1px solid var(--wf-border-subtle); }
+  .s-sec { display: grid; gap: 10px; }
+  .s-sec-h { display: flex; align-items: baseline; gap: 12px; }
+  .s-num { font-size: 12px; color: var(--wf-text-muted); }
+  .s-h3 { font: 700 17px/1.2 var(--s-display); letter-spacing: -0.035em; margin: 0; }
+  .s-help { font-size: 12px; color: var(--wf-text-muted); margin: 0; }
+  .s-display { font: 700 clamp(22px, 3.2cqi, 34px)/1.12 var(--s-display); letter-spacing: -0.045em; margin: 0; text-wrap: balance; }
+
+  .s-field { border: 1px solid var(--wf-border-strong); padding: 10px 12px; font-size: 13.5px; color: var(--wf-text-primary); background: transparent; }
+  .s-field.quiet { color: var(--wf-text-secondary); }
+  .s-rows { border-top: 1px solid var(--wf-border-subtle); }
+  .s-row { display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--wf-border-subtle); font-size: 13px; }
+  .s-row .code { font-family: var(--s-display); font-weight: 700; font-size: 12.5px; }
+  .s-row .meta { color: var(--wf-text-muted); font-size: 11.5px; }
+  .s-row .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .s-add { font-size: 12.5px; color: var(--wf-text-muted); padding-top: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--wf-border-strong); padding: 4px 10px; font-size: 12px; color: var(--wf-text-secondary); }
+  .chip.on { border-color: var(--wf-accent-border); background: var(--wf-accent-soft); color: var(--wf-accent-text); }
+  .stepper { display: inline-flex; border: 1px solid var(--wf-border-strong); font-size: 12px; }
+  .stepper i { font-style: normal; padding: 2px 8px; color: var(--wf-text-muted); }
+  .stepper b { padding: 2px 10px; border-inline: 1px solid var(--wf-border-strong); font-variant-numeric: tabular-nums; }
+
+  .s-sum { display: grid; gap: 0; border-top: 1px solid var(--wf-border-subtle); }
+  .s-sum div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--wf-border-subtle); font-size: 13px; }
+  .s-sum div span:last-child { font-variant-numeric: tabular-nums; text-align: right; }
+  .s-big { font: 800 clamp(34px, 5.4cqi, 56px)/1 var(--s-display); letter-spacing: -0.05em; }
+  .s-btn { border: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; font: 700 14.5px var(--s-display); letter-spacing: -0.02em; background: var(--wf-invert-bg); color: var(--wf-invert-text); }
+  .s-btn:hover { background: var(--wf-accent); color: var(--wf-on-accent); }
+  .s-btn--ghost { background: transparent; color: var(--wf-text-primary); border: 1px solid var(--wf-border-strong); }
+  .s-btn--ghost:hover { background: transparent; color: var(--wf-accent-text); border-color: var(--wf-accent); }
+  .s-note { font-size: 12px; color: var(--wf-text-muted); border-left: 2px solid var(--wf-border-strong); padding-left: 10px; margin: 0; }
+  .s-note.warn { border-left-color: var(--wf-warning); color: var(--wf-warning-text); }
+
+  /* run matrix: conditions × replicas */
+  .matrix { display: grid; grid-template-columns: minmax(140px, 1.8fr) repeat(5, minmax(34px, 1fr)); border-top: 1px solid var(--wf-border-subtle); border-left: 1px solid var(--wf-border-subtle); font-size: 12px; }
+  .matrix > * { border-right: 1px solid var(--wf-border-subtle); border-bottom: 1px solid var(--wf-border-subtle); padding: 9px 8px; min-width: 0; }
+  .matrix .hd { color: var(--wf-text-muted); font-size: 11px; text-align: center; }
+  .matrix .rl { font-family: var(--s-display); font-weight: 700; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cell { text-align: center; font-variant-numeric: tabular-nums; }
+  .cell.done { color: var(--wf-success); background: var(--wf-success-soft); }
+  .cell.run { color: var(--wf-accent-text); background: var(--wf-accent-soft); box-shadow: inset 0 -2px 0 var(--wf-accent); }
+  .cell.q { color: var(--wf-text-muted); }
+  .cell.fail { color: var(--wf-danger); background: var(--wf-danger-soft); }
+  .bar { height: 2px; background: var(--wf-border-subtle); }
+  .bar i { display: block; height: 100%; background: var(--wf-accent); }
+
+  .feed { border-top: 1px solid var(--wf-border-subtle); }
+  .feed article { padding: 12px 0; border-bottom: 1px solid var(--wf-border-subtle); display: grid; gap: 4px; }
+  .feed .who { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; font-size: 11.5px; color: var(--wf-text-muted); }
+  .feed .who b { color: var(--wf-text-primary); font-weight: 700; }
+  .feed p { margin: 0; font-size: 13px; }
+  .feed .think { color: var(--wf-text-secondary); font-style: italic; }
+  .tag { font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; padding: 1px 6px; border: 1px solid var(--wf-border-strong); color: var(--wf-text-secondary); white-space: nowrap; }
+  .tag.state { border-color: var(--wf-accent-border); color: var(--wf-accent-text); }
+
+  .expert { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; border-top: 1px solid var(--wf-border-strong); padding: 12px 28px; font-size: 12.5px; color: var(--wf-text-secondary); }
+  .expert b { font-family: var(--s-display); color: var(--wf-text-primary); }
+
+  /* answer: ranking by archetype */
+  .rank { display: grid; grid-template-columns: minmax(110px, 1.1fr) repeat(3, minmax(64px, 1fr)); border-top: 1px solid var(--wf-border-subtle); font-size: 12.5px; }
+  .rank > * { padding: 9px 8px 9px 0; border-bottom: 1px solid var(--wf-border-subtle); min-width: 0; }
+  .rank .hd { font-size: 11px; color: var(--wf-text-muted); }
+  .rank .v { font-variant-numeric: tabular-nums; display: grid; gap: 4px; }
+  .rank .v i { display: block; height: 6px; background: var(--wf-border-strong); }
+  .rank .v.win { color: var(--wf-accent-text); font-weight: 700; }
+  .rank .v.win i { background: var(--wf-accent); }
+  .stab { display: grid; gap: 6px; font-size: 12.5px; }
+  .stab div { display: grid; grid-template-columns: minmax(120px, 1fr) auto; gap: 10px; align-items: center; }
+  .dots { display: flex; gap: 4px; }
+  .dots i { width: 12px; height: 12px; border: 1px solid var(--wf-border-strong); display: block; }
+  .dots i.on { background: var(--wf-accent); border-color: var(--wf-accent); }
+  blockquote { margin: 0; padding: 10px 0 10px 12px; border-left: 2px solid var(--wf-accent); font-size: 13px; display: grid; gap: 4px; }
+  blockquote cite { font-style: normal; font-size: 11.5px; color: var(--wf-text-muted); }
+  .limits { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 12.5px; color: var(--wf-text-secondary); }
+  .answers { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--wf-border-subtle); border-left: 1px solid var(--wf-border-subtle); }
+  .answers > div { border-right: 1px solid var(--wf-border-subtle); border-bottom: 1px solid var(--wf-border-subtle); padding: 10px; display: grid; gap: 4px; font-size: 12.5px; align-content: start; }
+  .answers .who { font-size: 11px; color: var(--wf-text-muted); }
+  .example { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wf-warning-text); }
+
+  @container (max-width: 640px) {
+    .s-split { grid-template-columns: 1fr; }
+    .s-pane + .s-pane { border-left: 0; border-top: 1px solid var(--wf-border-subtle); }
+    .s-pane { padding: 20px 16px; gap: 24px; }
+    .s-topbar { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+    .s-tools { display: none; }
+    .s-steps span { padding: 5px 8px; font-size: 10.5px; }
+    .expert { padding: 12px 16px; }
+    .answers { grid-template-columns: 1fr; }
+    .matrix { grid-template-columns: minmax(78px, 1.1fr) repeat(5, minmax(28px, 1fr)); }
+  }
+
+  /* ---------- views ---------- */
+  .phones { display: flex; flex-wrap: wrap; gap: 28px; justify-content: center; }
+  .phone { width: 390px; max-width: 100%; display: grid; gap: 10px; }
+  .phone .cap { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wf-text-muted); text-align: center; }
+  .phone .frame { background: var(--device); padding: 12px; border-radius: 34px; }
+  .phone .glass { border-radius: 24px; overflow: hidden auto; max-height: 760px; background: var(--wf-bg-page); }
+
+  /* ---------- guide ---------- */
+  .guide { display: grid; gap: 44px; max-width: 980px; }
+  .g-sec { display: grid; gap: 14px; }
+  .g-sec > header { display: grid; gap: 4px; border-top: 1px solid var(--wf-border-strong); padding-top: 14px; }
+  .g-sec h3 { margin: 0; font: 700 22px/1.2 var(--s-display); letter-spacing: -0.04em; }
+  .g-sec p { margin: 0; max-width: 78ch; color: var(--wf-text-secondary); }
+  .table-scroll { overflow-x: auto; border-top: 1px solid var(--wf-border-subtle); }
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--wf-border-subtle); }
+  th { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--wf-text-muted); white-space: nowrap; }
+  td code, p code, li code { font-size: 0.92em; background: var(--wf-bg-inset); padding: 0 4px; }
+  .pattern { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--wf-border-subtle); }
+  .pattern > div { padding: 14px 16px 14px 0; display: grid; gap: 6px; align-content: start; }
+  .pattern > div + div { padding-left: 16px; border-left: 1px solid var(--wf-border-subtle); }
+  .pattern h4 { margin: 0; font: 700 15px var(--s-display); letter-spacing: -0.03em; }
+  .pattern ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; font-size: 12.5px; color: var(--wf-text-secondary); }
+  .pattern .src { font-size: 11.5px; color: var(--wf-text-muted); }
+  @media (max-width: 720px) {
+    .pattern { grid-template-columns: 1fr; }
+    .pattern > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--wf-border-subtle); }
+  }
+  /* ---------- home ---------- */
+  .hero { position: relative; min-height: 640px; display: grid; grid-template-rows: auto 1fr; overflow: hidden; }
+  .hero canvas.society { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero-top { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 18px 28px; }
+  .hero-top .s-tools a { color: var(--wf-text-secondary); text-decoration: none; }
+  .hero-center { position: relative; z-index: 1; align-self: center; justify-self: center; width: min(100%, 720px); padding: 24px 20px 40px; display: grid; gap: 16px; justify-items: center; text-align: center; }
+  .hero-status { font-size: 11.5px; letter-spacing: 0.08em; color: var(--wf-text-secondary); background: var(--wf-bg-page-strong); backdrop-filter: blur(6px); border: 1px solid var(--wf-border-subtle); padding: 5px 12px; }
+  .hero-status i { display: inline-block; width: 7px; height: 7px; background: var(--wf-success); margin-right: 8px; vertical-align: 1px; }
+  .hero-h { margin: 0; font: 800 clamp(34px, 7.5cqi, 72px)/1.02 var(--s-display); letter-spacing: -0.05em; text-wrap: balance; }
+  .hero-sub { margin: 0; max-width: 52ch; color: var(--wf-text-secondary); font-size: 14px; background: var(--wf-bg-page-strong); padding: 2px 6px; }
+  .composer { width: 100%; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: stretch; border: 1px solid var(--wf-border-strong); background: var(--wf-bg-page-strong); backdrop-filter: blur(10px); text-align: left; }
+  .composer label.attach { position: relative; display: grid; place-items: center; padding: 0 16px; border-right: 1px solid var(--wf-border-subtle); font-size: 18px; color: var(--wf-text-secondary); cursor: pointer; }
+  .composer label.attach:hover { color: var(--wf-accent-text); }
+  .composer input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .composer textarea { border: 0; background: transparent; color: var(--wf-text-primary); font: 14px/1.5 var(--s-mono); padding: 14px 16px; resize: none; min-height: 76px; outline: none; }
+  .composer textarea::placeholder { color: var(--wf-text-muted); }
+  .composer .s-btn { width: auto; padding: 0 20px; }
+  .attached { width: 100%; display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: space-between; font-size: 12px; color: var(--wf-text-secondary); background: var(--wf-bg-page-strong); border: 1px solid var(--wf-border-subtle); border-top: 0; padding: 8px 12px; margin-top: -16px; text-align: left; }
+  .attached b { color: var(--wf-text-primary); font-weight: 500; }
+  .attached .ok { color: var(--wf-success); }
+  .hero-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; font-size: 12.5px; }
+  .hero-links a { color: var(--wf-text-primary); text-decoration: none; border-bottom: 1px solid var(--wf-border-strong); background: var(--wf-bg-page-strong); }
+  .hero-links a:hover { color: var(--wf-accent-text); border-color: var(--wf-accent); }
+  .hero-note { margin: 0; font-size: 12px; color: var(--wf-text-muted); max-width: 60ch; background: var(--wf-bg-page-strong); padding: 2px 6px; }
+  .variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .mini { padding: 28px; display: grid; gap: 16px; align-content: start; min-height: 420px; }
+  .drop { border: 1px dashed var(--wf-border-strong); padding: 26px 20px; display: grid; gap: 8px; justify-items: center; text-align: center; }
+  .drop b { font: 700 20px/1.2 var(--s-display); letter-spacing: -0.04em; }
+  .parse { border-top: 1px solid var(--wf-border-subtle); font-size: 12.5px; }
+  .parse div { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--wf-border-subtle); }
+  .parse .code { font-family: var(--s-display); font-weight: 700; }
+  .parse .ok { color: var(--wf-success); white-space: nowrap; }
+  .parse .pending { color: var(--wf-warning-text); white-space: nowrap; }
+  .starter { display: grid; border-top: 1px solid var(--wf-border-subtle); }
+  .starter button { all: unset; box-sizing: border-box; display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--wf-border-subtle); cursor: pointer; }
+  .starter button b { font: 700 14px var(--s-display); letter-spacing: -0.03em; }
+  .starter button span { font-size: 12px; color: var(--wf-text-muted); }
+  .starter button:hover b, .starter button:focus-visible b { color: var(--wf-accent-text); }
+  .reco { margin: 0; border: 1px solid var(--wf-accent-border); background: var(--wf-accent-soft); padding: 12px 14px; font-size: 13px; }
+  .reco b { font-family: var(--s-display); }
+  @container (max-width: 640px) {
+    .hero { min-height: 700px; }
+    .hero-top { padding: 14px 16px; }
+    .composer { grid-template-columns: auto minmax(0, 1fr); }
+    .composer .s-btn { grid-column: 1 / -1; padding: 14px 16px; }
+    .composer label.attach { padding: 0 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div>
+    <h1>Sentientum · Rediseño del flujo</h1>
+    <p class="sub">Referencia estática · propuesta de UX por Scapder · 27 sep 2026 · datos de ejemplo</p>
+  </div>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Contenido">
+      <button id="tab-home" aria-pressed="true">Home</button>
+      <button id="tab-mock" aria-pressed="false">Flujo</button>
+      <button id="tab-guide" aria-pressed="false">Guía de patrones</button>
+    </div>
+    <div class="seg" role="group" aria-label="Dispositivo" id="device-seg">
+      <button id="btn-desktop" aria-pressed="true">Vista Desktop</button>
+      <button id="btn-mobile" aria-pressed="false">Vista Mobile</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="intro" id="intro">
+    <span class="k">Propuesta de UX · del recorrido actual a tres pantallas</span>
+    <h2>Brief, Corrida, Respuesta. Todo lo demás, en modo experto.</h2>
+    <p>El recorrido actual tiene 5 etapas, 9 paneles en el Command Center y 4 herramientas de interacción. Esta propuesta conserva el sistema visual del producto (Martian Mono y JetBrains Mono, grises cálidos, un solo violeta para lo activo, separación con líneas de 1 px) y reorganiza el camino principal alrededor de una decisión.</p>
+    <div class="flow" aria-label="Correspondencia de etapas">
+      <span><b>00 Home</b> ← "Upload the seed"</span>
+      <span><b>01 Brief</b> ← Launch Lab · Graph Build · Env Setup</span>
+      <span><b>02 Corrida</b> ← Run Simulation</span>
+      <span><b>03 Respuesta</b> ← Report · Deep Interaction</span>
+    </div>
+  </section>
+
+  <!-- ============================ HOME ============================ -->
+  <div id="view-home" class="view">
+    <div style="display:grid;gap:32px;" id="home-screens">
+      <article class="screen-block" data-screen="00 Home · A">
+        <div class="screen-label"><span>Home · Propuesta A · La sociedad en movimiento</span><span>Recomendada</span></div>
+        <div class="screen hero">
+          <canvas class="society" aria-hidden="true"></canvas>
+          <div class="hero-top">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <div class="s-tools"><a href="#flujo">Simulaciones</a> · Ajustes</div>
+          </div>
+          <div class="hero-center">
+            <span class="hero-status"><i></i>Local · tus datos quedan en esta máquina</span>
+            <h2 class="hero-h">Compara antes de decidir.</h2>
+            <p class="hero-sub">Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.</p>
+            <form class="composer" id="home-composer">
+              <label class="attach" title="Adjuntar constitución o contexto (.md, .pdf, .txt)">+<input type="file" id="home-file" accept=".md,.pdf,.txt"></label>
+              <textarea id="home-decision" rows="2" aria-label="Decisión" placeholder="¿Qué necesitas decidir? Por ejemplo: qué programa de adopción de IA lanzamos">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</textarea>
+              <button class="s-btn" type="submit">Armar brief <span>→</span></button>
+            </form>
+            <div class="attached" id="home-attached"><span><b>constitucion_adopcion_ia.md</b></span><span class="ok">4 arquetipos · vectores OCEAN y PSI detectados</span></div>
+            <div class="hero-links"><a href="#flujo">Simulaciones anteriores (7)</a><a href="#flujo">Ver una respuesta de ejemplo</a></div>
+            <p class="hero-note">Recomendado: 2 o 3 opciones y 5 réplicas por opción. Una sola corrida no alcanza para decidir.</p>
+          </div>
+        </div>
+        <div class="ref"><b>Inspirado en</b> el Home de Aura Studio: fondo vivo, un solo compositor con adjuntar, un enlace secundario y una nota de guía (allí, "entre 20 y 50 búsquedas"; aquí, "2 o 3 opciones y 5 réplicas"). · <b>Traducido al sistema de Sentientum</b> sin vidrio, radios ni sombras: el compositor es un marco de 1 px sobre la página translúcida; el único color es el estado (verde = local, violeta = agente activo). · <b>El fondo es la sociedad</b>: agentes que derivan en gris, líneas de 1 px cuando dos deliberan cerca, unos pocos en violeta. Canvas 2D liviano, no WebGL; se detiene con la pestaña oculta y queda quieto con <code>prefers-reduced-motion</code>. · <b>Reemplaza</b> "Upload the seed. Trace the behavior." y el formulario de brief libre.</div>
+      </article>
+
+      <div class="variants">
+        <article class="screen-block" data-screen="00 Home · B">
+          <div class="screen-label"><span>Home · Propuesta B · Documento primero</span><span>Con constitución</span></div>
+          <div class="screen mini">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <div class="drop"><b>Suelta tu constitución</b><span class="s-help">.md, .pdf o .txt · también si el texto viene sin saltos de línea</span></div>
+            <div class="parse" aria-label="Arquetipos detectados">
+              <div><span class="code">A-1</span><span>Ejecutivo de presupuesto</span><span class="ok">OCEAN ✓ PSI ✓</span></div>
+              <div><span class="code">A-2</span><span>Mando medio de operaciones</span><span class="ok">OCEAN ✓ PSI ✓</span></div>
+              <div><span class="code">A-3</span><span>Analista de datos</span><span class="ok">OCEAN ✓ PSI ✓</span></div>
+              <div><span class="code">A-4</span><span>Representante sindical</span><span class="pending">PSI incompleto</span></div>
+            </div>
+            <p class="s-note warn">A-4 no declara Afiliación: su PSI lo genera el modelo y el manifiesto lo registra así.</p>
+          </div>
+          <div class="ref"><b>Inspirado en</b> los importadores que muestran lo que entendieron antes de seguir (importar un CSV en Linear o Notion). · <b>Valor</b> la lectura de la constitución se vuelve visible: se ve qué arquetipos y vectores se leyeron, y qué falta, antes de gastar una corrida.</div>
+        </article>
+
+        <article class="screen-block" data-screen="00 Home · C">
+          <div class="screen-label"><span>Home · Propuesta C · Plantillas de decisión</span><span>Primera vez</span></div>
+          <div class="screen mini">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <p class="s-display" style="font-size:24px;">¿Qué quieres comparar?</p>
+            <div class="starter">
+              <button type="button"><b>Dos mensajes de campaña</b><span>Mismo público, dos textos · qué genera menos rechazo y por qué</span></button>
+              <button type="button"><b>Una política antes de anunciarla</b><span>Opción, alternativa y control · resistencia por grupo afectado</span></button>
+              <button type="button"><b>El enfoque de un lanzamiento</b><span>Dos posicionamientos · qué entiende cada segmento</span></button>
+            </div>
+            <p class="s-help">Cada plantilla precarga opciones de ejemplo y señales a observar; se edita en el brief.</p>
+          </div>
+          <div class="ref"><b>Inspirado en</b> los iniciadores de conversación (ChatGPT, Notion AI): quien llega sin constitución empieza por el tipo de decisión, no por una pantalla vacía. · <b>Valor</b> enseña el encuadre "comparar opciones" desde el primer clic.</div>
+        </article>
+      </div>
+      <p class="reco"><b>Recomendación:</b> A como Home. B no es una pantalla aparte: es lo que ocurre al adjuntar en A (la lista de arquetipos detectados aparece bajo el compositor). C es el estado vacío de A para quien entra por primera vez.</p>
+    </div>
+  </div>
+
+  <!-- ============================ MAQUETA · DESKTOP ============================ -->
+  <div id="view-desktop" class="view">
+    <div style="display:grid;gap:40px;" id="screens">
+
+      <!-- ---------- 01 BRIEF ---------- -->
+      <article class="screen-block" data-screen="01 Brief">
+        <div class="screen-label"><span>Pantalla 01 · Brief</span><span>Escenario de ejemplo: adopción de IA en mandos medios</span></div>
+        <div class="screen">
+          <div class="s-topbar">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <div class="s-steps"><span class="on">01 Brief</span><span>02 Corrida</span><span>03 Respuesta</span></div>
+            <div class="s-tools">Español · Claro · Ajustes</div>
+          </div>
+          <div class="s-split">
+            <div class="s-pane">
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3">Decisión</h3></div>
+                <p class="s-help">Qué hay que elegir, en una frase. La respuesta que esperas no va aquí.</p>
+                <div class="s-field">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3">Opciones</h3></div>
+                <p class="s-help">El texto exacto que verán los agentes. Cada opción es una condición; el control se agrega solo.</p>
+                <div class="s-rows">
+                  <div class="s-row"><span class="code">A</span><span>"La dirección anuncia que en 90 días todos los procesos de reporte pasan a IA; quien no se certifique pierde el bono."</span><span class="meta">estímulo</span></div>
+                  <div class="s-row"><span class="code">B</span><span>"Arranca un piloto voluntario: cada equipo elige un proceso, con formación pagada y sin metas individuales."</span><span class="meta">estímulo</span></div>
+                  <div class="s-row"><span class="code">C0</span><span class="meta">Control: un anuncio neutro de la dirección, sin programa.</span><span class="meta">automático</span></div>
+                </div>
+                <div class="s-add">+ Agregar opción · máximo 3</div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Audiencia</h3></div>
+                <p class="s-help">Leída de la constitución: 4 de 4 arquetipos con vectores OCEAN y PSI.</p>
+                <div class="s-rows">
+                  <div class="s-row"><span class="code">A-1</span><span>Ejecutivo de presupuesto<br><span class="meta">O .55 C .90 E .70 A .35 N .40 · Competencia .90</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
+                  <div class="s-row"><span class="code">A-2</span><span>Mando medio de operaciones<br><span class="meta">O .35 C .80 E .45 A .60 N .70 · Certeza .85</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
+                  <div class="s-row"><span class="code">A-3</span><span>Analista de datos<br><span class="meta">O .85 C .65 E .40 A .50 N .35 · Competencia .80</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
+                  <div class="s-row"><span class="code">A-4</span><span>Representante sindical<br><span class="meta">O .45 C .70 E .75 A .55 N .55 · Afiliación .90</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
+                </div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3">Contexto</h3></div>
+                <p class="s-help">Se usa como evidencia del mundo simulado, no como instrucciones.</p>
+                <div class="s-rows">
+                  <div class="s-row"><span class="code">MD</span><span>constitucion_adopcion_ia.md</span><span class="meta">4 arquetipos</span></div>
+                  <div class="s-row"><span class="code">PDF</span><span>encuesta_clima_2026.pdf</span><span class="meta">contexto</span></div>
+                </div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">05</span><h3 class="s-h3">Qué observar</h3></div>
+                <p class="s-help">Señales piloteadas antes de correr. El sentimiento en porcentaje no se calcula.</p>
+                <div class="chips"><span class="chip on">resistencia</span><span class="chip on">adopción</span><span class="chip on">miedo a perder el puesto</span><span class="chip">+ señal</span></div>
+              </div>
+            </div>
+            <div class="s-pane">
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">→</span><h3 class="s-h3">Lo que vas a correr</h3></div>
+                <div class="s-big">15 corridas</div>
+                <p class="s-help">3 condiciones × 5 réplicas. Más réplicas si el orden entre opciones no se estabiliza.</p>
+                <div class="s-sum">
+                  <div><span>Agentes por corrida</span><span>40 + contexto</span></div>
+                  <div><span>Rondas</span><span>12 · de 9 a 20 h</span></div>
+                  <div><span>Tiempo estimado</span><span>30 a 60 min</span></div>
+                  <div><span>Llamadas al modelo</span><span>≈ 3.000</span></div>
+                  <div><span>Idioma de los agentes</span><span>Español</span></div>
+                  <div><span>Datos</span><span>En esta máquina</span></div>
+                </div>
+              </div>
+              <button class="s-btn" type="button">Correr 15 simulaciones <span>→</span></button>
+              <p class="s-note">La hipótesis no se escribe en el brief: se usa solo para leer la respuesta.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ref"><b>Reemplaza</b> Home, 01 Graph Build y 02 Env Setup: el grafo, la ontología y la configuración quedan automáticos y visibles en modo experto. · <b>Inspirado en</b> el checkout de una columna con resumen fijo a la derecha (Stripe Checkout): lo que se va a correr, el tiempo y el costo están a la vista antes del botón. · <b>Medidas</b> topbar 16/28 px; panel izquierdo 1.25fr; filas de 1 px; botón invertido de 18 px de alto de padding, violeta al pasar.</div>
+      </article>
+
+      <!-- ---------- 02 CORRIDA ---------- -->
+      <article class="screen-block" data-screen="02 Corrida">
+        <div class="screen-label"><span>Pantalla 02 · Corrida</span><span>9 de 15 réplicas completas</span></div>
+        <div class="screen">
+          <div class="s-topbar">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <div class="s-steps"><span class="done">01 Brief ✓</span><span class="on">02 Corrida</span><span>03 Respuesta</span></div>
+            <div class="s-tools">Pausar lote</div>
+          </div>
+          <div class="bar" aria-hidden="true"><i style="width:60%"></i></div>
+          <div class="s-split">
+            <div class="s-pane">
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3">Condiciones × réplicas</h3></div>
+                <div class="matrix" role="table" aria-label="Estado de cada réplica">
+                  <span class="hd" role="columnheader"></span><span class="hd">R1</span><span class="hd">R2</span><span class="hd">R3</span><span class="hd">R4</span><span class="hd">R5</span>
+                  <span class="rl">C0 control</span><span class="cell done">✓</span><span class="cell done">✓</span><span class="cell done">✓</span><span class="cell done">✓</span><span class="cell done">✓</span>
+                  <span class="rl">A · obligatorio</span><span class="cell done">✓</span><span class="cell done">✓</span><span class="cell fail">✕</span><span class="cell done">✓</span><span class="cell run">7/12</span>
+                  <span class="rl">B · voluntario</span><span class="cell done">✓</span><span class="cell q">·</span><span class="cell q">·</span><span class="cell q">·</span><span class="cell q">·</span>
+                </div>
+                <p class="s-note warn">A · R3 falló en la ronda 4 (el proceso se cerró). Queda registrada y se reintenta al final; no se cuenta como completada.</p>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3">Qué está pasando</h3></div>
+                <div class="s-sum">
+                  <div><span>Réplicas completas</span><span>9 de 15</span></div>
+                  <div><span>Tiempo restante</span><span>≈ 18 min</span></div>
+                  <div><span>Agentes que actuaron (A · R5)</span><span>38 de 40</span></div>
+                  <div><span>Rondas completadas (A · R5)</span><span>7 de 12</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="s-pane">
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Rayos X · A · R5</h3></div>
+                <p class="s-help">Lo que piensa cada agente y lo que publica. Cada línea abre su traza.</p>
+                <div class="feed">
+                  <article><div class="who"><span><b>Mónica E.</b> · A-2 Mando medio</span><span class="tag state">ronda 7</span></div><p class="think">Pienso: si no me certifico pierdo el bono, pero nadie dijo quién revisa lo que la IA reporta.</p><p>"¿Quién responde cuando el reporte automático se equivoca? Noventa días no alcanzan."</p></article>
+                  <article><div class="who"><span><b>Javier R.</b> · A-3 Analista</span><span class="tag">ronda 7</span></div><p class="think">Pienso: esto me da trabajo, pero el plazo va a quemar a los equipos.</p><p>"Bien que se automatice el reporte. Mal que se haga con amenaza."</p></article>
+                  <article><div class="who"><span><b>Rosa P.</b> · A-4 Sindical</span><span class="tag">ronda 6</span></div><p>"Una certificación que decide el bono es una evaluación de desempeño encubierta."</p></article>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="expert"><span><b>Modo experto</b> · Command Center, grafo, traza completa y controles de deliberación</span><button class="s-btn s-btn--ghost" type="button" style="width:auto;padding:10px 16px;">Abrir cajón <span>↑</span></button></div>
+        </div>
+        <div class="ref"><b>Reemplaza</b> 03 Run Simulation; los 9 paneles del Command Center pasan al cajón de modo experto. · <b>Inspirado en</b> la matriz de jobs de GitHub Actions (una celda por combinación, fallas visibles y reintentables) y el cajón de DevTools (herramientas profundas a un clic, fuera del camino). · <b>Honestidad</b> las fallas se muestran y se reintentan; nunca se cuentan como completadas.</div>
+      </article>
+
+      <!-- ---------- 03 RESPUESTA ---------- -->
+      <article class="screen-block" data-screen="03 Respuesta">
+        <div class="screen-label"><span>Pantalla 03 · Respuesta</span><span>15 de 15 réplicas · memo de decisión</span></div>
+        <div class="screen">
+          <div class="s-topbar">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <div class="s-steps"><span class="done">01 Brief ✓</span><span class="done">02 Corrida ✓</span><span class="on">03 Respuesta</span></div>
+            <div class="s-tools">Exportar memo</div>
+          </div>
+          <div class="s-split">
+            <div class="s-pane">
+              <div class="s-sec">
+                <span class="example">Datos de ejemplo · no provienen de una corrida</span>
+                <p class="s-display">B, el piloto voluntario, genera menos resistencia en 3 de 4 arquetipos.</p>
+                <p class="s-help">Estable en 5 de 5 réplicas para mandos medios y analistas; en 3 de 5 para el ejecutivo de presupuesto.</p>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3">Resistencia por arquetipo</h3></div>
+                <p class="s-help">Porcentaje de posts con señales de resistencia. Menos es mejor.</p>
+                <div class="rank" role="table" aria-label="Resistencia por arquetipo y condición">
+                  <span class="hd"></span><span class="hd">C0</span><span class="hd">A</span><span class="hd">B</span>
+                  <span>A-2 Mando medio</span><span class="v">31 %<i style="width:31%"></i></span><span class="v">78 %<i style="width:78%"></i></span><span class="v win">22 %<i style="width:22%"></i></span>
+                  <span>A-3 Analista</span><span class="v">18 %<i style="width:18%"></i></span><span class="v">41 %<i style="width:41%"></i></span><span class="v win">12 %<i style="width:12%"></i></span>
+                  <span>A-4 Sindical</span><span class="v">40 %<i style="width:40%"></i></span><span class="v">86 %<i style="width:86%"></i></span><span class="v win">35 %<i style="width:35%"></i></span>
+                  <span>A-1 Ejecutivo</span><span class="v">15 %<i style="width:15%"></i></span><span class="v win">14 %<i style="width:14%"></i></span><span class="v">19 %<i style="width:19%"></i></span>
+                </div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3">Estabilidad</h3></div>
+                <div class="stab">
+                  <div><span>B primero · A-2</span><span class="dots" aria-label="5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+                  <div><span>B primero · A-3</span><span class="dots" aria-label="5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+                  <div><span>A primero · A-1</span><span class="dots" aria-label="3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+                </div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Por qué</h3></div>
+                <blockquote>"Si lo elige mi equipo, lo defiendo; si me lo imponen, lo aguanto hasta que falle."<cite>A-2 Mando medio · B · R4 · ronda 8 · TRACE:b41c…</cite></blockquote>
+                <blockquote>"Noventa días y el bono en juego: eso no es adopción, es una prueba de lealtad."<cite>A-4 Sindical · A · R2 · ronda 5 · TRACE:9e07…</cite></blockquote>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3">Qué no se puede afirmar</h3></div>
+                <ul class="limits">
+                  <li>No es un pronóstico de adopción real: es opinión sintética comparada entre opciones.</li>
+                  <li>Confirmar con un piloto real antes de decidir en firme.</li>
+                  <li>10 agentes por arquetipo y 5 réplicas; A-1 no se estabilizó.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="s-pane">
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">→</span><h3 class="s-h3">Preguntarle a la audiencia</h3></div>
+                <p class="s-help">La misma pregunta a varios agentes, lado a lado. Opinión sintética, no evidencia. Disponible 30 min después de cada corrida.</p>
+                <div class="s-field quiet">¿Qué te haría sumarte al piloto la primera semana?</div>
+                <div class="answers">
+                  <div><span class="who">A-2 · B · R4</span>"Ver que el primer proceso sea el más tedioso, no el más visible."</div>
+                  <div><span class="who">A-4 · B · R4</span>"Un compromiso escrito de que no se usa para evaluar a nadie."</div>
+                </div>
+              </div>
+              <button class="s-btn" type="button">Planear la siguiente corrida <span>→</span></button>
+              <button class="s-btn s-btn--ghost" type="button">Exportar memo <span>↓</span></button>
+            </div>
+          </div>
+          <div class="expert"><span><b>Modo experto</b> · reporte narrativo, grafo de la historia y traza completa</span><button class="s-btn s-btn--ghost" type="button" style="width:auto;padding:10px 16px;">Abrir cajón <span>↑</span></button></div>
+        </div>
+        <div class="ref"><b>Reemplaza</b> 04 Report ("Forecast Report") y 05 Deep Interaction. · <b>Inspirado en</b> los paneles de resultados de experimentos A/B (Optimizely, Statsig): variante ganadora por segmento, estabilidad y límites explícitos antes del detalle. · <b>Conserva</b> las citas enlazadas a la traza (Rayos X) y la encuesta lado a lado.</div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ============================ MAQUETA · MOBILE ============================ -->
+  <div id="view-mobile" class="view" hidden>
+    <div class="phones" id="phones"></div>
+    <p class="ref" style="border:1px solid var(--wf-border-subtle);">Mobile es para <b>seguir</b> una corrida y <b>leer</b> la respuesta, no para armar un brief complejo: en 390 px las dos columnas se apilan (primero la acción, después el detalle), la matriz conserva 5 réplicas y el modo experto no se ofrece.</p>
+  </div>
+
+  <!-- ============================ GUÍA ============================ -->
+  <div id="view-guide" class="view" hidden>
+    <div class="guide">
+      <section class="g-sec">
+        <header><span class="s-num">01</span><h3>Lo que se mantiene</h3></header>
+        <p>Las reglas del sistema de diseño actual no cambian. Esta propuesta solo reorganiza pantallas y agrega patrones construidos con esas mismas piezas.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Regla</th><th>Cómo se aplica en la propuesta</th></tr></thead>
+          <tbody>
+            <tr><td>Separación con líneas de 1 px; nunca tarjetas, radios ni sombras</td><td>Matriz, ranking y listas son grillas de líneas. Solo el marco del teléfono tiene radio, porque es el dispositivo, no la UI.</td></tr>
+            <tr><td>El color significa estado; la estructura es gris</td><td>Violeta = activo o ganador; verde = completado; rojo intenso = falla. Ninguna opción tiene "su" color.</td></tr>
+            <tr><td>Secciones numeradas 01 / 02 / 03 como orientación</td><td>Cada pantalla numera sus bloques; el paso actual se marca en la barra de pasos.</td></tr>
+            <tr><td>Martian Mono para titulares y cifras; JetBrains Mono para todo lo demás</td><td>El titular del memo y las cifras grandes usan Martian Mono 700–800 con tracking −0.045em.</td></tr>
+            <tr><td>Botón principal: bloque invertido, violeta al pasar</td><td>Un solo botón principal por pantalla: "Correr", "Planear la siguiente corrida".</td></tr>
+            <tr><td>Tokens <code>--wf-*</code> en los dos temas</td><td>La maqueta usa los mismos tokens; se ve en claro y en oscuro sin reglas extra.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="g-sec">
+        <header><span class="s-num">02</span><h3>Patrones nuevos</h3></header>
+        <p>Ocho patrones, cada uno con su referencia externa. Se inspiran en aplicaciones que ya resolvieron el mismo problema de usuario, no en su estética.</p>
+        <div class="pattern">
+          <div><h4>P1 · Brief con resumen fijo</h4><span class="src">Inspirado en: Stripe Checkout</span><ul><li>Una columna para completar, numerada.</li><li>A la derecha, lo que se va a correr: corridas, tiempo, llamadas, dónde quedan los datos.</li><li>El botón dice exactamente qué pasa: "Correr 15 simulaciones".</li></ul></div>
+          <div><h4>P2 · Opción como estímulo literal</h4><span class="src">Inspirado en: variantes de un test A/B</span><ul><li>Cada opción es el texto exacto que verán los agentes.</li><li>El control se agrega solo y no se puede borrar.</li><li>Máximo 3 opciones: más diluye el análisis.</li></ul></div>
+        </div>
+        <div class="pattern">
+          <div><h4>P3 · Matriz de corrida</h4><span class="src">Inspirado en: la matriz de jobs de GitHub Actions</span><ul><li>Filas = condiciones; columnas = réplicas.</li><li>Estados: completada, en curso (con ronda), en cola, falló.</li><li>Una falla se ve, se explica y se reintenta; nunca se cuenta como completada.</li></ul></div>
+          <div><h4>P4 · Cajón de modo experto</h4><span class="src">Inspirado en: el cajón de DevTools</span><ul><li>Command Center, grafo, traza y controles viven en un cajón inferior.</li><li>Cerrado por defecto; recuerda si el usuario lo abrió.</li><li>No aparece en mobile.</li></ul></div>
+        </div>
+        <div class="pattern">
+          <div><h4>P5 · Memo antes que narrativa</h4><span class="src">Inspirado en: resultados de experimentos (Optimizely, Statsig)</span><ul><li>Primero la conclusión en una frase, después el ranking por arquetipo, la estabilidad, el porqué y los límites.</li><li>El ganador se marca con el violeta; el resto queda en gris.</li><li>El reporte narrativo actual pasa a modo experto.</li></ul></div>
+          <div><h4>P6 · Estado honesto</h4><span class="src">Inspirado en: páginas de estado de servicios</span><ul><li>Lo que el sistema no midió se dice en la UI, en lugar de ocultarse.</li><li>Fallas registradas, nunca ocultas.</li><li>Las opiniones sintéticas se rotulan como tales.</li></ul></div>
+        </div>
+        <div class="pattern">
+          <div><h4>P7 · Un solo compositor</h4><span class="src">Inspirado en: Aura Studio, ChatGPT, Perplexity</span><ul><li>El Home es una pregunta ("¿Qué necesitas decidir?") con un botón de adjuntar.</li><li>Al adjuntar, se muestra lo que se entendió (arquetipos y vectores) bajo el compositor.</li><li>Un enlace secundario (simulaciones anteriores) y una nota de guía; nada más.</li></ul></div>
+          <div><h4>P8 · Fondo vivo con propósito</h4><span class="src">Inspirado en: el hero animado de Aura Studio</span><ul><li>Lo que se mueve es el producto: agentes que derivan y deliberan, no una textura decorativa.</li><li>Gris; violeta solo para agentes activos; líneas de 1 px.</li><li>Canvas 2D liviano; se pausa con la pestaña oculta; estático con <code>prefers-reduced-motion</code>.</li><li>El texto nunca queda sobre el fondo sin la capa translúcida de la página.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="g-sec">
+        <header><span class="s-num">03</span><h3>Mapeo desde la UI actual</h3></header>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Hoy</th><th>En la propuesta</th><th>Queda en</th></tr></thead>
+          <tbody>
+            <tr><td>Home: "Upload the seed", brief libre, Launch Lab</td><td>00 Home (un compositor con adjuntar) que abre 01 Brief con los cinco campos</td><td>Camino principal</td></tr>
+            <tr><td>01 Graph Build: ontología, GraphRAG, grafo</td><td>Automático detrás del botón "Correr"</td><td>Modo experto</td></tr>
+            <tr><td>02 Env Setup: personas, configuración, activación inicial, rondas</td><td>Audiencia y resumen en 01 Brief; el resto automático</td><td>Modo experto</td></tr>
+            <tr><td>03 Run Simulation: Info Plaza, Topic Community, acciones disponibles</td><td>02 Corrida: matriz y Rayos X</td><td>Camino principal</td></tr>
+            <tr><td>Command Center: 9 paneles</td><td>Cajón de modo experto</td><td>Modo experto</td></tr>
+            <tr><td>04 Report: "Forecast Report"</td><td>03 Respuesta: memo de decisión</td><td>Camino principal (el narrativo, en experto)</td></tr>
+            <tr><td>05 Deep Interaction: chat, InsightForge, PanoramaSearch, encuesta</td><td>"Preguntarle a la audiencia" en 03 Respuesta</td><td>Encuesta en el camino principal; el resto en experto</td></tr>
+            <tr><td>Lista de acciones "POST · COMMENT · QUOTE · …"</td><td>Se quita: muestra acciones que no ocurren</td><td>Se elimina</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="g-sec">
+        <header><span class="s-num">04</span><h3>Recomendaciones para el desarrollo</h3></header>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Tema</th><th>Recomendación</th></tr></thead>
+          <tbody>
+            <tr><td>Clases</td><td>Construir con las primitivas <code>s-</code> existentes (<code>s-topbar</code>, <code>s-split</code>, <code>s-pane</code>, <code>s-btn</code>, <code>s-num</code>); los patrones nuevos llevan el mismo prefijo.</td></tr>
+            <tr><td>Color</td><td>Solo tokens <code>--wf-*</code>; si hace falta uno nuevo, se agrega en los dos temas.</td></tr>
+            <tr><td>Migración</td><td>Una pantalla por vez, igual que el rediseño actual: primero 03 Respuesta (más valor, menos backend), después 01 Brief, al final 02 Corrida.</td></tr>
+            <tr><td>Rutas</td><td>Tres rutas principales y una ruta de modo experto que conserva las vistas actuales sin cambios.</td></tr>
+            <tr><td>Mobile</td><td>Contenedores con <code>container queries</code>: la misma pantalla se apila por debajo de 640 px.</td></tr>
+            <tr><td>Accesibilidad</td><td>Matriz y ranking como tablas con encabezados; el estado de cada celda también en texto, no solo en color.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  (function () {
+    var views = { home: document.getElementById('view-home'), desktop: document.getElementById('view-desktop'), mobile: document.getElementById('view-mobile'), guide: document.getElementById('view-guide') };
+    var intro = document.getElementById('intro');
+    var device = 'desktop';
+    var tab = 'home';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // The synthetic society: agents drift in a slow flow field; nearby pairs draw
+    // a 1px "deliberation" line; a few agents carry the active violet.
+    function society(canvas) {
+      var ctx = canvas.getContext('2d');
+      var agents = [], w = 0, h = 0, colors = {};
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      function readColors() {
+        var cs = getComputedStyle(canvas);
+        colors.dot = cs.getPropertyValue('--wf-text-muted').trim() || '#66665F';
+        colors.line = cs.getPropertyValue('--wf-border-strong').trim() || 'rgba(10,10,11,.24)';
+        colors.active = cs.getPropertyValue('--wf-accent').trim() || '#6C4FD8';
+      }
+      function resize() {
+        var r = canvas.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        w = r.width; h = r.height;
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        var n = Math.max(60, Math.min(240, Math.round(w * h / 5200)));
+        agents = [];
+        for (var i = 0; i < n; i++) agents.push({ x: Math.random() * w, y: Math.random() * h, a: i % 19 === 0 });
+        readColors();
+      }
+      function field(x, y, t) {
+        return Math.sin(x * 0.0042 + t * 0.00011) * Math.cos(y * 0.0051 - t * 0.00008) * Math.PI * 2;
+      }
+      function frame(t) {
+        if (!w) return;
+        ctx.clearRect(0, 0, w, h);
+        var i, j, p, q, dx, dy;
+        if (!reduce) {
+          for (i = 0; i < agents.length; i++) {
+            p = agents[i];
+            var ang = field(p.x, p.y, t);
+            p.x += Math.cos(ang) * 0.28; p.y += Math.sin(ang) * 0.28;
+            if (p.x < -10) p.x = w + 10; if (p.x > w + 10) p.x = -10;
+            if (p.y < -10) p.y = h + 10; if (p.y > h + 10) p.y = -10;
+          }
+        }
+        ctx.lineWidth = 1; ctx.strokeStyle = colors.line;
+        ctx.beginPath();
+        for (i = 0; i < agents.length; i++) {
+          p = agents[i];
+          for (j = i + 1; j < agents.length; j++) {
+            q = agents[j]; dx = p.x - q.x; dy = p.y - q.y;
+            if (dx * dx + dy * dy < 1900) { ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); }
+          }
+        }
+        ctx.stroke();
+        for (i = 0; i < agents.length; i++) {
+          p = agents[i];
+          var size = p.a ? 4 : 2.5;
+          ctx.fillStyle = p.a ? colors.active : colors.dot;
+          ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
+        }
+      }
+      var raf = 0;
+      function loop(t) { frame(t); raf = requestAnimationFrame(loop); }
+      function start() { cancelAnimationFrame(raf); if (reduce) { frame(0); } else { raf = requestAnimationFrame(loop); } }
+      if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); frame(0); }).observe(canvas);
+      resize(); start();
+      document.addEventListener('visibilitychange', function () { if (document.hidden) cancelAnimationFrame(raf); else start(); });
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      if (mq.addEventListener) mq.addEventListener('change', readColors);
+      new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    }
+
+    // Mobile view is built from the same screens (Home A first), so they never drift apart.
+    var phones = document.getElementById('phones');
+    var blocks = [document.querySelector('#home-screens .screen-block')].concat([].slice.call(document.querySelectorAll('#screens .screen-block')));
+    blocks.forEach(function (block) {
+      var phone = document.createElement('div'); phone.className = 'phone';
+      var cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = block.getAttribute('data-screen');
+      var frame = document.createElement('div'); frame.className = 'frame';
+      var glass = document.createElement('div'); glass.className = 'glass';
+      var screen = block.querySelector('.screen').cloneNode(true);
+      screen.querySelectorAll('.expert').forEach(function (el) { el.remove(); });
+      screen.querySelectorAll('[id]').forEach(function (el) { el.id = el.id + '-m'; });
+      glass.appendChild(screen); frame.appendChild(glass); phone.appendChild(cap); phone.appendChild(frame); phones.appendChild(phone);
+    });
+    document.querySelectorAll('canvas.society').forEach(society);
+
+    // The composer behaves like the real one: attaching shows the file; submitting opens the Brief.
+    function wireComposer(suffix) {
+      var form = document.getElementById('home-composer' + suffix);
+      var file = document.getElementById('home-file' + suffix);
+      var attached = document.getElementById('home-attached' + suffix);
+      if (!form || !file || !attached) return;
+      file.addEventListener('change', function () {
+        if (!file.files.length) return;
+        attached.textContent = '';
+        var name = document.createElement('span'); var b = document.createElement('b'); b.textContent = file.files[0].name; name.appendChild(b);
+        var state = document.createElement('span'); state.className = 'ok'; state.textContent = 'Adjuntado · los arquetipos se leen al armar el brief';
+        attached.appendChild(name); attached.appendChild(state);
+      });
+      form.addEventListener('submit', function (e) { e.preventDefault(); tab = 'mock'; render(); window.scrollTo(0, 0); });
+    }
+    wireComposer(''); wireComposer('-m');
+    document.querySelectorAll('a[href="#flujo"]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); tab = 'mock'; render(); window.scrollTo(0, 0); });
+    });
+
+    function render() {
+      views.home.hidden = !(tab === 'home' && device === 'desktop');
+      views.desktop.hidden = !(tab === 'mock' && device === 'desktop');
+      views.mobile.hidden = !(tab !== 'guide' && device === 'mobile');
+      views.guide.hidden = tab !== 'guide';
+      intro.hidden = tab === 'guide';
+      document.getElementById('device-seg').hidden = tab === 'guide';
+      ['home', 'mock', 'guide'].forEach(function (t) { document.getElementById('tab-' + t).setAttribute('aria-pressed', String(tab === t)); });
+      document.getElementById('btn-desktop').setAttribute('aria-pressed', String(device === 'desktop'));
+      document.getElementById('btn-mobile').setAttribute('aria-pressed', String(device === 'mobile'));
+      try { localStorage.setItem('sentientum-redesign', JSON.stringify({ device: device, tab: tab })); } catch (e) {}
+    }
+
+    try {
+      var saved = JSON.parse(localStorage.getItem('sentientum-redesign') || 'null');
+      if (saved) { device = saved.device || device; tab = saved.tab || tab; }
+    } catch (e) {}
+    if (location.hash === '#guia') tab = 'guide';
+    if (location.hash === '#flujo') tab = 'mock';
+    if (location.hash === '#home') tab = 'home';
+    if (location.hash === '#mobile') device = 'mobile';
+
+    ['home', 'mock', 'guide'].forEach(function (t) {
+      document.getElementById('tab-' + t).addEventListener('click', function () { tab = t; render(); });
+    });
+    document.getElementById('btn-desktop').addEventListener('click', function () { device = 'desktop'; render(); });
+    document.getElementById('btn-mobile').addEventListener('click', function () { device = 'mobile'; render(); });
+    render();
+  })();
+</script>
+</body>
+</html>
