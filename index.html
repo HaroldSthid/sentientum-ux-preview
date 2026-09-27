@@ -568,9 +568,23 @@
   .tip-btn[aria-pressed="true"] .tip-ico::after, .tip-btn.heard .tip-ico::after { animation: none; }
   .tip-dur { font: 400 10.5px var(--s-mono); color: var(--wf-text-muted); font-variant-numeric: tabular-nums; }
   .tip-prog { position: absolute; left: 28px; right: 0; bottom: -1px; height: 2px; background: var(--psi-gold); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .tip-row { display: grid; gap: 6px; }
+  .tip-voice { display: inline-flex; align-items: center; gap: 0; font-size: 11px; width: fit-content; }
+  .tip-voice-l { color: var(--wf-text-muted); margin-right: 8px; letter-spacing: 0.06em; text-transform: uppercase; font-size: 10.5px; }
+  .tip-voice button { border: 1px solid var(--wf-border-strong); background: none; color: var(--wf-text-secondary); font: 700 11px var(--s-display); padding: 3px 9px; cursor: pointer; }
+  .tip-voice button + button { border-left: 0; }
+  .tip-voice button[aria-pressed="true"] { background: var(--wf-invert-bg); color: var(--wf-invert-text); border-color: var(--wf-invert-bg); }
+  .tip-voice button:focus-visible { outline: 2px solid var(--wf-accent); outline-offset: 2px; }
   details.tip-text { font-size: 12px; color: var(--wf-text-secondary); }
   details.tip-text summary { cursor: pointer; color: var(--wf-text-muted); font-size: 11.5px; width: fit-content; }
-  details.tip-text p { margin: 6px 0 0; max-width: 65ch; line-height: 1.6; padding-left: 10px; border-left: 2px solid var(--psi-gold); }
+  .tip-body { margin: 8px 0 2px; max-width: 62ch; padding-left: 12px; border-left: 2px solid var(--psi-gold); display: grid; gap: 8px; line-height: 1.6; font-size: 12.5px; }
+  .tip-body p { margin: 0; }
+  .tip-body .tip-t { font: 700 13px var(--s-display); color: var(--wf-text-primary); letter-spacing: -0.01em; }
+  .tip-body ol { margin: 0; padding: 0; list-style: none; counter-reset: tip; display: grid; gap: 6px; }
+  .tip-body li { counter-increment: tip; display: grid; grid-template-columns: 22px minmax(0, 1fr); column-gap: 6px; }
+  .tip-body li::before { content: counter(tip); grid-row: span 2; width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--psi-gold); color: var(--psi-gold); font: 700 10.5px/16px var(--s-display); text-align: center; margin-top: 2px; }
+  .tip-body li b { color: var(--wf-text-primary); }
+  .tip-body .tip-c { color: var(--wf-text-muted); }
   @media (prefers-reduced-motion: reduce) { .tip-ico::after { animation: none; opacity: 1; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -753,7 +767,10 @@
                 <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3" data-i18n="hAudience">Audiencia</h3>
                   <button type="button" class="tip-btn" data-tip="constitution" aria-pressed="false"><span class="tip-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg></span><span class="tip-lbl">Escuchar el hack</span><span class="tip-dur">0:38</span><i class="tip-prog"></i></button></div>
                 <p class="s-help">4 arquetipos leídos de la constitución; A-4 no declara su PSI completo.</p>
-                <details class="tip-text"><summary>Leer en texto</summary><p></p></details>
+                <div class="tip-row">
+                  <div class="tip-voice" role="group" aria-label="Voz del hack"><span class="tip-voice-l">Voz</span><button type="button" data-voice="mentor" aria-pressed="true">Mentor</button><button type="button" data-voice="harold" aria-pressed="false">Harold</button></div>
+                  <details class="tip-text"><summary>Leer en texto</summary><div class="tip-body"></div></details>
+                </div>
                 <div class="s-rows">
                   <div class="s-row"><span class="code">A-1</span><span>Ejecutivo de presupuesto<br><span class="meta">O .55 C .90 E .70 A .35 N .40 · Competencia .90</span> <span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
                   <div class="s-row"><span class="code">A-2</span><span>Mando medio de operaciones<br><span class="meta">O .35 C .80 E .45 A .60 N .70 · Certeza .85</span> <span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span>
@@ -1098,7 +1115,7 @@
           <div><h4>P13 · Paleta alternativa (exploración)</h4><span class="src">Inspirado en: Pantone Basil 16-6216, Potting Soil 19-1218, Cherry Tomato 17-1563</span><ul><li>Se mapea sobre los mismos tokens <code>--wf-*</code>: no cambia ningún componente, solo valores.</li><li>Potting Soil = estructura, texto y botón; Basil = completado; Cherry Tomato = activo y foco.</li><li>El error pasa a carmesí para no confundirse con el acento rojo, y siempre va escrito.</li><li>Todas las combinaciones de texto pasan AA en los dos temas.</li><li><b>Excepción en evaluación · marca en Cherry Tomato</b>: solo el titular del Home y la palabra «sentientum» (texto grande, 19 px o más en 800). Rompe en parte «el color significa estado», así que se deja como alternativa para decidir. Tono por fondo: #E94B3C en claro (3,4–3,6:1), #F26B5B en oscuro (6,1–6,6:1), #FF7A6B sobre Basil profundo (5,4:1). Sobre Basil claro el Cherry Tomato puro da 1,3:1, así que se usa tomate profundo #8E1F14 (3,1:1). Pregunta abierta: si la marca es roja, ¿el rojo de peligro sigue leyéndose como alerta?</li><li><b>Fondo Basil</b>: el texto solo en Potting Soil profundo (5,5:1); el rojo nunca como texto (1,3:1 sobre Basil), solo como relleno con texto crema (4,7:1); estados en tonos profundos. En oscuro, Basil profundo #243024 con texto crema (11,5:1).</li></ul></div>
           <div><h4>P14 · La multitud</h4><span class="src">Inspirado en: un afiche con multitud en duotono</span><ul><li>Cada cabeza es un agente; las filas crecen hacia abajo, como vistas desde el escenario.</li><li>Duotono Basil y Potting Soil; los agentes que deliberan, en Cherry Tomato, cambian cada pocos segundos.</li><li>Ocupa la mitad inferior; el texto va arriba, sobre la página.</li><li>Canvas 2D; quieta con <code>prefers-reduced-motion</code>.</li></ul></div>
           <div><h4>P15 · Card de agente con radar</h4><span class="src">Inspirado en: cartas coleccionables y el ecualizador de un mezclador</span><ul><li>Frente: retrato ilustrado y sonriente, código, rol y de dónde salen sus rasgos. Al pasar el mouse o dar foco, el retrato saluda en un loop de 3 s (WebP animado); con <i>reduced motion</i> queda la imagen fija. Dorso: radar con OCEAN (5 ejes) y PSI (3 ejes, en dorado) superpuestos.</li><li>La línea punteada es lo que dice la constitución; el área es el valor actual. Editar muestra la diferencia, nunca la oculta.</li><li>Solo se ecualizan los agentes que salen de un arquetipo, y el cambio aplica a todo el arquetipo. Las entidades del grafo se ven, no se editan, y la card dice por qué.</li><li>En la card y en la ficha del Brief, el mismo radar con dos capas: OCEAN en el color activo y PSI superpuesto en dorado translúcido (22 %), con sus 3 ejes entre los de OCEAN. El dorado identifica la serie PSI, no un estado. Las barras debajo dan el valor exacto. El avatar circular es la única excepción al «sin radio»: es contenido, no contenedor.</li><li>«Ver ficha» invita a abrirla: mini avatar con un anillo dorado que late, borde izquierdo en semicírculo concéntrico con el avatar (se detiene al abrir y con <i>reduced motion</i>), color activo, pista «OCEAN · PSI» y una flecha que gira. Abierta dice «Ocultar ficha».</li><li>Sin sombra ni radio: la card es una celda de la grilla separada por 1 px. El giro respeta <i>reduced motion</i> y la cara oculta queda inerte.</li></ul></div>
-          <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Mismo chip que «Ver ficha»: círculo con auriculares, anillo dorado que late hasta que se escucha una vez, y una barra dorada de progreso.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo para quien no puede o no quiere escuchar.</li></ul></div>
+          <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Mismo chip que «Ver ficha»: círculo con auriculares, anillo dorado que late hasta que se escucha una vez, y una barra dorada de progreso.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
         </div>
       </section>
 
@@ -1372,25 +1389,36 @@
       });
     }
     document.addEventListener('toggle', function (e) { if (e.target.matches && e.target.matches('details.ficha')) syncFicha(); }, true);
-    // Audio hacks: one shared player; the language selector swaps voice and transcript.
+    // Audio hacks: one shared player; language and voice pick the file, the transcript follows the language.
     var TIP_AUDIO = null;
-    var TIP_TEXT = {"es": "Un consejo antes de subir tu constitución. Piensa en ella como el retrato de tu audiencia, no como tu argumento. Primero: declara cada arquetipo con sus cinco rasgos OCEAN y sus tres motivos PSI; si falta uno, el modelo lo inventa. Segundo: lo que quieres probar va en las opciones del brief, nunca dentro de la constitución. Y tercero: describe el contexto con hechos, sin adelantar si la propuesta es buena o mala. Así la simulación te muestra lo que tu audiencia piensa, no lo que tú esperabas escuchar.", "pt-BR": "Uma dica antes de enviar a sua constituição. Pense nela como o retrato do seu público, não como o seu argumento. Primeiro: declare cada arquétipo com os cinco traços OCEAN e os três motivos PSI; se faltar algum, o modelo inventa. Segundo: o que você quer testar vai nas opções do brief, nunca dentro da constituição. E terceiro: descreva o contexto com fatos, sem antecipar se a proposta é boa ou ruim. Assim a simulação mostra o que o seu público pensa, não o que você esperava ouvir.", "en": "A tip before you upload your constitution. Think of it as a portrait of your audience, not as your argument. First: declare every archetype with its five OCEAN traits and its three PSI motives; if one is missing, the model makes it up. Second: what you want to test goes in the brief's options, never inside the constitution. And third: describe the context with facts, without hinting whether the proposal is good or bad. That way the simulation shows you what your audience thinks, not what you were hoping to hear."};
-    var TIP_DUR = {"es": "0:38", "pt-BR": "0:35", "en": "0:34"};
-    var TIP_UI = { es: ['Escuchar el hack', 'Pausar', 'Leer en texto', 'Leer el hack'], 'pt-BR': ['Ouvir a dica', 'Pausar', 'Ler em texto', 'Ler a dica'], en: ['Listen to the tip', 'Pause', 'Read as text', 'Read the tip'] };
-    var tipPlayer = TIP_AUDIO ? new Audio() : null, tipLang = null;
+    var TIP_TEXT = {"es": "<p class=\"tip-t\">Antes de subir tu constitución</p><p>Piensa en ella como el retrato de tu audiencia, no como tu argumento.</p><ol><li><b>Declara cada arquetipo completo.</b> Sus cinco rasgos OCEAN y sus tres motivos PSI. Si falta alguno, el modelo lo inventa.</li><li><b>Separa lo que quieres probar.</b> Va en las opciones del brief, nunca dentro de la constitución.</li><li><b>Describe el contexto con hechos.</b> Sin adelantar si la propuesta es buena o mala.</li></ol><p class=\"tip-c\">Así la simulación te muestra lo que tu audiencia piensa, no lo que esperabas escuchar.</p>", "pt-BR": "<p class=\"tip-t\">Antes de enviar a sua constituição</p><p>Pense nela como o retrato do seu público, não como o seu argumento.</p><ol><li><b>Declare cada arquétipo completo.</b> Os cinco traços OCEAN e os três motivos PSI. Se faltar algum, o modelo inventa.</li><li><b>Separe o que você quer testar.</b> Vai nas opções do brief, nunca dentro da constituição.</li><li><b>Descreva o contexto com fatos.</b> Sem antecipar se a proposta é boa ou ruim.</li></ol><p class=\"tip-c\">Assim a simulação mostra o que o seu público pensa, não o que você esperava ouvir.</p>", "en": "<p class=\"tip-t\">Before you upload your constitution</p><p>Think of it as a portrait of your audience, not as your argument.</p><ol><li><b>Declare every archetype in full.</b> Its five OCEAN traits and its three PSI motives. If one is missing, the model makes it up.</li><li><b>Keep what you test apart.</b> It goes in the brief's options, never inside the constitution.</li><li><b>Describe the context with facts.</b> Without hinting whether the proposal is good or bad.</li></ol><p class=\"tip-c\">That way the simulation shows you what your audience thinks, not what you were hoping to hear.</p>"};
+    var TIP_DUR = {"mentor": {"es": "0:39", "pt-BR": "0:40", "en": "0:38"}, "harold": {"es": "0:38", "pt-BR": "0:35", "en": "0:34"}};
+    var TIP_UI = { es: ['Escuchar el hack', 'Pausar', 'Leer en texto', 'Leer el hack', 'Voz'], 'pt-BR': ['Ouvir a dica', 'Pausar', 'Ler em texto', 'Ler a dica', 'Voz'], en: ['Listen to the tip', 'Pause', 'Read as text', 'Read the tip', 'Voice'] };
+    var tipPlayer = TIP_AUDIO ? new Audio() : null, tipKey = null, tipVoice = 'mentor';
+    try { tipVoice = localStorage.getItem('sentientum-redesign-voice') || tipVoice; } catch (e) {}
     function tipButtons() { return document.querySelectorAll('.tip-btn'); }
     function syncTip() {
-      var ui = TIP_UI[lang] || TIP_UI.es, playing = tipPlayer && !tipPlayer.paused;
-      if (tipPlayer && tipLang !== lang) { tipPlayer.pause(); tipPlayer.src = TIP_AUDIO[lang] || TIP_AUDIO.es; tipLang = lang; playing = false; }
+      var ui = TIP_UI[lang] || TIP_UI.es, key = tipVoice + '|' + lang;
+      if (tipPlayer && tipKey !== key) {
+        tipPlayer.pause();
+        tipPlayer.src = (TIP_AUDIO[tipVoice] || TIP_AUDIO.mentor)[lang] || TIP_AUDIO.mentor.es;
+        tipKey = key;
+        tipButtons().forEach(function (b) { b.style.setProperty('--p', 0); });
+      }
+      var playing = tipPlayer && !tipPlayer.paused;
       tipButtons().forEach(function (b) {
         b.setAttribute('aria-pressed', String(!!playing));
         b.querySelector('.tip-lbl').textContent = !tipPlayer ? ui[3] : playing ? ui[1] : ui[0];
-        b.querySelector('.tip-dur').textContent = tipPlayer ? (TIP_DUR[lang] || TIP_DUR.es) : '';
-        b.setAttribute('aria-label', (tipPlayer ? ui[0] : ui[3]) + ' · constitución');
+        b.querySelector('.tip-dur').textContent = tipPlayer ? ((TIP_DUR[tipVoice] || TIP_DUR.mentor)[lang] || '') : '';
+      });
+      document.querySelectorAll('.tip-voice').forEach(function (g) {
+        g.hidden = !tipPlayer;
+        g.querySelector('.tip-voice-l').textContent = ui[4];
+        g.querySelectorAll('button').forEach(function (v) { v.setAttribute('aria-pressed', String(v.getAttribute('data-voice') === tipVoice)); });
       });
       document.querySelectorAll('details.tip-text').forEach(function (d) {
         d.querySelector('summary').textContent = ui[2];
-        d.querySelector('p').textContent = TIP_TEXT[lang] || TIP_TEXT.es;
+        d.querySelector('.tip-body').innerHTML = TIP_TEXT[lang] || TIP_TEXT.es;
       });
     }
     if (tipPlayer) {
@@ -1404,6 +1432,12 @@
       });
     }
     document.addEventListener('click', function (e) {
+      var v = e.target.closest && e.target.closest('.tip-voice button');
+      if (v) {
+        tipVoice = v.getAttribute('data-voice');
+        try { localStorage.setItem('sentientum-redesign-voice', tipVoice); } catch (err) {}
+        syncTip(); return;
+      }
       var b = e.target.closest && e.target.closest('.tip-btn');
       if (!b) return;
       if (!tipPlayer) { var d = b.closest('.s-sec').querySelector('details.tip-text'); if (d) d.open = !d.open; return; }
