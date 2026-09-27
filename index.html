@@ -347,6 +347,56 @@
     .phone .frame { padding: 0; border-radius: 0; background: none; border-block: 1px solid var(--wf-border-strong); }
     .phone .glass { border-radius: 0; max-height: none; overflow: visible; }
   }
+
+  /* ---------- palette exploration: Pantone Basil 16-6216, Potting Soil 19-1218, Cherry Tomato 17-1563 ---------- */
+  :root { --crowd-a: #9AA59A; --crowd-b: #55555A; }
+  :root[data-palette="pantone"], .pal-pantone {
+    --wf-bg-page: #F2F4EF; --wf-bg-page-strong: rgba(242, 244, 239, 0.92); --wf-bg-card-strong: #E6EBE3; --wf-bg-inset: rgba(84, 57, 45, 0.04);
+    --wf-text-primary: #3A2820; --wf-text-secondary: #5E4A3F; --wf-text-muted: #6B675C;
+    --wf-border-subtle: rgba(84, 57, 45, 0.16); --wf-border-strong: rgba(84, 57, 45, 0.32);
+    --wf-accent: #C8392A; --wf-accent-text: #B8321F; --wf-accent-soft: rgba(233, 75, 60, 0.12); --wf-accent-border: rgba(233, 75, 60, 0.40); --wf-on-accent: #FFFFFF;
+    --wf-success: #4B6A4E; --wf-success-soft: rgba(135, 159, 132, 0.22);
+    --wf-warning: #8A5A3C; --wf-warning-text: #6E4630; --wf-warning-soft: rgba(138, 90, 60, 0.14);
+    --wf-danger: #8E1B2B; --wf-danger-soft: rgba(142, 27, 43, 0.10);
+    --wf-invert-bg: #3A2820; --wf-invert-text: #F2F4EF;
+    --ref-bg: #E6EBE3; --ref-ink: #5E4A3F; --device: #3A2820;
+    --crowd-a: #879F84; --crowd-b: #54392D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root[data-palette="pantone"]:not([data-theme="light"]), :root:not([data-theme="light"]) .pal-pantone {
+      color-scheme: dark;
+    --wf-bg-page: #1C1411; --wf-bg-page-strong: rgba(28, 20, 17, 0.92); --wf-bg-card-strong: #251B17; --wf-bg-inset: rgba(239, 234, 227, 0.04);
+    --wf-text-primary: #EFEAE3; --wf-text-secondary: #D4CCC3; --wf-text-muted: #A89F94;
+    --wf-border-subtle: rgba(239, 234, 227, 0.12); --wf-border-strong: rgba(239, 234, 227, 0.24);
+    --wf-accent: #F26B5B; --wf-accent-text: #F26B5B; --wf-accent-soft: rgba(242, 107, 91, 0.14); --wf-accent-border: rgba(242, 107, 91, 0.42); --wf-on-accent: #1C1411;
+    --wf-success: #A7C0A3; --wf-success-soft: rgba(167, 192, 163, 0.14);
+    --wf-warning: #D9A07A; --wf-warning-text: #E3B594; --wf-warning-soft: rgba(217, 160, 122, 0.14);
+    --wf-danger: #FF8FA0; --wf-danger-soft: rgba(255, 143, 160, 0.12);
+    --wf-invert-bg: #EFEAE3; --wf-invert-text: #1C1411;
+    --ref-bg: #251B17; --ref-ink: #BDB4A9; --device: #54392D;
+    --crowd-a: #6F8A6C; --crowd-b: #7A5646;
+    }
+  }
+  :root[data-palette="pantone"][data-theme="dark"], :root[data-theme="dark"] .pal-pantone {
+    color-scheme: dark;
+    --wf-bg-page: #1C1411; --wf-bg-page-strong: rgba(28, 20, 17, 0.92); --wf-bg-card-strong: #251B17; --wf-bg-inset: rgba(239, 234, 227, 0.04);
+    --wf-text-primary: #EFEAE3; --wf-text-secondary: #D4CCC3; --wf-text-muted: #A89F94;
+    --wf-border-subtle: rgba(239, 234, 227, 0.12); --wf-border-strong: rgba(239, 234, 227, 0.24);
+    --wf-accent: #F26B5B; --wf-accent-text: #F26B5B; --wf-accent-soft: rgba(242, 107, 91, 0.14); --wf-accent-border: rgba(242, 107, 91, 0.42); --wf-on-accent: #1C1411;
+    --wf-success: #A7C0A3; --wf-success-soft: rgba(167, 192, 163, 0.14);
+    --wf-warning: #D9A07A; --wf-warning-text: #E3B594; --wf-warning-soft: rgba(217, 160, 122, 0.14);
+    --wf-danger: #FF8FA0; --wf-danger-soft: rgba(255, 143, 160, 0.12);
+    --wf-invert-bg: #EFEAE3; --wf-invert-text: #1C1411;
+    --ref-bg: #251B17; --ref-ink: #BDB4A9; --device: #54392D;
+    --crowd-a: #6F8A6C; --crowd-b: #7A5646;
+  }
+  .pal-pantone { background: var(--wf-bg-page); color: var(--wf-text-primary); }
+  .hero canvas.crowd { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--wf-border-subtle); }
+  .swatch { flex: 1 1 150px; display: grid; grid-template-rows: 56px auto; border-right: 1px solid var(--wf-border-subtle); min-width: 0; }
+  .swatch i { display: block; }
+  .swatch span { padding: 8px 12px; font-size: 11.5px; color: var(--wf-text-secondary); display: grid; gap: 2px; }
+  .swatch span b { color: var(--wf-text-primary); font-family: var(--s-display); font-weight: 700; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -366,6 +416,10 @@
     <div class="seg" role="group" aria-label="Dispositivo" id="device-seg">
       <button id="btn-desktop" aria-pressed="true">Vista Desktop</button>
       <button id="btn-mobile" aria-pressed="false">Vista Mobile</button>
+    </div>
+    <div class="seg" role="group" aria-label="Paleta de color" id="pal-seg">
+      <button data-palette="actual" aria-pressed="true">Paleta actual</button>
+      <button data-palette="pantone" aria-pressed="false">Pantone</button>
     </div>
     <div class="seg" role="group" aria-label="Idioma de la interfaz" id="lang-seg">
       <button data-lang="es" aria-pressed="true">ES</button>
@@ -448,7 +502,35 @@
           <div class="ref"><b>Inspirado en</b> los iniciadores de conversación (ChatGPT, Notion AI): quien llega sin constitución empieza por el tipo de decisión, no por una pantalla vacía. · <b>Valor</b> enseña el encuadre "comparar opciones" desde el primer clic.</div>
         </article>
       </div>
-      <p class="reco"><b>Recomendación:</b> A como Home. B no es una pantalla aparte: es lo que ocurre al adjuntar en A (la lista de arquetipos detectados aparece bajo el compositor). C es el estado vacío de A para quien entra por primera vez.</p>
+
+      <article class="screen-block pal-pantone" data-screen="00 Home · D" id="home-d">
+        <div class="screen-label"><span>Home · Propuesta D · La multitud</span><span>Exploración de color · adicional</span></div>
+        <div class="screen hero">
+          <canvas class="crowd" aria-hidden="true"></canvas>
+          <div class="hero-top">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <div class="s-tools"><a href="#flujo">Simulaciones</a> · Ajustes</div>
+          </div>
+          <div class="hero-center" style="align-self:start;padding-top:48px;">
+            <span class="hero-status"><i></i><span data-i18n="status">Local · tus datos quedan en esta máquina</span></span>
+            <h2 class="hero-h" data-i18n="heroH">Compara antes de decidir.</h2>
+            <p class="hero-sub" data-i18n="heroSub">Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.</p>
+            <form class="composer" id="home-composer-d">
+              <label class="attach" title="Adjuntar constitución o contexto (.md, .pdf, .txt)">+<input type="file" id="home-file-d" accept=".md,.pdf,.txt"></label>
+              <textarea id="home-decision-d" rows="2" aria-label="Decisión" placeholder="¿Qué necesitas decidir?">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</textarea>
+              <button class="s-btn" type="submit"><span data-i18n="buildBrief">Armar brief</span> <span>→</span></button>
+            </form>
+            <div class="attached" id="home-attached-d"><span><b>constitucion_adopcion_ia.md</b></span><span class="ok">4 arquetipos · vectores OCEAN y PSI detectados</span></div>
+          </div>
+        </div>
+        <div class="swatches" aria-label="Paleta Pantone">
+          <div class="swatch"><i style="background:#879F84"></i><span><b>Basil</b>16-6216 TCX · ≈ #879F84 · completado, local</span></div>
+          <div class="swatch"><i style="background:#54392D"></i><span><b>Potting Soil</b>19-1218 TCX · ≈ #54392D · estructura, texto, botón</span></div>
+          <div class="swatch"><i style="background:#E94B3C"></i><span><b>Cherry Tomato</b>17-1563 TCX · ≈ #E94B3C · activo, foco</span></div>
+        </div>
+        <div class="ref"><b>Inspirado en</b> un afiche con una multitud en duotono y tipografía roja, y en la paleta Pantone Basil · Potting Soil · Cherry Tomato. · <b>Las cabezas son la audiencia</b>: cada silueta es un agente; en rojo, los que están deliberando en ese momento. La multitud ocupa la mitad inferior para no competir con el titular. · <b>Mapeo a tokens</b> estructura y botón en Potting Soil; completado en Basil (texto #4B6A4E, 5,5:1); activo en Cherry Tomato (relleno #C8392A con texto blanco, 5,2:1; texto #B8321F, 5,4:1). Los hex son equivalencias sRGB aproximadas de Pantone TCX. · <b>Tensión</b> con un acento rojo, "activo" y "falla" compiten: el error pasa a carmesí (#8E1B2B) y el estado siempre va escrito. · Tipografías sin cambios.</div>
+      </article>
+      <p class="reco"><b>Recomendación:</b> A como Home. B no es una pantalla aparte: es lo que ocurre al adjuntar en A (la lista de arquetipos detectados aparece bajo el compositor). C es el estado vacío de A para quien entra por primera vez. D es una exploración de color para comparar: se puede ver toda la maqueta con esa paleta desde el selector "Pantone".</p>
     </div>
   </div>
 
@@ -774,7 +856,7 @@
 
       <section class="g-sec">
         <header><span class="s-num">02</span><h3>Patrones nuevos</h3></header>
-        <p>Doce patrones, cada uno con su referencia externa. Se inspiran en aplicaciones que ya resolvieron el mismo problema de usuario, no en su estética.</p>
+        <p>Catorce patrones, cada uno con su referencia externa. Se inspiran en aplicaciones que ya resolvieron el mismo problema de usuario, no en su estética.</p>
         <div class="pattern">
           <div><h4>P1 · Brief con resumen fijo</h4><span class="src">Inspirado en: Stripe Checkout</span><ul><li>Una columna para completar, numerada.</li><li>A la derecha, lo que se va a correr: corridas, tiempo, llamadas, dónde quedan los datos.</li><li>El botón dice exactamente qué pasa: "Correr 15 simulaciones".</li></ul></div>
           <div><h4>P2 · Opción como estímulo literal</h4><span class="src">Inspirado en: variantes de un test A/B</span><ul><li>Cada opción es el texto exacto que verán los agentes.</li><li>El control se agrega solo y no se puede borrar.</li><li>Máximo 3 opciones: más diluye el análisis.</li></ul></div>
@@ -798,6 +880,10 @@
         <div class="pattern">
           <div><h4>P11 · Textos elásticos en tres idiomas</h4><span class="src">Inspirado en: el feedback externo, con medición propia</span><ul><li>Ningún ancho fijo en contenedores con texto: <code>fit-content</code>, <code>minmax()</code> y <code>flex-wrap</code>.</li><li><code>text-wrap: balance</code> en títulos; <code>pretty</code> en párrafos.</li><li>Probar con los textos reales de cada idioma: en etiquetas cortas la variación va para los dos lados (tabla en 04).</li><li>El atributo <code>lang</code> de la pantalla sigue al idioma elegido.</li></ul></div>
           <div><h4>P12 · Primero el resultado</h4><span class="src">Inspirado en: el feedback externo (diseño orientado a resultados)</span><ul><li>En la primera visita, "Ver una respuesta de ejemplo" abre un memo terminado, marcado como ejemplo.</li><li>Las preguntas sugeridas salen de lo que pasó en la corrida (cambios de postura, arquetipos inestables).</li></ul></div>
+        </div>
+        <div class="pattern">
+          <div><h4>P13 · Paleta alternativa (exploración)</h4><span class="src">Inspirado en: Pantone Basil 16-6216, Potting Soil 19-1218, Cherry Tomato 17-1563</span><ul><li>Se mapea sobre los mismos tokens <code>--wf-*</code>: no cambia ningún componente, solo valores.</li><li>Potting Soil = estructura, texto y botón; Basil = completado; Cherry Tomato = activo y foco.</li><li>El error pasa a carmesí para no confundirse con el acento rojo, y siempre va escrito.</li><li>Todas las combinaciones de texto pasan AA en los dos temas.</li></ul></div>
+          <div><h4>P14 · La multitud</h4><span class="src">Inspirado en: un afiche con multitud en duotono</span><ul><li>Cada cabeza es un agente; las filas crecen hacia abajo, como vistas desde el escenario.</li><li>Duotono Basil y Potting Soil; los agentes que deliberan, en Cherry Tomato, cambian cada pocos segundos.</li><li>Ocupa la mitad inferior; el texto va arriba, sobre la página.</li><li>Canvas 2D; quieta con <code>prefers-reduced-motion</code>.</li></ul></div>
         </div>
       </section>
 
@@ -927,11 +1013,71 @@
       new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     }
 
-    // Mobile view is built from the same screens (Home A first), so they never drift apart.
+
+    // The crowd: head-and-shoulder silhouettes in rows that grow toward the viewer.
+    // Duotone from --crowd-a / --crowd-b; agents that are deliberating take the accent.
+    function crowd(canvas) {
+      var ctx = canvas.getContext('2d');
+      var heads = [], w = 0, h = 0, colors = {}, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      function readColors() {
+        var cs = getComputedStyle(canvas);
+        colors.a = cs.getPropertyValue('--crowd-a').trim() || '#879F84';
+        colors.b = cs.getPropertyValue('--crowd-b').trim() || '#54392D';
+        colors.active = cs.getPropertyValue('--wf-accent').trim() || '#C8392A';
+      }
+      function build() {
+        var r = canvas.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        w = r.width; h = r.height;
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        heads = [];
+        var top = h * 0.5, y = top, row = 0;
+        while (y < h + 40) {
+          var depth = (y - top) / (h - top + 1);
+          var size = 7 + depth * 16;
+          var gap = size * 2.6;
+          for (var x = -gap + (row % 2) * gap / 2 + Math.random() * 6; x < w + gap; x += gap * (0.85 + Math.random() * 0.3)) {
+            heads.push({ x: x, y: y + Math.random() * size * 0.4, s: size, tone: Math.random() < 0.55 ? 'a' : 'b', phase: Math.random() * 6.28, active: false });
+          }
+          y += size * 1.35; row++;
+        }
+        pickActive();
+        readColors();
+      }
+      function pickActive() {
+        heads.forEach(function (hd) { hd.active = Math.random() < 0.05; });
+      }
+      function draw(t) {
+        if (!w) return;
+        ctx.clearRect(0, 0, w, h);
+        for (var i = 0; i < heads.length; i++) {
+          var hd = heads[i];
+          var bob = reduce ? 0 : Math.sin(t * 0.0016 + hd.phase) * hd.s * 0.08;
+          var cx = hd.x, cy = hd.y + bob, s = hd.s;
+          ctx.fillStyle = hd.active ? colors.active : (hd.tone === 'a' ? colors.a : colors.b);
+          ctx.globalAlpha = hd.active ? 1 : 0.35 + 0.55 * ((hd.y - h * 0.5) / (h * 0.5));
+          ctx.beginPath(); ctx.arc(cx, cy, s * 0.62, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.ellipse(cx, cy + s * 1.35, s * 1.25, s * 0.78, 0, Math.PI, 0); ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
+      var raf = 0, last = 0;
+      function loop(t) { if (t - last > 2600) { pickActive(); last = t; } draw(t); raf = requestAnimationFrame(loop); }
+      function start() { cancelAnimationFrame(raf); if (reduce) draw(0); else raf = requestAnimationFrame(loop); }
+      if ('ResizeObserver' in window) new ResizeObserver(function () { build(); draw(0); }).observe(canvas);
+      build(); start();
+      document.addEventListener('visibilitychange', function () { if (document.hidden) cancelAnimationFrame(raf); else start(); });
+      new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-palette'] });
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      if (mq.addEventListener) mq.addEventListener('change', readColors);
+    }
+
+    // Mobile view is built from the same screens (Home A and D first), so they never drift apart.
     var phones = document.getElementById('phones');
-    var blocks = [document.querySelector('#home-screens .screen-block')].concat([].slice.call(document.querySelectorAll('#screens .screen-block')));
+    var blocks = [document.querySelector('#home-screens .screen-block'), document.getElementById('home-d')].concat([].slice.call(document.querySelectorAll('#screens .screen-block')));
     blocks.forEach(function (block) {
-      var phone = document.createElement('div'); phone.className = 'phone';
+      var phone = document.createElement('div'); phone.className = 'phone' + (block.classList.contains('pal-pantone') ? ' pal-pantone' : '');
       var cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = block.getAttribute('data-screen');
       var frame = document.createElement('div'); frame.className = 'frame';
       var glass = document.createElement('div'); glass.className = 'glass';
@@ -941,6 +1087,7 @@
       glass.appendChild(screen); frame.appendChild(glass); phone.appendChild(cap); phone.appendChild(frame); phones.appendChild(phone);
     });
     document.querySelectorAll('canvas.society').forEach(society);
+    document.querySelectorAll('canvas.crowd').forEach(crowd);
 
     // The composer behaves like the real one: attaching shows the file; submitting opens the Brief.
     function wireComposer(suffix) {
@@ -957,7 +1104,21 @@
       });
       form.addEventListener('submit', function (e) { e.preventDefault(); tab = 'mock'; render(); window.scrollTo(0, 0); });
     }
-    wireComposer(''); wireComposer('-m');
+    wireComposer(''); wireComposer('-m'); wireComposer('-d'); wireComposer('-d-m');
+    // Palette: the current one, or the Pantone exploration over the same tokens.
+    var palette = 'actual';
+    function applyPalette() {
+      if (palette === 'pantone') document.documentElement.setAttribute('data-palette', 'pantone');
+      else document.documentElement.removeAttribute('data-palette');
+      document.querySelectorAll('#pal-seg button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-palette') === palette)); });
+      try { localStorage.setItem('sentientum-redesign-palette', palette); } catch (e) {}
+    }
+    try { palette = localStorage.getItem('sentientum-redesign-palette') || palette; } catch (e) {}
+    document.querySelectorAll('#pal-seg button').forEach(function (b) {
+      b.addEventListener('click', function () { palette = b.getAttribute('data-palette'); applyPalette(); });
+    });
+    applyPalette();
+
     // Interface language: the mockup's copy in ES, PT-BR and EN, to test how each language fits.
     var I18N = {"es": {"status": "Local · tus datos quedan en esta máquina", "heroH": "Compara antes de decidir.", "heroSub": "Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.", "buildBrief": "Armar brief", "prevRuns": "Simulaciones anteriores (7)", "sampleAnswer": "Ver una respuesta de ejemplo", "heroNote": "Recomendado: 2 o 3 opciones y 5 réplicas por opción. Una sola corrida no alcanza para decidir.", "stepBrief": "01 Brief", "stepRun": "02 Corrida", "stepAnswer": "03 Respuesta", "hDecision": "Decisión", "hOptions": "Opciones", "hAudience": "Audiencia", "hContext": "Contexto", "hWatch": "Qué observar", "hWillRun": "Lo que vas a correr", "runs15": "15 corridas", "sumAgents": "Agentes por corrida", "sumRounds": "Rondas", "sumTime": "Tiempo estimado", "sumCalls": "Llamadas al modelo", "sumLang": "Idioma de los agentes", "sumData": "Datos", "runBtn": "Correr 15 simulaciones", "hMatrix": "Condiciones × réplicas", "hHappening": "Qué está pasando", "xray": "Rayos X", "doneReps": "Réplicas completas", "timeLeft": "Tiempo restante", "pause": "Pausar lote", "hAsk": "Preguntarle a la audiencia", "planNext": "Planear la siguiente corrida", "exportMemo": "Exportar memo", "hLimits": "Qué no se puede afirmar", "hCards": "Tarjetas de decisión", "cardsHelp": "Cada afirmación lleva su estado de certeza. Ningún porcentaje de probabilidad.", "certV": "Verificada · cita textual", "certN": "Cita cercana · revisar", "certU": "Sin respaldo · no afirmar", "c1t": "El plazo de 90 días concentra la resistencia", "c1f": "En A, 7 de cada 10 posts de mandos medios y del sindicato mencionan el plazo; en B, casi ninguno.", "c2t": "Los analistas apoyan B si la formación es pagada", "c2f": "La frase citada aparece una ronda después de la indicada: el hallazgo es plausible, pero la cita hay que revisarla.", "c3t": "B reduciría la rotación del equipo", "c3f": "Ningún agente lo dijo: es una inferencia del informe. Se muestra como laguna, no como hallazgo.", "actAsk": "Preguntar al agente", "actBranch": "Bifurcar con otra condición", "actExport": "Exportar evidencia", "actReview": "Revisar la cita", "hSuggest": "Preguntas sugeridas", "suggestNote": "Salen de lo que pasó en la corrida, no de una lista fija.", "q1": "¿Por qué A-4 rechazó el plazo en la ronda 5?", "q1s": "A-4 cambió de postura en esa ronda", "q2": "¿Qué haría que A-1 prefiera B?", "q2s": "A-1 no se estabilizó entre réplicas", "q3": "¿Qué cambió en A-2 entre la ronda 2 y la 8?", "q3s": "El mayor cambio de tono de la corrida", "metaAgents": "Agentes", "metaRound": "Ronda", "metaActions": "Acciones", "metaFails": "Fallas", "ficha": "Ver ficha", "srcSeed": "de la constitución", "srcGen": "PSI generado", "wsGraph": "Grafo", "wsCast": "Elenco", "wsRun": "Corrida", "wsAnswer": "Respuesta", "wsQuestions": "Preguntas"}, "pt-BR": {"status": "Local · seus dados ficam nesta máquina", "heroH": "Compare antes de decidir.", "heroSub": "Descreva a decisão e envie sua constituição. O Sentientum monta o brief e o executa com o seu público sintético.", "buildBrief": "Montar o brief", "prevRuns": "Simulações anteriores (7)", "sampleAnswer": "Ver uma resposta de exemplo", "heroNote": "Recomendado: 2 ou 3 opções e 5 réplicas por opção. Uma única execução não basta para decidir.", "stepBrief": "01 Brief", "stepRun": "02 Execução", "stepAnswer": "03 Resposta", "hDecision": "Decisão", "hOptions": "Opções", "hAudience": "Público", "hContext": "Contexto", "hWatch": "O que observar", "hWillRun": "O que você vai executar", "runs15": "15 execuções", "sumAgents": "Agentes por execução", "sumRounds": "Rodadas", "sumTime": "Tempo estimado", "sumCalls": "Chamadas ao modelo", "sumLang": "Idioma dos agentes", "sumData": "Dados", "runBtn": "Executar 15 simulações", "hMatrix": "Condições × réplicas", "hHappening": "O que está acontecendo", "xray": "Raio X", "doneReps": "Réplicas concluídas", "timeLeft": "Tempo restante", "pause": "Pausar lote", "hAsk": "Perguntar ao público", "planNext": "Planejar a próxima execução", "exportMemo": "Exportar memorando", "hLimits": "O que não se pode afirmar", "hCards": "Cartões de decisão", "cardsHelp": "Cada afirmação traz seu estado de certeza. Nenhuma porcentagem de probabilidade.", "certV": "Verificada · citação literal", "certN": "Citação próxima · revisar", "certU": "Sem respaldo · não afirmar", "c1t": "O prazo de 90 dias concentra a resistência", "c1f": "Em A, 7 de cada 10 posts de gerentes e do sindicato citam o prazo; em B, quase nenhum.", "c2t": "Os analistas apoiam B se a formação for paga", "c2f": "A frase citada aparece uma rodada depois da indicada: o achado é plausível, mas a citação precisa ser revisada.", "c3t": "B reduziria a rotatividade da equipe", "c3f": "Nenhum agente disse isso: é uma inferência do relatório. Aparece como lacuna, não como achado.", "actAsk": "Perguntar ao agente", "actBranch": "Ramificar com outra condição", "actExport": "Exportar evidências", "actReview": "Revisar a citação", "hSuggest": "Perguntas sugeridas", "suggestNote": "Vêm do que aconteceu na execução, não de uma lista fixa.", "q1": "Por que A-4 rejeitou o prazo na rodada 5?", "q1s": "A-4 mudou de posição nessa rodada", "q2": "O que faria A-1 preferir B?", "q2s": "A-1 não se estabilizou entre réplicas", "q3": "O que mudou em A-2 entre as rodadas 2 e 8?", "q3s": "A maior mudança de tom da execução", "metaAgents": "Agentes", "metaRound": "Rodada", "metaActions": "Ações", "metaFails": "Falhas", "ficha": "Ver ficha", "srcSeed": "da constituição", "srcGen": "PSI gerado", "wsGraph": "Grafo", "wsCast": "Elenco", "wsRun": "Execução", "wsAnswer": "Resposta", "wsQuestions": "Perguntas"}, "en": {"status": "Local · your data stays on this machine", "heroH": "Compare before you decide.", "heroSub": "Describe the decision and upload your constitution. Sentientum builds the brief and runs it against your synthetic audience.", "buildBrief": "Build the brief", "prevRuns": "Previous simulations (7)", "sampleAnswer": "See a sample answer", "heroNote": "Recommended: 2 or 3 options and 5 replicates each. A single run is not enough to decide.", "stepBrief": "01 Brief", "stepRun": "02 Run", "stepAnswer": "03 Answer", "hDecision": "Decision", "hOptions": "Options", "hAudience": "Audience", "hContext": "Context", "hWatch": "What to watch", "hWillRun": "What you will run", "runs15": "15 runs", "sumAgents": "Agents per run", "sumRounds": "Rounds", "sumTime": "Estimated time", "sumCalls": "Model calls", "sumLang": "Agent language", "sumData": "Data", "runBtn": "Run 15 simulations", "hMatrix": "Conditions × replicates", "hHappening": "What is happening", "xray": "X-ray", "doneReps": "Completed replicates", "timeLeft": "Time remaining", "pause": "Pause batch", "hAsk": "Ask the audience", "planNext": "Plan the next run", "exportMemo": "Export memo", "hLimits": "What cannot be claimed", "hCards": "Decision cards", "cardsHelp": "Every claim carries its certainty state. No probability percentages.", "certV": "Verified · direct quote", "certN": "Nearby quote · review", "certU": "Unsupported · do not claim", "c1t": "The 90-day deadline drives the resistance", "c1f": "In A, 7 in 10 posts from middle managers and the union cite the deadline; in B, almost none.", "c2t": "Analysts back B if training is paid", "c2f": "The quoted line appears one round after the cited one: the finding is plausible, but the quote needs review.", "c3t": "B would reduce team turnover", "c3f": "No agent said this: it is the report's inference. Shown as a gap, not a finding.", "actAsk": "Ask the agent", "actBranch": "Branch with a new condition", "actExport": "Export evidence", "actReview": "Review the quote", "hSuggest": "Suggested questions", "suggestNote": "Drawn from what happened in the run, not from a fixed list.", "q1": "Why did A-4 reject the deadline in round 5?", "q1s": "A-4 changed position in that round", "q2": "What would make A-1 prefer B?", "q2s": "A-1 did not stabilize across replicates", "q3": "What changed for A-2 between rounds 2 and 8?", "q3s": "The largest shift in tone in the run", "metaAgents": "Agents", "metaRound": "Round", "metaActions": "Actions", "metaFails": "Failures", "ficha": "View profile", "srcSeed": "from the constitution", "srcGen": "PSI generated", "wsGraph": "Graph", "wsCast": "Cast", "wsRun": "Run", "wsAnswer": "Answer", "wsQuestions": "Questions"}};
     var lang = 'es';
@@ -981,7 +1142,7 @@
     document.querySelectorAll('a[href="#respuesta"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault(); tab = 'mock'; render();
-        var target = device === 'mobile' ? document.querySelectorAll('#phones .phone')[3] : document.getElementById('screen-answer');
+        var target = device === 'mobile' ? document.querySelectorAll('#phones .phone')[4] : document.getElementById('screen-answer');
         if (target) target.scrollIntoView({ block: 'start' });
       });
     });
@@ -998,6 +1159,7 @@
       intro.hidden = tab === 'guide';
       document.getElementById('device-seg').hidden = tab === 'guide';
       document.getElementById('lang-seg').hidden = tab === 'guide';
+      document.getElementById('pal-seg').hidden = tab === 'guide';
       ['home', 'mock', 'guide'].forEach(function (t) { document.getElementById('tab-' + t).setAttribute('aria-pressed', String(tab === t)); });
       document.getElementById('btn-desktop').setAttribute('aria-pressed', String(device === 'desktop'));
       document.getElementById('btn-mobile').setAttribute('aria-pressed', String(device === 'mobile'));
