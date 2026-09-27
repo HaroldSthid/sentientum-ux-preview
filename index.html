@@ -607,6 +607,7 @@
   .help-mini .hm-ring .hm-bar { stroke: var(--psi-gold); stroke-dasharray: calc(var(--p, 0) * 100) 100; }
   .help-nav[data-state="paused"] .help-mini .i-pause, .help-nav[data-state="playing"] .help-mini .i-resume { display: none; }
   .help-inline { padding: 2px 10px 2px 2px; border-radius: 14px 0 0 14px; margin-left: auto; align-self: center; }
+  .g-head .help-inline { margin-left: 0; justify-self: start; }
   .help-panel { position: fixed; z-index: 40; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); right: 24px; width: min(380px, calc(100vw - 48px)); max-height: calc(100vh - 160px); overflow: auto; background: var(--wf-bg-page); color: var(--wf-text-primary); border: 1px solid var(--wf-border-strong); border-top: 3px solid var(--psi-gold); padding: 16px 18px 18px; display: grid; gap: 12px; }
   .help-panel[hidden] { display: none; }
   .hp-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
@@ -1198,6 +1199,7 @@
                   <p class="g-count"><b>42 agentes</b> = 4 perfiles de Audiencia × 10 + 2 personas del documento · 3 organizaciones y 1 medio quedan como contexto · arrastra los nodos</p>
                   <p class="g-dep"></p>
                   <p class="g-hint"></p>
+                  <button type="button" class="help-inline" data-open-help="graph" aria-expanded="false"><span class="hi-ico"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><path d="M4 15h3v5H5a1 1 0 0 1-1-1z"/><path d="M20 15h-3v5h2a1 1 0 0 0 1-1z"/></svg></span><span class="hi-lbl">Hack en audio</span></button>
                 </div>
                 <div class="g-stage"><div class="g-scroll"><div class="g-svg"></div></div><aside class="g-detail" aria-live="polite" hidden></aside></div>
                 <div class="g-key"><span><i class="k-face"></i>perfil de Audiencia (arquetipo)</span><span><i class="k-person"></i>persona del documento</span><span><i class="k-emp"></i>Operaciones S.A.</span><span><i class="k-sind"></i>Sindicato</span><span><i class="k-min"></i>Ministerio</span><span><i class="k-tag k-org"></i>medio (etiqueta)</span><span><i class="k-spawn"></i>genera agentes</span><span>anillo naranja: también afiliado al sindicato</span></div>
@@ -1309,7 +1311,7 @@
           <div><h4>P13 · Paleta alternativa (exploración)</h4><span class="src">Inspirado en: Pantone Basil 16-6216, Potting Soil 19-1218, Cherry Tomato 17-1563</span><ul><li>Se mapea sobre los mismos tokens <code>--wf-*</code>: no cambia ningún componente, solo valores.</li><li>Potting Soil = estructura, texto y botón; Basil = completado; Cherry Tomato = activo y foco.</li><li>El error pasa a carmesí para no confundirse con el acento rojo, y siempre va escrito.</li><li>Todas las combinaciones de texto pasan AA en los dos temas.</li><li><b>Excepción en evaluación · marca en Cherry Tomato</b>: solo el titular del Home y la palabra «sentientum» (texto grande, 19 px o más en 800). Rompe en parte «el color significa estado», así que se deja como alternativa para decidir. Tono por fondo: #E94B3C en claro (3,4–3,6:1), #F26B5B en oscuro (6,1–6,6:1), #FF7A6B sobre Basil profundo (5,4:1). Sobre Basil claro el Cherry Tomato puro da 1,3:1, así que se usa tomate profundo #8E1F14 (3,1:1). Pregunta abierta: si la marca es roja, ¿el rojo de peligro sigue leyéndose como alerta?</li><li><b>Fondo Basil</b>: el texto solo en Potting Soil profundo (5,5:1); el rojo nunca como texto (1,3:1 sobre Basil), solo como relleno con texto crema (4,7:1); estados en tonos profundos. En oscuro, Basil profundo #243024 con texto crema (11,5:1).</li></ul></div>
           <div><h4>P14 · La multitud</h4><span class="src">Inspirado en: un afiche con multitud en duotono</span><ul><li>Cada cabeza es un agente; las filas crecen hacia abajo, como vistas desde el escenario.</li><li>Duotono Basil y Potting Soil; los agentes que deliberan, en Cherry Tomato, cambian cada pocos segundos.</li><li>Ocupa la mitad inferior; el texto va arriba, sobre la página.</li><li>Canvas 2D; quieta con <code>prefers-reduced-motion</code>.</li></ul></div>
           <div><h4>P15 · Card de agente con radar</h4><span class="src">Inspirado en: cartas coleccionables y el ecualizador de un mezclador</span><ul><li>Frente: retrato ilustrado y sonriente, código, rol y de dónde salen sus rasgos. Al pasar el mouse o dar foco, el retrato saluda en un loop de 3 s (WebP animado); con <i>reduced motion</i> queda la imagen fija. Dorso: radar con OCEAN (5 ejes) y PSI (3 ejes, en dorado) superpuestos.</li><li>La línea punteada es lo que dice la constitución; el área es el valor actual. Editar muestra la diferencia, nunca la oculta.</li><li>Solo se ecualizan los agentes que salen de un arquetipo, y el cambio aplica a todo el arquetipo. Las entidades del grafo se ven, no se editan, y la card dice por qué.</li><li>En la card y en la ficha del Brief, el mismo radar con dos capas: OCEAN en el color activo y PSI superpuesto en dorado translúcido (22 %), con sus 3 ejes entre los de OCEAN. El dorado identifica la serie PSI, no un estado. Las barras debajo dan el valor exacto. El avatar circular es la única excepción al «sin radio»: es contenido, no contenedor.</li><li>«Ver ficha» invita a abrirla: mini avatar con un anillo dorado que late, borde izquierdo en semicírculo concéntrico con el avatar (se detiene al abrir y con <i>reduced motion</i>), color activo, pista «OCEAN · PSI» y una flecha que gira. Abierta dice «Ocultar ficha».</li><li>Sin sombra ni radio: la card es una celda de la grilla separada por 1 px. El giro respeta <i>reduced motion</i> y la cara oculta queda inerte.</li></ul></div>
-          <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Vive en la navegación: un botón «Ayuda» en la barra de pasos abre un panel <b>no modal</b> (acoplado a la derecha en desktop, hoja inferior en el teléfono). No oscurece ni bloquea: se sigue revisando el paso mientras se escucha.</li><li>El audio sigue aunque se cierre el panel: la barra muestra un mini reproductor con pausa y un anillo dorado de progreso. Esc cierra el panel y el foco vuelve al botón que lo abrió.</li><li>El panel es contextual: muestra el hack del paso actual. En la sección donde aplica queda una entrada compacta («Hack en audio») que abre el mismo panel. El anillo dorado late hasta la primera escucha.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
+          <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Vive en la navegación: un botón «Ayuda» en la barra de pasos abre un panel <b>no modal</b> (acoplado a la derecha en desktop, hoja inferior en el teléfono). No oscurece ni bloquea: se sigue revisando el paso mientras se escucha.</li><li>El audio sigue aunque se cierre el panel: la barra muestra un mini reproductor con pausa y un anillo dorado de progreso. Esc cierra el panel y el foco vuelve al botón que lo abrió.</li><li>Hay un hack por paso donde más se duda: la constitución (01 Brief) y el grafo de origen (03 Respuesta · Grafo, solo en español por ahora). Para ahorrar, los hacks nuevos se graban con la voz clonada en el modelo más económico.</li><li>El panel es contextual: muestra el hack del paso actual. En la sección donde aplica queda una entrada compacta («Hack en audio») que abre el mismo panel. El anillo dorado late hasta la primera escucha.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
           <div><h4>P17 · Grafo de origen</h4><span class="src">Inspirado en: los diagramas de linaje de datos</span><ul><li>Grafo flotante (d3-force, como el grafo del producto): cada perfil de Audiencia, con su cara, rodeado de los 10 agentes que genera. Las personas del documento también llevan cara. Se puede arrastrar.</li><li>El color es la organización (identidad, no estado): una envolvente suave agrupa a sus miembros; el anillo naranja marca a quien también está afiliado al sindicato. El medio es una etiqueta. Paleta validada para daltonismo en los dos temas.</li><li>Cada arista dice qué es: escribe en, cubre, negocia con, trabaja en, afiliados a, genera 10.</li><li>Debajo, un perfil y dos de sus personas lado a lado (una con biografía completa): los radares casi iguales y las vidas distintas se ven de un vistazo.</li><li>Diferencias chicas, escala propia: ±0,05 no se ve en un radar de 0 a 1. Se muestran como desvíos por rasgo sobre una escala ampliada y rotulada (−0,05 a +0,05), con una referencia de escala entre perfiles.</li><li>Al elegir una persona se abre un panel lateral con su biografía como la muestra el producto: edad, género, país y MBTI aparentes, biografía completa (nunca cortada), temas de la semilla y trasfondo.</li><li>Un contador arriba hace la cuenta: 40 de 4 arquetipos + 2 personas del documento = 42. Las organizaciones quedan como contexto, sin agente.</li><li>La forma dice el tipo (círculo persona, cuadrado organización, rombo medio); el color activo marca lo que genera agentes.</li><li>Al pasar sobre un arquetipo se iluminan sus 10 agentes. Al elegir un agente, su radar se dibuja sobre el del arquetipo: la diferencia es de ±0,05 como máximo. Mismos rasgos, distinta vida.</li></ul></div>
         </div>
       </section>
@@ -1605,18 +1607,26 @@
     var TIP_TEXT = {"es": "<p class=\"tip-t\">Antes de subir tu constitución</p><p>Piensa en ella como el retrato de tu audiencia, no como tu argumento.</p><ol><li><b>Declara cada arquetipo completo.</b> Sus cinco rasgos OCEAN y sus tres motivos PSI. Si falta alguno, el modelo lo inventa.</li><li><b>Separa lo que quieres probar.</b> Va en las opciones del brief, nunca dentro de la constitución.</li><li><b>Describe el contexto con hechos.</b> Sin adelantar si la propuesta es buena o mala.</li></ol><p class=\"tip-c\">Así la simulación te muestra lo que tu audiencia piensa, no lo que esperabas escuchar.</p>", "pt-BR": "<p class=\"tip-t\">Antes de enviar a sua constituição</p><p>Pense nela como o retrato do seu público, não como o seu argumento.</p><ol><li><b>Declare cada arquétipo completo.</b> Os cinco traços OCEAN e os três motivos PSI. Se faltar algum, o modelo inventa.</li><li><b>Separe o que você quer testar.</b> Vai nas opções do brief, nunca dentro da constituição.</li><li><b>Descreva o contexto com fatos.</b> Sem antecipar se a proposta é boa ou ruim.</li></ol><p class=\"tip-c\">Assim a simulação mostra o que o seu público pensa, não o que você esperava ouvir.</p>", "en": "<p class=\"tip-t\">Before you upload your constitution</p><p>Think of it as a portrait of your audience, not as your argument.</p><ol><li><b>Declare every archetype in full.</b> Its five OCEAN traits and its three PSI motives. If one is missing, the model makes it up.</li><li><b>Keep what you test apart.</b> It goes in the brief's options, never inside the constitution.</li><li><b>Describe the context with facts.</b> Without hinting whether the proposal is good or bad.</li></ol><p class=\"tip-c\">That way the simulation shows you what your audience thinks, not what you were hoping to hear.</p>"};
     var TIP_DUR = {"mentor": {"es": "0:39", "pt-BR": "0:40", "en": "0:38"}, "harold": {"es": "0:38", "pt-BR": "0:35", "en": "0:34"}};
     var TIP_UI = { es: ['Escuchar el hack', 'Pausar', 'Leer en texto', 'Leer el hack', 'Voz'], 'pt-BR': ['Ouvir a dica', 'Pausar', 'Ler em texto', 'Ler a dica', 'Voz'], en: ['Listen to the tip', 'Pause', 'Read as text', 'Read the tip', 'Voice'] };
-    var tipPlayer = TIP_AUDIO ? new Audio() : null, tipKey = null, tipVoice = 'mentor';
+    var GRAPH_AUDIO = null;
+    var HACKS = {
+      brief: { audio: TIP_AUDIO, text: TIP_TEXT, dur: TIP_DUR, voices: ['mentor', 'harold'] },
+      graph: { audio: GRAPH_AUDIO, text: { es: "<p class=\"tip-t\">Cómo leer el grafo de origen</p><p>Responde una pregunta: ¿de dónde sale cada agente?</p><ol><li><b>Cada perfil de Audiencia genera diez personas.</b> Sus números casi no cambian; sus vidas, sí.</li><li><b>Las personas del documento son un agente cada una.</b> No vienen de un perfil.</li><li><b>El color es la organización.</b> Te dice a qué organización pertenece cada quien.</li></ol><p class=\"tip-c\">Haz clic en cualquiera para leer su biografía. Para ver las diferencias en OCEAN y PSI, baja al gráfico de desvíos: ahí la escala está ampliada.</p>" }, dur: { harold: { es: '0:33' } }, voices: ['harold'], esOnly: true }
+    };
+    var tipPlayer = (TIP_AUDIO || GRAPH_AUDIO) ? new Audio() : null, tipKey = null, tipVoice = 'mentor', tipHack = 'brief';
     try { tipVoice = localStorage.getItem('sentientum-redesign-voice') || tipVoice; } catch (e) {}
     function tipButtons() { return document.querySelectorAll('.tip-btn'); }
     var HELP_UI = {
-      es: { help: 'Ayuda', eyebrow: 'Hack en audio', inline: 'Hack en audio', close: 'Cerrar', pause: 'Pausar el hack', resume: 'Seguir escuchando', keep: 'Puedes seguir revisando: el audio sigue aunque cierres este panel.', soon: 'Próximamente', steps: { brief: '01 Brief', run: '02 Corrida', answer: '03 Respuesta' }, titles: { brief: 'La constitución', run: 'La corrida', answer: 'La respuesta' }, planned: { run: 'Un hack para leer la matriz de condiciones × réplicas: qué significa que una réplica no se estabilice.', answer: 'Un hack para distinguir una cita verificada de una cercana antes de citarla en un memo.' } },
-      'pt-BR': { help: 'Ajuda', eyebrow: 'Dica em áudio', inline: 'Dica em áudio', close: 'Fechar', pause: 'Pausar a dica', resume: 'Continuar ouvindo', keep: 'Você pode continuar revisando: o áudio segue mesmo se fechar este painel.', soon: 'Em breve', steps: { brief: '01 Brief', run: '02 Execução', answer: '03 Resposta' }, titles: { brief: 'A constituição', run: 'A execução', answer: 'A resposta' }, planned: { run: 'Uma dica para ler a matriz de condições × réplicas: o que significa uma réplica não se estabilizar.', answer: 'Uma dica para distinguir uma citação verificada de uma próxima antes de usá-la num memorando.' } },
-      en: { help: 'Help', eyebrow: 'Audio tip', inline: 'Audio tip', close: 'Close', pause: 'Pause the tip', resume: 'Keep listening', keep: 'Keep reviewing: the audio goes on even if you close this panel.', soon: 'Coming soon', steps: { brief: '01 Brief', run: '02 Run', answer: '03 Answer' }, titles: { brief: 'The constitution', run: 'The run', answer: 'The answer' }, planned: { run: 'A tip for reading the conditions × replicates matrix: what it means when a replicate does not stabilize.', answer: 'A tip for telling a verified quote from a nearby one before you cite it in a memo.' } }
+      es: { help: 'Ayuda', eyebrow: 'Hack en audio', inline: 'Hack en audio', close: 'Cerrar', pause: 'Pausar el hack', resume: 'Seguir escuchando', keep: 'Puedes seguir revisando: el audio sigue aunque cierres este panel.', soon: 'Próximamente', steps: { brief: '01 Brief', run: '02 Corrida', answer: '03 Respuesta', graph: '03 Respuesta · Grafo' }, titles: { brief: 'La constitución', run: 'La corrida', answer: 'La respuesta', graph: 'El grafo de origen' }, esOnly: '', planned: { run: 'Un hack para leer la matriz de condiciones × réplicas: qué significa que una réplica no se estabilice.', answer: 'Un hack para distinguir una cita verificada de una cercana antes de citarla en un memo.' } },
+      'pt-BR': { help: 'Ajuda', eyebrow: 'Dica em áudio', inline: 'Dica em áudio', close: 'Fechar', pause: 'Pausar a dica', resume: 'Continuar ouvindo', keep: 'Você pode continuar revisando: o áudio segue mesmo se fechar este painel.', soon: 'Em breve', steps: { brief: '01 Brief', run: '02 Execução', answer: '03 Resposta', graph: '03 Resposta · Grafo' }, titles: { brief: 'A constituição', run: 'A execução', answer: 'A resposta', graph: 'O grafo de origem' }, esOnly: 'Áudio e texto só em espanhol por enquanto.', planned: { run: 'Uma dica para ler a matriz de condições × réplicas: o que significa uma réplica não se estabilizar.', answer: 'Uma dica para distinguir uma citação verificada de uma próxima antes de usá-la num memorando.' } },
+      en: { help: 'Help', eyebrow: 'Audio tip', inline: 'Audio tip', close: 'Close', pause: 'Pause the tip', resume: 'Keep listening', keep: 'Keep reviewing: the audio goes on even if you close this panel.', soon: 'Coming soon', steps: { brief: '01 Brief', run: '02 Run', answer: '03 Answer', graph: '03 Answer · Graph' }, titles: { brief: 'The constitution', run: 'The run', answer: 'The answer', graph: 'The origin graph' }, esOnly: 'Audio and text in Spanish only for now.', planned: { run: 'A tip for reading the conditions × replicates matrix: what it means when a replicate does not stabilize.', answer: 'A tip for telling a verified quote from a nearby one before you cite it in a memo.' } }
     };
-    var HACK_STEPS = { brief: true };
-    var helpPanel = document.getElementById('help-panel'), helpStep = 'brief', helpOpener = null, heard = false, tipStarted = false;
-    try { heard = localStorage.getItem('sentientum-redesign-heard') === '1'; } catch (e) {}
+    var HACK_STEPS = { brief: true, graph: true };
+    var helpPanel = document.getElementById('help-panel'), helpStep = 'brief', helpOpener = null, heardMap = {}, tipStarted = false;
+    try { heardMap = JSON.parse(localStorage.getItem('sentientum-redesign-heard2') || '{}'); if (localStorage.getItem('sentientum-redesign-heard') === '1') heardMap.brief = true; } catch (e) {}
+    function markHeard(h) { heardMap[h] = true; try { localStorage.setItem('sentientum-redesign-heard2', JSON.stringify(heardMap)); } catch (e) {} }
     function stepOf(el) {
+      var scr = el.closest('.screen');
+      if (scr && scr.querySelector('.ws')) return 'graph';
       var on = el.closest('.s-topbar') && el.closest('.s-topbar').querySelector('.s-steps .on [data-i18n]');
       var k = on ? on.getAttribute('data-i18n') : 'stepBrief';
       return k === 'stepRun' ? 'run' : k === 'stepAnswer' ? 'answer' : 'brief';
@@ -1640,7 +1650,7 @@
       });
     }
     function openHelp(step, opener) {
-      helpStep = step; helpOpener = opener; renderHelp();
+      helpStep = step; helpOpener = opener; renderHelp(); syncTip();
       helpPanel.hidden = false; setExpanded(true);
       helpPanel.querySelector('.hp-close').focus({ preventScroll: true });
     }
@@ -1656,47 +1666,64 @@
       var state = !started ? 'idle' : tipPlayer.paused ? 'paused' : 'playing';
       document.querySelectorAll('.help-nav').forEach(function (n) {
         n.setAttribute('data-state', state);
-        n.classList.toggle('unheard', !heard && stepOf(n) === 'brief');
+        var st = stepOf(n);
+        n.classList.toggle('unheard', !!HACK_STEPS[st] && !heardMap[st]);
         n.querySelector('.ho-lbl').textContent = h.help;
         var mini = n.querySelector('.help-mini');
         mini.hidden = state === 'idle';
         mini.setAttribute('aria-label', state === 'playing' ? h.pause : h.resume);
       });
       document.querySelectorAll('.help-inline').forEach(function (b) {
-        b.classList.toggle('unheard', !heard);
+        b.classList.toggle('unheard', !heardMap[b.getAttribute('data-open-help')]);
         b.querySelector('.hi-lbl').textContent = h.inline;
       });
       if (!helpPanel.hidden) renderHelp();
     }
+    function panelHack() { return HACKS[helpStep] ? helpStep : 'brief'; }
+    function hackKey(h) {
+      var hk = HACKS[h], v = hk.voices.indexOf(tipVoice) >= 0 ? tipVoice : hk.voices[0];
+      var l = hk.audio && hk.audio[v] && hk.audio[v][lang] ? lang : 'es';
+      return { key: h + '|' + v + '|' + l, voice: v, lang: l };
+    }
+    function loadHack(h) {
+      var k = hackKey(h);
+      if (!tipPlayer || !HACKS[h].audio || tipKey === k.key) return;
+      tipPlayer.pause();
+      tipPlayer.src = HACKS[h].audio[k.voice][k.lang];
+      tipKey = k.key; tipHack = h; tipStarted = false;
+      tipButtons().forEach(function (b) { b.style.setProperty('--p', 0); });
+      document.querySelectorAll('.help-mini').forEach(function (m) { m.style.setProperty('--p', 0); });
+    }
     function syncTip() {
-      var ui = TIP_UI[lang] || TIP_UI.es, key = tipVoice + '|' + lang;
-      if (tipPlayer && tipKey !== key) {
-        tipPlayer.pause();
-        tipPlayer.src = (TIP_AUDIO[tipVoice] || TIP_AUDIO.mentor)[lang] || TIP_AUDIO.mentor.es;
-        tipKey = key; tipStarted = false;
-        tipButtons().forEach(function (b) { b.style.setProperty('--p', 0); });
-      }
-      var playing = tipPlayer && !tipPlayer.paused;
+      var ui = TIP_UI[lang] || TIP_UI.es, hui = HELP_UI[lang] || HELP_UI.es, h = panelHack(), hk = HACKS[h], k = hackKey(h);
+      var hasAudio = !!(tipPlayer && hk.audio);
+      if (hasAudio && !tipStarted) loadHack(h);
+      var playingThis = hasAudio && !tipPlayer.paused && tipKey === k.key;
       tipButtons().forEach(function (b) {
-        b.setAttribute('aria-pressed', String(!!playing));
-        b.querySelector('.tip-lbl').textContent = !tipPlayer ? ui[3] : playing ? ui[1] : ui[0];
-        b.querySelector('.tip-dur').textContent = tipPlayer ? ((TIP_DUR[tipVoice] || TIP_DUR.mentor)[lang] || '') : '';
+        b.hidden = !hasAudio;
+        b.setAttribute('aria-pressed', String(!!playingThis));
+        b.querySelector('.tip-lbl').textContent = playingThis ? ui[1] : ui[0];
+        b.querySelector('.tip-dur').textContent = hasAudio ? ((hk.dur[k.voice] || {})[k.lang] || '') : '';
       });
       document.querySelectorAll('.tip-voice').forEach(function (g) {
-        g.hidden = !tipPlayer;
+        g.hidden = !hasAudio;
         g.querySelector('.tip-voice-l').textContent = ui[4];
-        g.querySelectorAll('button').forEach(function (v) { v.setAttribute('aria-pressed', String(v.getAttribute('data-voice') === tipVoice)); });
+        g.querySelectorAll('button').forEach(function (v) {
+          var vv = v.getAttribute('data-voice');
+          v.hidden = hk.voices.indexOf(vv) < 0;
+          v.setAttribute('aria-pressed', String(vv === k.voice));
+        });
       });
-      document.querySelectorAll('.tip-body').forEach(function (d) { d.innerHTML = TIP_TEXT[lang] || TIP_TEXT.es; });
-      document.querySelectorAll('.hp-player .tip-btn').forEach(function (b) { b.hidden = !tipPlayer; });
+      var note = hk.esOnly && lang !== 'es' && hui.esOnly ? '<p class="tip-c">' + hui.esOnly + '</p>' : '';
+      document.querySelectorAll('.tip-body').forEach(function (d) { d.innerHTML = note + (hk.text[lang] || hk.text.es); });
       syncNav();
     }
     if (tipPlayer) {
       ['play', 'pause', 'ended'].forEach(function (ev) { tipPlayer.addEventListener(ev, function () {
-        if (ev === 'ended') { tipButtons().forEach(function (b) { b.classList.add('heard'); b.style.setProperty('--p', 0); }); heard = true; try { localStorage.setItem('sentientum-redesign-heard', '1'); } catch (err) {} }
+        if (ev === 'ended') { tipButtons().forEach(function (b) { b.style.setProperty('--p', 0); }); markHeard(tipHack); }
         if (ev === 'play') tipStarted = true;
         if (ev === 'ended') tipStarted = false;
-        if (ev === 'play' && !heard) { heard = true; try { localStorage.setItem('sentientum-redesign-heard', '1'); } catch (err) {} }
+        if (ev === 'play') markHeard(tipHack);
         syncTip();
       }); });
       tipPlayer.addEventListener('timeupdate', function () {
@@ -1710,6 +1737,7 @@
       if (v) {
         tipVoice = v.getAttribute('data-voice');
         try { localStorage.setItem('sentientum-redesign-voice', tipVoice); } catch (err) {}
+        if (tipPlayer && tipHack === panelHack()) { tipPlayer.pause(); tipStarted = false; }
         syncTip(); return;
       }
       var o = e.target.closest && e.target.closest('.help-open, .help-inline');
@@ -1720,6 +1748,7 @@
       }
       var b = e.target.closest && e.target.closest('.tip-btn, .help-mini');
       if (!b || !tipPlayer) return;
+      if (b.classList.contains('tip-btn') && tipKey !== hackKey(panelHack()).key) { tipStarted = false; loadHack(panelHack()); }
       if (tipPlayer.paused) { var pl = tipPlayer.play(); if (pl && pl.catch) pl.catch(function () {}); } else tipPlayer.pause();
     });
 
