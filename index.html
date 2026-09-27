@@ -624,6 +624,57 @@
     .help-open { padding: 2px; border-radius: 50%; }
   }
   @media (prefers-reduced-motion: reduce) { .help-nav.unheard .ho-ico::after, .help-inline.unheard .hi-ico::after { animation: none; opacity: 1; } }
+
+  /* ---------- Two-pane · Grafo: document -> archetypes -> agents ---------- */
+  .g-thumb { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 6px; border: 1px solid var(--wf-border-subtle); padding: 12px 10px; }
+  .g-thumb div { display: grid; gap: 2px; text-align: center; }
+  .g-thumb b { font: 800 22px/1 var(--s-display); letter-spacing: -0.03em; }
+  .g-thumb div:last-child b { color: var(--wf-accent-text); }
+  .g-thumb span { font-size: 10.5px; color: var(--wf-text-muted); line-height: 1.3; }
+  .g-thumb i { font-style: normal; color: var(--wf-text-muted); }
+  .g-open { justify-self: start; border: 1px solid var(--wf-accent-border); background: var(--wf-accent-soft); color: var(--wf-accent-text); font: 700 12px var(--s-display); padding: 6px 12px; cursor: pointer; }
+  .g-open:hover { border-color: var(--wf-accent); }
+  .ws-tab { border: 0; background: none; padding: 10px 16px; font: inherit; font-size: 12px; color: var(--wf-text-muted); border-right: 1px solid var(--wf-border-subtle); cursor: pointer; }
+  .ws-tab.on { color: var(--wf-accent-text); box-shadow: inset 0 -2px 0 var(--wf-accent); }
+  .ws-tab:focus-visible, .g-open:focus-visible, .g-svg [tabindex]:focus-visible { outline: 2px solid var(--wf-accent); outline-offset: 2px; }
+  .ws-graphview { padding: 18px 20px 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+  .ws-graphview[hidden] { display: none; }
+  .g-head { display: grid; gap: 4px; }
+  .g-count { margin: 0; font-size: 13px; color: var(--wf-text-secondary); }
+  .g-count b { color: var(--wf-text-primary); font-family: var(--s-display); }
+  .g-dep { margin: 0; font-size: 11.5px; color: var(--wf-warning-text); }
+  .g-scroll { overflow-x: auto; }
+  .g-svg svg { display: block; width: 100%; min-width: 620px; height: auto; }
+  .g-svg text { font: 400 9.5px var(--s-mono); fill: var(--wf-text-secondary); }
+  .g-svg .g-colh { font: 400 9.5px var(--s-mono); letter-spacing: 0.12em; fill: var(--wf-text-muted); }
+  .g-svg .g-rel { fill: none; stroke: var(--wf-border-strong); }
+  .g-svg .g-rel-l { fill: var(--wf-text-muted); font-style: italic; }
+  .g-svg .g-doc { fill: var(--wf-bg-page); stroke: var(--wf-text-secondary); stroke-width: 1.4; }
+  .g-svg .g-becomes { stroke: var(--wf-text-muted); stroke-dasharray: 2 3; fill: none; }
+  .g-svg .g-arch { fill: var(--wf-accent-soft); stroke: var(--wf-accent); stroke-width: 1.5; cursor: pointer; }
+  .g-svg .g-arch-l { fill: var(--wf-text-primary); font: 700 10.5px var(--s-display); }
+  .g-svg .g-spawn { stroke: var(--wf-accent); stroke-width: 1.3; stroke-dasharray: 5 3; fill: none; }
+  .g-svg .g-spawn-l { fill: var(--wf-accent-text); font-weight: 700; }
+  .g-svg .g-ag { fill: var(--wf-accent); }
+  .g-svg .g-ag.z { fill: var(--wf-bg-page); stroke: var(--wf-text-secondary); stroke-width: 1.4; }
+  .g-svg .g-hit { fill: transparent; cursor: pointer; }
+  .g-svg .sel .g-ag { stroke: var(--psi-gold); stroke-width: 2.5; }
+  .g-svg .dim { opacity: 0.16; transition: opacity .15s; }
+  .g-key { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11px; color: var(--wf-text-muted); }
+  .g-key i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; border: 1.4px solid var(--wf-text-secondary); }
+  .g-key .k-person { border-radius: 50%; }
+  .g-key .k-media { transform: rotate(45deg) scale(.8); }
+  .g-key .k-arch { border-radius: 50%; border-color: var(--wf-accent); background: var(--wf-accent-soft); }
+  .g-key .k-ag { border-radius: 50%; border: 0; background: var(--wf-accent); width: 8px; height: 8px; }
+  .g-key .k-spawn { width: 16px; height: 0; border: 0; border-top: 1.5px dashed var(--wf-accent); vertical-align: middle; }
+  .g-detail { border-top: 1px solid var(--wf-border-subtle); padding-top: 12px; display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 8px 20px; align-items: start; font-size: 12.5px; color: var(--wf-text-secondary); }
+  .g-detail.empty { display: block; color: var(--wf-text-muted); }
+  .g-detail h4 { margin: 0; font: 800 16px/1.2 var(--s-display); color: var(--wf-text-primary); letter-spacing: -0.02em; }
+  .g-detail .g-meta { margin: 2px 0 8px; font-size: 11.5px; color: var(--wf-text-muted); }
+  .g-detail .g-bio { margin: 0 0 10px; }
+  .g-detail .g-delta { margin: 0; font-size: 11.5px; color: var(--wf-text-muted); border-top: 1px solid var(--wf-border-subtle); padding-top: 8px; }
+  .g-detail .g-delta b { color: var(--psi-gold); }
+  @container (max-width: 520px) { .g-detail { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -1034,7 +1085,12 @@
               </div>
               <div class="s-sec">
                 <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3" data-i18n="wsGraph">Grafo</h3></div>
-                <div class="ws-graph"><canvas class="society" aria-hidden="true"></canvas></div>
+                <div class="g-thumb">
+                  <div><b>5</b><span>entidades del documento</span></div><i aria-hidden="true">→</i>
+                  <div><b>4</b><span>arquetipos de la constitución</span></div><i aria-hidden="true">→</i>
+                  <div><b>42</b><span>agentes en la corrida</span></div>
+                </div>
+                <button type="button" class="g-open" data-ws-tab="graph">Abrir el grafo <span aria-hidden="true">→</span></button>
               </div>
               <div class="s-sec">
                 <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3" data-i18n="wsCast">Elenco</h3></div>
@@ -1047,7 +1103,16 @@
               </div>
             </div>
             <div class="ws-right">
-              <div class="ws-tabs"><span data-i18n="wsRun">Corrida</span><span class="on" data-i18n="wsAnswer">Respuesta</span><span data-i18n="wsQuestions">Preguntas</span></div>
+              <div class="ws-tabs"><button type="button" class="ws-tab" data-ws-tab="graph" data-i18n="wsGraph">Grafo</button><span data-i18n="wsRun">Corrida</span><button type="button" class="ws-tab on" data-ws-tab="answer" data-i18n="wsAnswer">Respuesta</button><span data-i18n="wsQuestions">Preguntas</span></div>
+              <div class="ws-graphview" hidden>
+                <div class="g-head">
+                  <p class="g-count"><b>42 agentes</b> = 40 de 4 arquetipos + 2 personas del documento · 3 organizaciones quedan como contexto</p>
+                  <p class="g-dep"></p>
+                </div>
+                <div class="g-scroll"><div class="g-svg"></div></div>
+                <div class="g-key"><span><i class="k-person"></i>persona</span><span><i class="k-org"></i>organización</span><span><i class="k-media"></i>medio</span><span><i class="k-arch"></i>arquetipo</span><span><i class="k-ag"></i>agente</span><span><i class="k-spawn"></i>genera agentes</span></div>
+                <div class="g-detail" aria-live="polite"></div>
+              </div>
               <div class="ws-body">
                 <p class="s-display" style="font-size:22px;">B, el piloto voluntario, genera menos resistencia en 3 de 4 arquetipos.</p>
                 <div class="dcards">
@@ -1120,7 +1185,7 @@
 
       <section class="g-sec">
         <header><span class="s-num">02</span><h3>Patrones nuevos</h3></header>
-        <p>Dieciséis patrones, cada uno con su referencia externa. Se inspiran en aplicaciones que ya resolvieron el mismo problema de usuario, no en su estética.</p>
+        <p>Diecisiete patrones, cada uno con su referencia externa. Se inspiran en aplicaciones que ya resolvieron el mismo problema de usuario, no en su estética.</p>
         <div class="pattern">
           <div><h4>P1 · Brief con resumen fijo</h4><span class="src">Inspirado en: Stripe Checkout</span><ul><li>Una columna para completar, numerada.</li><li>A la derecha, lo que se va a correr: corridas, tiempo, llamadas, dónde quedan los datos.</li><li>El botón dice exactamente qué pasa: "Correr 15 simulaciones".</li></ul></div>
           <div><h4>P2 · Opción como estímulo literal</h4><span class="src">Inspirado en: variantes de un test A/B</span><ul><li>Cada opción es el texto exacto que verán los agentes.</li><li>El control se agrega solo y no se puede borrar.</li><li>Máximo 3 opciones: más diluye el análisis.</li></ul></div>
@@ -1150,6 +1215,7 @@
           <div><h4>P14 · La multitud</h4><span class="src">Inspirado en: un afiche con multitud en duotono</span><ul><li>Cada cabeza es un agente; las filas crecen hacia abajo, como vistas desde el escenario.</li><li>Duotono Basil y Potting Soil; los agentes que deliberan, en Cherry Tomato, cambian cada pocos segundos.</li><li>Ocupa la mitad inferior; el texto va arriba, sobre la página.</li><li>Canvas 2D; quieta con <code>prefers-reduced-motion</code>.</li></ul></div>
           <div><h4>P15 · Card de agente con radar</h4><span class="src">Inspirado en: cartas coleccionables y el ecualizador de un mezclador</span><ul><li>Frente: retrato ilustrado y sonriente, código, rol y de dónde salen sus rasgos. Al pasar el mouse o dar foco, el retrato saluda en un loop de 3 s (WebP animado); con <i>reduced motion</i> queda la imagen fija. Dorso: radar con OCEAN (5 ejes) y PSI (3 ejes, en dorado) superpuestos.</li><li>La línea punteada es lo que dice la constitución; el área es el valor actual. Editar muestra la diferencia, nunca la oculta.</li><li>Solo se ecualizan los agentes que salen de un arquetipo, y el cambio aplica a todo el arquetipo. Las entidades del grafo se ven, no se editan, y la card dice por qué.</li><li>En la card y en la ficha del Brief, el mismo radar con dos capas: OCEAN en el color activo y PSI superpuesto en dorado translúcido (22 %), con sus 3 ejes entre los de OCEAN. El dorado identifica la serie PSI, no un estado. Las barras debajo dan el valor exacto. El avatar circular es la única excepción al «sin radio»: es contenido, no contenedor.</li><li>«Ver ficha» invita a abrirla: mini avatar con un anillo dorado que late, borde izquierdo en semicírculo concéntrico con el avatar (se detiene al abrir y con <i>reduced motion</i>), color activo, pista «OCEAN · PSI» y una flecha que gira. Abierta dice «Ocultar ficha».</li><li>Sin sombra ni radio: la card es una celda de la grilla separada por 1 px. El giro respeta <i>reduced motion</i> y la cara oculta queda inerte.</li></ul></div>
           <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Vive en la navegación: un botón «Ayuda» en la barra de pasos abre un panel <b>no modal</b> (acoplado a la derecha en desktop, hoja inferior en el teléfono). No oscurece ni bloquea: se sigue revisando el paso mientras se escucha.</li><li>El audio sigue aunque se cierre el panel: la barra muestra un mini reproductor con pausa y un anillo dorado de progreso. Esc cierra el panel y el foco vuelve al botón que lo abrió.</li><li>El panel es contextual: muestra el hack del paso actual. En la sección donde aplica queda una entrada compacta («Hack en audio») que abre el mismo panel. El anillo dorado late hasta la primera escucha.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
+          <div><h4>P17 · Grafo de origen</h4><span class="src">Inspirado en: los diagramas de linaje de datos</span><ul><li>Tres capas de izquierda a derecha: lo que dice el documento, lo que declara la constitución y los agentes que corren. Explica el origen; no reemplaza al grafo de exploración.</li><li>Un contador arriba hace la cuenta: 40 de 4 arquetipos + 2 personas del documento = 42. Las organizaciones quedan como contexto, sin agente.</li><li>La forma dice el tipo (círculo persona, cuadrado organización, rombo medio); el color activo marca lo que genera agentes.</li><li>Al pasar sobre un arquetipo se iluminan sus 10 agentes. Al elegir un agente, su radar se dibuja sobre el del arquetipo: la diferencia es de ±0,05 como máximo. Mismos rasgos, distinta vida.</li></ul></div>
         </div>
       </section>
 
@@ -1702,6 +1768,132 @@
     }
     var deck = document.getElementById('deck');
     AGENTS.forEach(function (a) { deck.appendChild(buildCard(a)); });
+
+    // Two-pane · Grafo. Explanatory layout, not a force graph: where each agent comes from.
+    var G_ARCH = [{"code": "A-1", "short": "Ejecutivo", "role": "Ejecutivo de presupuesto", "ocean": [0.55, 0.9, 0.7, 0.35, 0.4], "psi": [0.9, 0.4, 0.75], "people": [["Ricardo Salazar", 52, "Revisa el costo por hora antes que cualquier otra cifra."], ["Gabriela Ortiz", 48, "Viene de finanzas; quiere el ahorro visible en el trimestre."], ["Tomás Rivas", 55, "Aprobó el último recorte y no quiere repetir la discusión."], ["Inés Paredes", 44, "Pide un piloto con metas medibles antes de escalar."], ["Julián Castro", 50, "Desconfía de las herramientas que nadie sabe mantener."], ["Carolina Vega", 46, "Le preocupa el gasto en licencias más que la formación."], ["Esteban Molina", 58, "Negocia con proveedores; compara todo con el año pasado."], ["Natalia Rojas", 41, "Defiende la inversión si hay retorno en seis meses."], ["Andrés Fuentes", 53, "Lee los informes de adopción de otras plantas."], ["Paula Herrera", 49, "Quiere un responsable claro para cada peso invertido."]]}, {"code": "A-2", "short": "Mando medio", "role": "Mando medio de operaciones", "ocean": [0.35, 0.8, 0.45, 0.6, 0.7], "psi": [0.4, 0.75, 0.85], "people": [["Marta Quiroga", 46, "Coordina el turno noche; teme perder a su mejor operario."], ["Diego Ramírez", 39, "Arma los horarios: cada hora de formación es una hora sin cubrir."], ["Lorena Díaz", 51, "Lleva 20 años en planta y vio fallar dos sistemas nuevos."], ["Héctor Gómez", 43, "Quiere saber quién responde si la herramienta se equivoca."], ["Sofía Navarro", 37, "Le interesa si le quita papeleo, no si es moderna."], ["Raúl Medina", 48, "Protege a su equipo de los cambios que llegan sin aviso."], ["Valeria Cruz", 41, "Pide que la formación sea en horario laboral."], ["Óscar Peña", 54, "Teme que el plazo de 90 días caiga en temporada alta."], ["Beatriz Luna", 45, "Confía en su equipo; desconfía de los plazos que bajan de arriba."], ["Fernando Soto", 50, "Acepta el cambio si alguien de su equipo lo lidera."]]}, {"code": "A-3", "short": "Analista", "role": "Analista de datos", "ocean": [0.85, 0.65, 0.4, 0.5, 0.35], "psi": [0.8, 0.45, 0.55], "people": [["Lucía Ferrer", 31, "Ya usa scripts propios; quiere mejores herramientas, no más reglas."], ["Martín Acosta", 28, "Aprende rápido si le dan tiempo protegido."], ["Camila Ríos", 34, "Pregunta qué datos se van a compartir y con quién."], ["Nicolás Vargas", 29, "Quiere ver casos reales antes de opinar."], ["Daniela Mora", 33, "Apoya B si la formación es pagada."], ["Sebastián León", 36, "Teme que la usen para medir su productividad."], ["Laura Campos", 27, "Propone un canal para compartir trucos entre equipos."], ["Felipe Aguirre", 32, "Le importa poder elegir la herramienta."], ["Andrea Silva", 30, "Quiere una certificación al terminar el curso."], ["Pablo Méndez", 35, "Duda del plazo, no de la idea."]]}, {"code": "A-4", "short": "Sindical", "role": "Representante sindical", "ocean": [0.45, 0.7, 0.75, 0.55, 0.55], "psi": [0.65, 0.85, 0.6], "people": [["Hernán Rojas", 57, "Habla por el equipo; rechaza los plazos no negociados."], ["Rosa Figueroa", 52, "Pide garantías de que nadie pierde el puesto."], ["Jorge Salinas", 60, "Recuerda la última reestructuración como una promesa rota."], ["Mónica Ibarra", 47, "Quiere la formación por escrito en el convenio."], ["Alberto Cano", 55, "Acepta B si el sindicato participa en el diseño."], ["Patricia Lara", 49, "Recoge las dudas del turno noche."], ["Ramón Ponce", 58, "Desconfía de cualquier métrica individual."], ["Silvia Marín", 44, "Pide que el piloto sea voluntario de verdad."], ["Gustavo Reyes", 53, "Lleva el conflicto al ministerio si no hay acuerdo."], ["Elena Bravo", 50, "Quiere que el ahorro se reinvierta en el equipo."]]}];
+    var G_DOC = {"people": [{"id": "Z-1", "name": "Paula Méndez", "etype": "journalist", "age": 36, "bio": "Periodista de economía; firmó la nota sobre el plan.", "ocean": [0.75, 0.6, 0.65, 0.4, 0.45], "psi": [0.7, 0.4, 0.6]}, {"id": "Z-2", "name": "Arturo Villalba", "etype": "official", "age": 61, "bio": "Funcionario del Ministerio de Trabajo; citado sobre la norma de jornada.", "ocean": [0.4, 0.85, 0.5, 0.55, 0.4], "psi": [0.75, 0.55, 0.8]}], "orgs": [{"id": "o-diario", "name": "Diario La Nota", "etype": "mediaoutlet", "shape": "diamond"}, {"id": "o-sind", "name": "Sindicato de Operarios", "etype": "group", "shape": "square"}, {"id": "o-min", "name": "Ministerio de Trabajo", "etype": "governmentagency", "shape": "square"}], "rels": [["Z-1", "o-diario", "escribe en"], ["o-diario", "o-sind", "cubre"], ["o-sind", "o-min", "negocia con"], ["Z-2", "o-min", "trabaja en"]]};
+    var GRAPH_DEP = 'Por construir: hoy cada agente sale de una entidad del documento; que un arquetipo genere 10 agentes es el siguiente paso del motor.';
+    function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+    // Each agent: the archetype vector moved by at most 0.05 per trait (TRAIT_SPREAD), kept in [0, 1].
+    G_ARCH.forEach(function (a, ai) {
+      var base = a.ocean.concat(a.psi);
+      a.agents = a.people.map(function (pp, i) {
+        var r = rng(1000 * (ai + 1) + i);
+        return { name: pp[0], age: pp[1], bio: pp[2], idx: i, vec: base.map(function (v) { return Math.round(Math.min(1, Math.max(0, v + (r() * 0.1 - 0.05))) * 100) / 100; }) };
+      });
+    });
+    function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+    function graphSvg() {
+      var W = 760, H = 500, xDoc = 176, xArch = 404, xAg = 574, o = [];
+      var pos = { 'Z-1': [xDoc, 64], 'Z-2': [xDoc, 118], 'o-diario': [xDoc, 205], 'o-sind': [xDoc, 300], 'o-min': [xDoc, 400] };
+      o.push('<text class="g-colh" x="' + xDoc + '" y="22" text-anchor="middle">DOCUMENTO · ZEP</text>');
+      o.push('<text class="g-colh" x="' + xArch + '" y="22" text-anchor="middle">CONSTITUCIÓN</text>');
+      o.push('<text class="g-colh" x="' + (xAg + 40) + '" y="22" text-anchor="middle">AGENTES</text>');
+      // relations between document entities: arcs bulging right, label at the bulge
+      G_DOC.rels.forEach(function (rl, i) {
+        var a = pos[rl[0]], b = pos[rl[1]], bulge = rl[0] === 'Z-2' ? 118 : 58, my = (a[1] + b[1]) / 2;
+        o.push('<path class="g-rel" d="M' + a[0] + ',' + a[1] + ' Q' + (xDoc + bulge * 2) + ',' + my + ' ' + b[0] + ',' + b[1] + '"/>');
+        o.push('<text class="g-rel-l" x="' + (xDoc + bulge + 6) + '" y="' + (my + 3) + '">' + rl[2] + '</text>');
+      });
+      // people become one agent each
+      G_DOC.people.forEach(function (d, i) {
+        var y = pos[d.id][1];
+        o.push('<line class="g-becomes" x1="' + (xDoc + 10) + '" y1="' + y + '" x2="' + (xAg - 8) + '" y2="' + y + '"/>');
+        if (i === 0) o.push('<text class="g-rel-l" x="' + ((xDoc + xAg) / 2) + '" y="' + (y - 6) + '" text-anchor="middle">se vuelve 1 agente</text>');
+      });
+      G_DOC.people.forEach(function (d) {
+        var p = pos[d.id];
+        o.push('<circle class="g-doc" cx="' + p[0] + '" cy="' + p[1] + '" r="9"/>');
+        o.push('<text x="' + (p[0] - 16) + '" y="' + (p[1] + 3) + '" text-anchor="end">' + esc(d.name) + '</text>');
+        o.push('<text class="g-rel-l" x="' + (p[0] - 16) + '" y="' + (p[1] + 15) + '" text-anchor="end">' + d.etype + '</text>');
+        o.push('<g data-agent="' + d.id + '" tabindex="0" role="button" aria-label="Agente ' + d.id + ', ' + esc(d.name) + '"><circle class="g-ag z" cx="' + xAg + '" cy="' + p[1] + '" r="6"/><circle class="g-hit" cx="' + xAg + '" cy="' + p[1] + '" r="11"/></g>');
+        o.push('<text x="' + (xAg + 14) + '" y="' + (p[1] + 3) + '">' + d.id + ' · ' + esc(d.name) + '</text>');
+      });
+      G_DOC.orgs.forEach(function (d) {
+        var p = pos[d.id], sh;
+        if (d.shape === 'diamond') sh = '<rect class="g-doc" x="' + (p[0] - 7) + '" y="' + (p[1] - 7) + '" width="14" height="14" transform="rotate(45 ' + p[0] + ' ' + p[1] + ')"/>';
+        else sh = '<rect class="g-doc" x="' + (p[0] - 8) + '" y="' + (p[1] - 8) + '" width="16" height="16"/>';
+        o.push(sh);
+        o.push('<text x="' + (p[0] - 16) + '" y="' + (p[1] + 3) + '" text-anchor="end">' + esc(d.name) + '</text>');
+        o.push('<text class="g-rel-l" x="' + (p[0] - 16) + '" y="' + (p[1] + 15) + '" text-anchor="end">' + d.etype + ' · contexto</text>');
+      });
+      // archetypes spawn ten agents each
+      G_ARCH.forEach(function (a, ai) {
+        var y = 190 + ai * 85;
+        o.push('<g data-arch="' + a.code + '">');
+        o.push('<line class="g-spawn" x1="' + (xArch + 22) + '" y1="' + y + '" x2="' + (xAg - 10) + '" y2="' + y + '"/>');
+        o.push('<text class="g-spawn-l" x="' + ((xArch + xAg) / 2) + '" y="' + (y - 6) + '" text-anchor="middle">×10 · ±0,05</text>');
+        o.push('<circle class="g-arch" cx="' + xArch + '" cy="' + y + '" r="20" tabindex="0" role="button" aria-label="Arquetipo ' + a.code + ', ' + a.role + '"/>');
+        o.push('<text class="g-arch-l" x="' + xArch + '" y="' + (y + 4) + '" text-anchor="middle" style="pointer-events:none">' + a.code + '</text>');
+        o.push('<text x="' + xArch + '" y="' + (y + 34) + '" text-anchor="middle">' + a.short + '</text>');
+        a.agents.forEach(function (ag, i) {
+          var cx = xAg + (i % 5) * 18, cy = y + (i < 5 ? -9 : 9);
+          o.push('<g data-agent="' + a.code + ':' + i + '" tabindex="0" role="button" aria-label="Agente ' + (i + 1) + ' de ' + a.code + ', ' + esc(ag.name) + '"><circle class="g-ag" cx="' + cx + '" cy="' + cy + '" r="5"/><circle class="g-hit" cx="' + cx + '" cy="' + cy + '" r="9"/></g>');
+        });
+        o.push('<text x="' + (xAg + 4 * 18 + 16) + '" y="' + (y + 3) + '">10 agentes</text>');
+        o.push('</g>');
+      });
+      return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Grafo: 5 entidades del documento, 4 arquetipos de la constitución y 42 agentes">' + o.join('') + '</svg>';
+    }
+    var G_EMPTY = 'Mismos rasgos, distinta vida. Pasa el mouse sobre un arquetipo para ver sus 10 agentes; haz clic en un agente para ver su radar sobre el del arquetipo y su historia.';
+    document.querySelectorAll('.g-svg').forEach(function (h) { h.innerHTML = graphSvg(); });
+    document.querySelectorAll('.g-dep').forEach(function (d) { d.textContent = GRAPH_DEP; });
+    document.querySelectorAll('.g-detail').forEach(function (d) { d.className = 'g-detail empty'; d.textContent = G_EMPTY; });
+    function showAgent(view, id) {
+      var det = view.querySelector('.g-detail'), name, meta, bio, base, cur, delta = '';
+      if (id.indexOf(':') > 0) {
+        var a = G_ARCH.filter(function (x) { return x.code === id.split(':')[0]; })[0], ag = a.agents[+id.split(':')[1]];
+        base = a.ocean.concat(a.psi); cur = ag.vec;
+        var best = 0, bi = 0;
+        cur.forEach(function (v, i) { var d = Math.abs(v - base[i]); if (d > best) { best = d; bi = i; } });
+        name = ag.name; meta = a.code + ' · ' + a.role + ' · agente ' + (ag.idx + 1) + ' de 10 · ' + ag.age + ' años'; bio = ag.bio;
+        delta = 'Su mayor diferencia con el arquetipo: <b>' + (cur[bi] >= base[bi] ? '+' : '−') + best.toFixed(2).replace('.', ',') + '</b> en ' + AXES[bi][1] + '. El resto de su diferencia está en la historia, no en los números.';
+      } else {
+        var d0 = G_DOC.people.filter(function (x) { return x.id === id; })[0];
+        base = d0.ocean.concat(d0.psi); cur = base;
+        name = d0.name; meta = d0.id + ' · entidad ' + d0.etype + ' del documento · ' + d0.age + ' años'; bio = d0.bio;
+        delta = 'Sin arquetipo: el modelo generó sus rasgos a partir del documento. Es 1 agente, no 10.';
+      }
+      det.className = 'g-detail';
+      det.innerHTML = '<svg class="radar" viewBox="0 0 260 234" role="img" aria-label="Radar de ' + esc(name) + '">' + radarSvg(base, cur) + '</svg>' +
+        '<div><h4>' + esc(name) + '</h4><p class="g-meta">' + esc(meta) + '</p><p class="g-bio">' + esc(bio) + '</p><p class="g-delta">' + delta + '</p></div>';
+      view.querySelectorAll('[data-agent]').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-agent') === id); });
+    }
+    function highlight(svg, code) {
+      svg.querySelectorAll('[data-arch]').forEach(function (g) { g.classList.toggle('dim', !!code && g.getAttribute('data-arch') !== code); });
+      svg.querySelectorAll('.g-doc, .g-rel, .g-becomes, [data-agent^="Z-"]').forEach(function (e) { e.classList.toggle('dim', !!code); });
+    }
+    document.addEventListener('mouseover', function (e) {
+      var g = e.target.closest && e.target.closest('.g-svg [data-arch]');
+      var svg = e.target.closest && e.target.closest('.g-svg');
+      if (svg) highlight(svg, g ? g.getAttribute('data-arch') : null);
+    });
+    document.addEventListener('focusin', function (e) {
+      var g = e.target.closest && e.target.closest('.g-svg [data-arch]');
+      var svg = e.target.closest && e.target.closest('.g-svg');
+      if (svg) highlight(svg, g ? g.getAttribute('data-arch') : null);
+    });
+    document.addEventListener('mouseout', function (e) {
+      var svg = e.target.closest && e.target.closest('.g-svg');
+      if (svg && !svg.contains(e.relatedTarget)) highlight(svg, null);
+    });
+    function pickAgent(e) {
+      var g = e.target.closest && e.target.closest('.g-svg [data-agent]');
+      if (!g) return false;
+      showAgent(g.closest('.ws-graphview'), g.getAttribute('data-agent'));
+      return true;
+    }
+    document.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && pickAgent(e)) e.preventDefault(); });
+    document.addEventListener('click', function (e) {
+      if (pickAgent(e)) return;
+      var t = e.target.closest && e.target.closest('[data-ws-tab]');
+      if (!t) return;
+      var ws = t.closest('.ws'), tab = t.getAttribute('data-ws-tab');
+      ws.querySelectorAll('.ws-tab').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-ws-tab') === tab); });
+      ws.querySelector('.ws-graphview').hidden = tab !== 'graph';
+      ws.querySelector('.ws-body').hidden = tab === 'graph';
+      if (t.classList.contains('g-open')) ws.querySelector('.ws-tab[data-ws-tab="graph"]').focus({ preventScroll: true });
+    });
 
     function render() {
       views.home.hidden = !(tab === 'home' && device === 'desktop');
