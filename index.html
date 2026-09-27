@@ -282,6 +282,59 @@
     .composer label.attach { padding: 0 12px; }
   }
 
+
+  /* ---------- feedback adjustments: certainty, decision cards, i18n, workspace ---------- */
+  .s-metabar { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 9px 28px; border-bottom: 1px solid var(--wf-border-subtle); font-size: 12px; color: var(--wf-text-muted); }
+  .s-metabar b { color: var(--wf-text-primary); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .s-metabar .bad b { color: var(--wf-danger); }
+  .cert { display: inline-flex; align-items: center; gap: 6px; white-space: normal; overflow-wrap: anywhere; font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border: 1px solid; width: fit-content; }
+  .cert.verified { color: var(--wf-success); border-color: var(--wf-success); }
+  .cert.nearby { color: var(--wf-warning-text); border-color: var(--wf-warning); border-style: dashed; }
+  .cert.unsupported { color: var(--wf-danger); border-color: var(--wf-danger); border-style: dotted; }
+  .dcards { display: grid; border-top: 1px solid var(--wf-border-subtle); }
+  .dcard { display: grid; gap: 8px; padding: 14px 0 14px 14px; border-bottom: 1px solid var(--wf-border-subtle); border-left: 2px solid var(--wf-border-strong); }
+  .dcard.verified { border-left-color: var(--wf-success); }
+  .dcard.nearby { border-left-color: var(--wf-warning); border-left-style: dashed; }
+  .dcard.unsupported { border-left-color: var(--wf-danger); border-left-style: dotted; }
+  .dcard h4 { margin: 0; font: 700 15px/1.3 var(--s-display); letter-spacing: -0.03em; text-wrap: balance; }
+  .dcard .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: var(--wf-text-muted); }
+  .dcard p { margin: 0; font-size: 13px; text-wrap: pretty; }
+  .dcard .actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  .act { border: 1px solid var(--wf-border-strong); background: transparent; color: var(--wf-text-primary); padding: 6px 10px; font-size: 12px; width: fit-content; }
+  .act:hover { border-color: var(--wf-accent); color: var(--wf-accent-text); }
+  .suggest { display: grid; border-top: 1px solid var(--wf-border-subtle); }
+  .suggest button { all: unset; box-sizing: border-box; padding: 9px 0; border-bottom: 1px solid var(--wf-border-subtle); font-size: 12.5px; cursor: pointer; text-wrap: pretty; }
+  .suggest button:hover b, .suggest button:focus-visible b { color: var(--wf-accent-text); }
+  .suggest button b { font-weight: 500; }
+  .suggest button span { display: block; font-size: 11px; color: var(--wf-text-muted); }
+  details.ficha { grid-column: 2 / -1; font-size: 12px; color: var(--wf-text-secondary); }
+  details.ficha summary { cursor: pointer; color: var(--wf-text-muted); font-size: 11.5px; width: fit-content; }
+  .traits { display: grid; grid-template-columns: repeat(auto-fit, minmax(88px, 1fr)); gap: 8px 12px; margin-top: 8px; }
+  .traits span { display: grid; gap: 3px; font-variant-numeric: tabular-nums; }
+  .traits i { display: block; height: 4px; background: var(--wf-border-subtle); }
+  .traits i b { display: block; height: 100%; background: var(--wf-text-muted); }
+  .src-tag { font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .src-tag.seed { color: var(--wf-success); }
+  .src-tag.gen { color: var(--wf-warning-text); }
+  .ws { display: grid; grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.6fr); }
+  .ws-left { border-right: 1px solid var(--wf-border-subtle); padding: 20px; display: grid; gap: 22px; align-content: start; min-width: 0; }
+  .ws-right { display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+  .ws-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--wf-border-subtle); }
+  .ws-tabs span { padding: 10px 16px; font-size: 12px; color: var(--wf-text-muted); border-right: 1px solid var(--wf-border-subtle); }
+  .ws-tabs span.on { color: var(--wf-accent-text); box-shadow: inset 0 -2px 0 var(--wf-accent); }
+  .ws-body { padding: 20px; display: grid; gap: 18px; align-content: start; min-width: 0; }
+  .ws-graph { position: relative; height: 150px; border: 1px solid var(--wf-border-subtle); overflow: hidden; }
+  .ws-graph canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .proscons { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--wf-border-subtle); font-size: 12.5px; padding-inline: 12px; }
+  .proscons > div { padding: 12px 16px 12px 0; display: grid; gap: 6px; align-content: start; }
+  .proscons > div + div { padding-left: 16px; border-left: 1px solid var(--wf-border-subtle); }
+  .proscons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; color: var(--wf-text-secondary); }
+  @media (max-width: 720px) { .proscons { grid-template-columns: 1fr; } .proscons > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--wf-border-subtle); } }
+  @container (max-width: 640px) {
+    .ws { grid-template-columns: 1fr; }
+    .ws-left { border-right: 0; border-bottom: 1px solid var(--wf-border-subtle); }
+    .s-metabar { padding: 9px 16px; }
+  }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -302,6 +355,11 @@
       <button id="btn-desktop" aria-pressed="true">Vista Desktop</button>
       <button id="btn-mobile" aria-pressed="false">Vista Mobile</button>
     </div>
+    <div class="seg" role="group" aria-label="Idioma de la interfaz" id="lang-seg">
+      <button data-lang="es" aria-pressed="true">ES</button>
+      <button data-lang="pt-BR" aria-pressed="false">PT-BR</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
   </div>
 </div>
 
@@ -309,7 +367,7 @@
   <section class="intro" id="intro">
     <span class="k">Propuesta de UX · del recorrido actual a tres pantallas</span>
     <h2>Brief, Corrida, Respuesta. Todo lo demás, en modo experto.</h2>
-    <p>El recorrido actual tiene 5 etapas, 9 paneles en el Command Center y 4 herramientas de interacción. Esta propuesta conserva el sistema visual del producto (Martian Mono y JetBrains Mono, grises cálidos, un solo violeta para lo activo, separación con líneas de 1 px) y reorganiza el camino principal alrededor de una decisión.</p>
+    <p>El recorrido actual tiene 5 etapas, 9 paneles en el Command Center y 4 herramientas de interacción. Esta propuesta conserva el sistema visual del producto (Martian Mono y JetBrains Mono, grises cálidos, un solo violeta para lo activo, separación con líneas de 1 px) y reorganiza el camino principal alrededor de una decisión. El selector ES · PT-BR · EN cambia los textos de la interfaz para probar cómo se comporta cada idioma.</p>
     <div class="flow" aria-label="Correspondencia de etapas">
       <span><b>00 Home</b> ← "Upload the seed"</span>
       <span><b>01 Brief</b> ← Launch Lab · Graph Build · Env Setup</span>
@@ -330,17 +388,17 @@
             <div class="s-tools"><a href="#flujo">Simulaciones</a> · Ajustes</div>
           </div>
           <div class="hero-center">
-            <span class="hero-status"><i></i>Local · tus datos quedan en esta máquina</span>
-            <h2 class="hero-h">Compara antes de decidir.</h2>
-            <p class="hero-sub">Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.</p>
+            <span class="hero-status"><i></i><span data-i18n="status">Local · tus datos quedan en esta máquina</span></span>
+            <h2 class="hero-h" data-i18n="heroH">Compara antes de decidir.</h2>
+            <p class="hero-sub" data-i18n="heroSub">Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.</p>
             <form class="composer" id="home-composer">
               <label class="attach" title="Adjuntar constitución o contexto (.md, .pdf, .txt)">+<input type="file" id="home-file" accept=".md,.pdf,.txt"></label>
               <textarea id="home-decision" rows="2" aria-label="Decisión" placeholder="¿Qué necesitas decidir? Por ejemplo: qué programa de adopción de IA lanzamos">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</textarea>
-              <button class="s-btn" type="submit">Armar brief <span>→</span></button>
+              <button class="s-btn" type="submit"><span data-i18n="buildBrief">Armar brief</span> <span>→</span></button>
             </form>
             <div class="attached" id="home-attached"><span><b>constitucion_adopcion_ia.md</b></span><span class="ok">4 arquetipos · vectores OCEAN y PSI detectados</span></div>
-            <div class="hero-links"><a href="#flujo">Simulaciones anteriores (7)</a><a href="#flujo">Ver una respuesta de ejemplo</a></div>
-            <p class="hero-note">Recomendado: 2 o 3 opciones y 5 réplicas por opción. Una sola corrida no alcanza para decidir.</p>
+            <div class="hero-links"><a href="#flujo" data-i18n="prevRuns">Simulaciones anteriores (7)</a><a href="#respuesta" data-i18n="sampleAnswer">Ver una respuesta de ejemplo</a></div>
+            <p class="hero-note" data-i18n="heroNote">Recomendado: 2 o 3 opciones y 5 réplicas por opción. Una sola corrida no alcanza para decidir.</p>
           </div>
         </div>
         <div class="ref"><b>Inspirado en</b> el Home de Aura Studio: fondo vivo, un solo compositor con adjuntar, un enlace secundario y una nota de guía (allí, "entre 20 y 50 búsquedas"; aquí, "2 o 3 opciones y 5 réplicas"). · <b>Traducido al sistema de Sentientum</b> sin vidrio, radios ni sombras: el compositor es un marco de 1 px sobre la página translúcida; el único color es el estado (verde = local, violeta = agente activo). · <b>El fondo es la sociedad</b>: agentes que derivan en gris, líneas de 1 px cuando dos deliberan cerca, unos pocos en violeta. Canvas 2D liviano, no WebGL; se detiene con la pestaña oculta y queda quieto con <code>prefers-reduced-motion</code>. · <b>Reemplaza</b> "Upload the seed. Trace the behavior." y el formulario de brief libre.</div>
@@ -392,18 +450,18 @@
         <div class="screen">
           <div class="s-topbar">
             <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
-            <div class="s-steps"><span class="on">01 Brief</span><span>02 Corrida</span><span>03 Respuesta</span></div>
+            <div class="s-steps"><span class="on"><span data-i18n="stepBrief">01 Brief</span></span><span><span data-i18n="stepRun">02 Corrida</span></span><span><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
             <div class="s-tools">Español · Claro · Ajustes</div>
           </div>
           <div class="s-split">
             <div class="s-pane">
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3">Decisión</h3></div>
+                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3" data-i18n="hDecision">Decisión</h3></div>
                 <p class="s-help">Qué hay que elegir, en una frase. La respuesta que esperas no va aquí.</p>
                 <div class="s-field">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</div>
               </div>
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3">Opciones</h3></div>
+                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3" data-i18n="hOptions">Opciones</h3></div>
                 <p class="s-help">El texto exacto que verán los agentes. Cada opción es una condición; el control se agrega solo.</p>
                 <div class="s-rows">
                   <div class="s-row"><span class="code">A</span><span>"La dirección anuncia que en 90 días todos los procesos de reporte pasan a IA; quien no se certifique pierde el bono."</span><span class="meta">estímulo</span></div>
@@ -413,17 +471,25 @@
                 <div class="s-add">+ Agregar opción · máximo 3</div>
               </div>
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Audiencia</h3></div>
-                <p class="s-help">Leída de la constitución: 4 de 4 arquetipos con vectores OCEAN y PSI.</p>
+                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3" data-i18n="hAudience">Audiencia</h3></div>
+                <p class="s-help">4 arquetipos leídos de la constitución; A-4 no declara su PSI completo.</p>
                 <div class="s-rows">
-                  <div class="s-row"><span class="code">A-1</span><span>Ejecutivo de presupuesto<br><span class="meta">O .55 C .90 E .70 A .35 N .40 · Competencia .90</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
-                  <div class="s-row"><span class="code">A-2</span><span>Mando medio de operaciones<br><span class="meta">O .35 C .80 E .45 A .60 N .70 · Certeza .85</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
-                  <div class="s-row"><span class="code">A-3</span><span>Analista de datos<br><span class="meta">O .85 C .65 E .40 A .50 N .35 · Competencia .80</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
-                  <div class="s-row"><span class="code">A-4</span><span>Representante sindical<br><span class="meta">O .45 C .70 E .75 A .55 N .55 · Afiliación .90</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
+                  <div class="s-row"><span class="code">A-1</span><span>Ejecutivo de presupuesto<br><span class="meta">O .55 C .90 E .70 A .35 N .40 · Competencia .90</span> <span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
+                  <div class="s-row"><span class="code">A-2</span><span>Mando medio de operaciones<br><span class="meta">O .35 C .80 E .45 A .60 N .70 · Certeza .85</span> <span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span>
+                    <details class="ficha" open><summary data-i18n="ficha">Ver ficha</summary>
+                      <div class="traits">
+                        <span>O · .35<i><b style="width:35%"></b></i></span><span>C · .80<i><b style="width:80%"></b></i></span><span>E · .45<i><b style="width:45%"></b></i></span><span>A · .60<i><b style="width:60%"></b></i></span><span>N · .70<i><b style="width:70%"></b></i></span>
+                        <span>Certeza · .85<i><b style="width:85%"></b></i></span><span>Competencia · .40<i><b style="width:40%"></b></i></span><span>Afiliación · .75<i><b style="width:75%"></b></i></span>
+                      </div>
+                      <p class="s-help" style="margin-top:6px;">Cada uno de sus 10 agentes varía como máximo ±0,05 por rasgo. Edad y ocupación todavía las propone el modelo.</p>
+                    </details>
+                  </div>
+                  <div class="s-row"><span class="code">A-3</span><span>Analista de datos<br><span class="meta">O .85 C .65 E .40 A .50 N .35 · Competencia .80</span> <span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
+                  <div class="s-row"><span class="code">A-4</span><span>Representante sindical<br><span class="meta">O .45 C .70 E .75 A .55 N .55 · PSI incompleto</span> <span class="src-tag gen" data-i18n="srcGen">PSI generado</span></span><span class="stepper"><i>−</i><b>10</b><i>+</i></span></div>
                 </div>
               </div>
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3">Contexto</h3></div>
+                <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3" data-i18n="hContext">Contexto</h3></div>
                 <p class="s-help">Se usa como evidencia del mundo simulado, no como instrucciones.</p>
                 <div class="s-rows">
                   <div class="s-row"><span class="code">MD</span><span>constitucion_adopcion_ia.md</span><span class="meta">4 arquetipos</span></div>
@@ -431,26 +497,26 @@
                 </div>
               </div>
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">05</span><h3 class="s-h3">Qué observar</h3></div>
+                <div class="s-sec-h"><span class="s-num">05</span><h3 class="s-h3" data-i18n="hWatch">Qué observar</h3></div>
                 <p class="s-help">Señales piloteadas antes de correr. El sentimiento en porcentaje no se calcula.</p>
                 <div class="chips"><span class="chip on">resistencia</span><span class="chip on">adopción</span><span class="chip on">miedo a perder el puesto</span><span class="chip">+ señal</span></div>
               </div>
             </div>
             <div class="s-pane">
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">→</span><h3 class="s-h3">Lo que vas a correr</h3></div>
-                <div class="s-big">15 corridas</div>
+                <div class="s-sec-h"><span class="s-num">→</span><h3 class="s-h3" data-i18n="hWillRun">Lo que vas a correr</h3></div>
+                <div class="s-big" data-i18n="runs15">15 corridas</div>
                 <p class="s-help">3 condiciones × 5 réplicas. Más réplicas si el orden entre opciones no se estabiliza.</p>
                 <div class="s-sum">
-                  <div><span>Agentes por corrida</span><span>40 + contexto</span></div>
-                  <div><span>Rondas</span><span>12 · de 9 a 20 h</span></div>
-                  <div><span>Tiempo estimado</span><span>30 a 60 min</span></div>
-                  <div><span>Llamadas al modelo</span><span>≈ 3.000</span></div>
-                  <div><span>Idioma de los agentes</span><span>Español</span></div>
-                  <div><span>Datos</span><span>En esta máquina</span></div>
+                  <div><span data-i18n="sumAgents">Agentes por corrida</span><span>40 + contexto</span></div>
+                  <div><span data-i18n="sumRounds">Rondas</span><span>12 · de 9 a 20 h</span></div>
+                  <div><span data-i18n="sumTime">Tiempo estimado</span><span>30 a 60 min</span></div>
+                  <div><span data-i18n="sumCalls">Llamadas al modelo</span><span>≈ 3.000</span></div>
+                  <div><span data-i18n="sumLang">Idioma de los agentes</span><span>Español</span></div>
+                  <div><span data-i18n="sumData">Datos</span><span>En esta máquina</span></div>
                 </div>
               </div>
-              <button class="s-btn" type="button">Correr 15 simulaciones <span>→</span></button>
+              <button class="s-btn" type="button"><span data-i18n="runBtn">Correr 15 simulaciones</span> <span>→</span></button>
               <p class="s-note">La hipótesis no se escribe en el brief: se usa solo para leer la respuesta.</p>
             </div>
           </div>
@@ -464,14 +530,21 @@
         <div class="screen">
           <div class="s-topbar">
             <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
-            <div class="s-steps"><span class="done">01 Brief ✓</span><span class="on">02 Corrida</span><span>03 Respuesta</span></div>
-            <div class="s-tools">Pausar lote</div>
+            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="on"><span data-i18n="stepRun">02 Corrida</span></span><span><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
+            <div class="s-tools" data-i18n="pause">Pausar lote</div>
           </div>
           <div class="bar" aria-hidden="true"><i style="width:60%"></i></div>
+          <div class="s-metabar" aria-label="Telemetría de la corrida">
+            <span><span data-i18n="metaAgents">Agentes</span> <b>40</b></span>
+            <span><span data-i18n="metaRound">Ronda</span> <b>7 / 12</b></span>
+            <span><span data-i18n="metaActions">Acciones</span> <b>312</b></span>
+            <span class="bad"><span data-i18n="metaFails">Fallas</span> <b>1</b></span>
+            <span>A · R5</span>
+          </div>
           <div class="s-split">
             <div class="s-pane">
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3">Condiciones × réplicas</h3></div>
+                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3" data-i18n="hMatrix">Condiciones × réplicas</h3></div>
                 <div class="matrix" role="table" aria-label="Estado de cada réplica">
                   <span class="hd" role="columnheader"></span><span class="hd">R1</span><span class="hd">R2</span><span class="hd">R3</span><span class="hd">R4</span><span class="hd">R5</span>
                   <span class="rl">C0 control</span><span class="cell done">✓</span><span class="cell done">✓</span><span class="cell done">✓</span><span class="cell done">✓</span><span class="cell done">✓</span>
@@ -481,10 +554,10 @@
                 <p class="s-note warn">A · R3 falló en la ronda 4 (el proceso se cerró). Queda registrada y se reintenta al final; no se cuenta como completada.</p>
               </div>
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3">Qué está pasando</h3></div>
+                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3" data-i18n="hHappening">Qué está pasando</h3></div>
                 <div class="s-sum">
-                  <div><span>Réplicas completas</span><span>9 de 15</span></div>
-                  <div><span>Tiempo restante</span><span>≈ 18 min</span></div>
+                  <div><span data-i18n="doneReps">Réplicas completas</span><span>9 de 15</span></div>
+                  <div><span data-i18n="timeLeft">Tiempo restante</span><span>≈ 18 min</span></div>
                   <div><span>Agentes que actuaron (A · R5)</span><span>38 de 40</span></div>
                   <div><span>Rondas completadas (A · R5)</span><span>7 de 12</span></div>
                 </div>
@@ -492,7 +565,7 @@
             </div>
             <div class="s-pane">
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Rayos X · A · R5</h3></div>
+                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3"><span data-i18n="xray">Rayos X</span> · A · R5</h3></div>
                 <p class="s-help">Lo que piensa cada agente y lo que publica. Cada línea abre su traza.</p>
                 <div class="feed">
                   <article><div class="who"><span><b>Mónica E.</b> · A-2 Mando medio</span><span class="tag state">ronda 7</span></div><p class="think">Pienso: si no me certifico pierdo el bono, pero nadie dijo quién revisa lo que la IA reporta.</p><p>"¿Quién responde cuando el reporte automático se equivoca? Noventa días no alcanzan."</p></article>
@@ -508,13 +581,13 @@
       </article>
 
       <!-- ---------- 03 RESPUESTA ---------- -->
-      <article class="screen-block" data-screen="03 Respuesta">
+      <article class="screen-block" data-screen="03 Respuesta" id="screen-answer">
         <div class="screen-label"><span>Pantalla 03 · Respuesta</span><span>15 de 15 réplicas · memo de decisión</span></div>
         <div class="screen">
           <div class="s-topbar">
             <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
-            <div class="s-steps"><span class="done">01 Brief ✓</span><span class="done">02 Corrida ✓</span><span class="on">03 Respuesta</span></div>
-            <div class="s-tools">Exportar memo</div>
+            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="done"><span data-i18n="stepRun">02 Corrida</span> ✓</span><span class="on"><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
+            <div class="s-tools" data-i18n="exportMemo">Exportar memo</div>
           </div>
           <div class="s-split">
             <div class="s-pane">
@@ -543,12 +616,35 @@
                 </div>
               </div>
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Por qué</h3></div>
-                <blockquote>"Si lo elige mi equipo, lo defiendo; si me lo imponen, lo aguanto hasta que falle."<cite>A-2 Mando medio · B · R4 · ronda 8 · TRACE:b41c…</cite></blockquote>
-                <blockquote>"Noventa días y el bono en juego: eso no es adopción, es una prueba de lealtad."<cite>A-4 Sindical · A · R2 · ronda 5 · TRACE:9e07…</cite></blockquote>
+                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3" data-i18n="hCards">Tarjetas de decisión</h3></div>
+                <p class="s-help" data-i18n="cardsHelp">Cada afirmación lleva su estado de certeza. Ningún porcentaje de probabilidad.</p>
+                <div class="dcards">
+                  <section class="dcard verified">
+                    <span class="cert verified" data-i18n="certV">Verificada · cita textual</span>
+                    <h4 data-i18n="c1t">El plazo de 90 días concentra la resistencia</h4>
+                    <div class="meta"><span>A · rondas 3–8</span><span>A-4 Sindical ↔ A-1 Ejecutivo</span></div>
+                    <p data-i18n="c1f">En A, 7 de cada 10 posts de mandos medios y del sindicato mencionan el plazo; en B, casi ninguno.</p>
+                    <blockquote>"Noventa días y el bono en juego: eso no es adopción, es una prueba de lealtad."<cite>A-4 Sindical · A · R2 · ronda 5 · TRACE:9e07…</cite></blockquote>
+                    <div class="actions"><button class="act" type="button" data-i18n="actAsk">Preguntar al agente</button><button class="act" type="button" data-i18n="actBranch">Bifurcar con otra condición</button><button class="act" type="button" data-i18n="actExport">Exportar evidencia</button></div>
+                  </section>
+                  <section class="dcard nearby">
+                    <span class="cert nearby" data-i18n="certN">Cita cercana · revisar</span>
+                    <h4 data-i18n="c2t">Los analistas apoyan B si la formación es pagada</h4>
+                    <div class="meta"><span>B · ronda 6 (la frase está en la 7)</span><span>A-3 Analista</span></div>
+                    <p data-i18n="c2f">La frase citada aparece una ronda después de la indicada: el hallazgo es plausible, pero la cita hay que revisarla.</p>
+                    <div class="actions"><button class="act" type="button" data-i18n="actReview">Revisar la cita</button><button class="act" type="button" data-i18n="actAsk">Preguntar al agente</button></div>
+                  </section>
+                  <section class="dcard unsupported">
+                    <span class="cert unsupported" data-i18n="certU">Sin respaldo · no afirmar</span>
+                    <h4 data-i18n="c3t">B reduciría la rotación del equipo</h4>
+                    <div class="meta"><span>B · sin cita</span></div>
+                    <p data-i18n="c3f">Ningún agente lo dijo: es una inferencia del informe. Se muestra como laguna, no como hallazgo.</p>
+                    <div class="actions"><button class="act" type="button" data-i18n="actBranch">Bifurcar con otra condición</button></div>
+                  </section>
+                </div>
               </div>
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3">Qué no se puede afirmar</h3></div>
+                <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3" data-i18n="hLimits">Qué no se puede afirmar</h3></div>
                 <ul class="limits">
                   <li>No es un pronóstico de adopción real: es opinión sintética comparada entre opciones.</li>
                   <li>Confirmar con un piloto real antes de decidir en firme.</li>
@@ -558,7 +654,16 @@
             </div>
             <div class="s-pane">
               <div class="s-sec">
-                <div class="s-sec-h"><span class="s-num">→</span><h3 class="s-h3">Preguntarle a la audiencia</h3></div>
+                <div class="s-sec-h"><span class="s-num">→</span><h3 class="s-h3" data-i18n="hSuggest">Preguntas sugeridas</h3></div>
+                <p class="s-help" data-i18n="suggestNote">Salen de lo que pasó en la corrida, no de una lista fija.</p>
+                <div class="suggest">
+                  <button type="button"><b data-i18n="q1">¿Por qué A-4 rechazó el plazo en la ronda 5?</b><span data-i18n="q1s">A-4 cambió de postura en esa ronda</span></button>
+                  <button type="button"><b data-i18n="q2">¿Qué haría que A-1 prefiera B?</b><span data-i18n="q2s">A-1 no se estabilizó entre réplicas</span></button>
+                  <button type="button"><b data-i18n="q3">¿Qué cambió en A-2 entre la ronda 2 y la 8?</b><span data-i18n="q3s">El mayor cambio de tono de la corrida</span></button>
+                </div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">→</span><h3 class="s-h3" data-i18n="hAsk">Preguntarle a la audiencia</h3></div>
                 <p class="s-help">La misma pregunta a varios agentes, lado a lado. Opinión sintética, no evidencia. Disponible 30 min después de cada corrida.</p>
                 <div class="s-field quiet">¿Qué te haría sumarte al piloto la primera semana?</div>
                 <div class="answers">
@@ -566,13 +671,66 @@
                   <div><span class="who">A-4 · B · R4</span>"Un compromiso escrito de que no se usa para evaluar a nadie."</div>
                 </div>
               </div>
-              <button class="s-btn" type="button">Planear la siguiente corrida <span>→</span></button>
-              <button class="s-btn s-btn--ghost" type="button">Exportar memo <span>↓</span></button>
+              <button class="s-btn" type="button"><span data-i18n="planNext">Planear la siguiente corrida</span> <span>→</span></button>
+              <button class="s-btn s-btn--ghost" type="button"><span data-i18n="exportMemo">Exportar memo</span> <span>↓</span></button>
             </div>
           </div>
           <div class="expert"><span><b>Modo experto</b> · reporte narrativo, grafo de la historia y traza completa</span><button class="s-btn s-btn--ghost" type="button" style="width:auto;padding:10px 16px;">Abrir cajón <span>↑</span></button></div>
         </div>
         <div class="ref"><b>Reemplaza</b> 04 Report ("Forecast Report") y 05 Deep Interaction. · <b>Inspirado en</b> los paneles de resultados de experimentos A/B (Optimizely, Statsig): variante ganadora por segmento, estabilidad y límites explícitos antes del detalle. · <b>Conserva</b> las citas enlazadas a la traza (Rayos X) y la encuesta lado a lado.</div>
+      </article>
+
+      <!-- ---------- VARIANTE: ESPACIO DE TRABAJO ---------- -->
+      <article class="screen-block" data-screen="Variante · Dos paneles">
+        <div class="screen-label"><span>Variante · Espacio de trabajo en dos paneles</span><span>Para comparar con las tres pantallas</span></div>
+        <div class="screen">
+          <div class="s-topbar">
+            <div class="s-brand"><b>sentientum</b><span>por Scapder</span></div>
+            <div class="s-steps"><span class="done"><span data-i18n="stepBrief">01 Brief</span> ✓</span><span class="done"><span data-i18n="stepRun">02 Corrida</span> ✓</span><span class="on"><span data-i18n="stepAnswer">03 Respuesta</span></span></div>
+            <div class="s-tools" data-i18n="exportMemo">Exportar memo</div>
+          </div>
+          <div class="ws">
+            <div class="ws-left">
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3" data-i18n="hDecision">Decisión</h3></div>
+                <div class="s-field quiet">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3" data-i18n="wsGraph">Grafo</h3></div>
+                <div class="ws-graph"><canvas class="society" aria-hidden="true"></canvas></div>
+              </div>
+              <div class="s-sec">
+                <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3" data-i18n="wsCast">Elenco</h3></div>
+                <div class="parse">
+                  <div><span class="code">A-1</span><span>Ejecutivo</span><span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></div>
+                  <div><span class="code">A-2</span><span>Mando medio</span><span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></div>
+                  <div><span class="code">A-3</span><span>Analista</span><span class="src-tag seed" data-i18n="srcSeed">de la constitución</span></div>
+                  <div><span class="code">A-4</span><span>Sindical</span><span class="src-tag gen" data-i18n="srcGen">PSI generado</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="ws-right">
+              <div class="ws-tabs"><span data-i18n="wsRun">Corrida</span><span class="on" data-i18n="wsAnswer">Respuesta</span><span data-i18n="wsQuestions">Preguntas</span></div>
+              <div class="ws-body">
+                <p class="s-display" style="font-size:22px;">B, el piloto voluntario, genera menos resistencia en 3 de 4 arquetipos.</p>
+                <div class="dcards">
+                  <section class="dcard verified">
+                    <span class="cert verified" data-i18n="certV">Verificada · cita textual</span>
+                    <h4 data-i18n="c1t">El plazo de 90 días concentra la resistencia</h4>
+                    <p data-i18n="c1f">En A, 7 de cada 10 posts de mandos medios y del sindicato mencionan el plazo; en B, casi ninguno.</p>
+                    <div class="actions"><button class="act" type="button" data-i18n="actAsk">Preguntar al agente</button><button class="act" type="button" data-i18n="actBranch">Bifurcar con otra condición</button></div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ref"><b>Inspirado en</b> el espacio de trabajo del feedback externo (configuración a la izquierda, lienzo a la derecha) y en herramientas con paneles persistentes (IDEs, Figma). El contexto queda siempre visible y el lienzo cambia entre Corrida, Respuesta y Preguntas sin cambiar de pantalla.</div>
+        <div class="proscons">
+          <div><b>A favor</b><ul><li>El contexto (decisión, grafo, elenco) nunca se pierde.</li><li>Ideal para analistas que iteran corrida tras corrida.</li><li>Menos navegación entre pantallas.</li></ul></div>
+          <div><b>En contra</b><ul><li>Más denso en la primera visita; compite con "ver el resultado primero".</li><li>En mobile se apila y pierde su ventaja.</li><li>El grafo ocupa lugar sin aportar a la decisión.</li></ul></div>
+        </div>
+        <div class="ref"><b>Recomendación</b> tres pantallas como camino principal, para directivos y primera visita; el espacio de trabajo como vista de analista, que se habilita después de la primera respuesta.</div>
       </article>
     </div>
   </div>
@@ -604,7 +762,7 @@
 
       <section class="g-sec">
         <header><span class="s-num">02</span><h3>Patrones nuevos</h3></header>
-        <p>Ocho patrones, cada uno con su referencia externa. Se inspiran en aplicaciones que ya resolvieron el mismo problema de usuario, no en su estética.</p>
+        <p>Doce patrones, cada uno con su referencia externa. Se inspiran en aplicaciones que ya resolvieron el mismo problema de usuario, no en su estética.</p>
         <div class="pattern">
           <div><h4>P1 · Brief con resumen fijo</h4><span class="src">Inspirado en: Stripe Checkout</span><ul><li>Una columna para completar, numerada.</li><li>A la derecha, lo que se va a correr: corridas, tiempo, llamadas, dónde quedan los datos.</li><li>El botón dice exactamente qué pasa: "Correr 15 simulaciones".</li></ul></div>
           <div><h4>P2 · Opción como estímulo literal</h4><span class="src">Inspirado en: variantes de un test A/B</span><ul><li>Cada opción es el texto exacto que verán los agentes.</li><li>El control se agrega solo y no se puede borrar.</li><li>Máximo 3 opciones: más diluye el análisis.</li></ul></div>
@@ -620,6 +778,14 @@
         <div class="pattern">
           <div><h4>P7 · Un solo compositor</h4><span class="src">Inspirado en: Aura Studio, ChatGPT, Perplexity</span><ul><li>El Home es una pregunta ("¿Qué necesitas decidir?") con un botón de adjuntar.</li><li>Al adjuntar, se muestra lo que se entendió (arquetipos y vectores) bajo el compositor.</li><li>Un enlace secundario (simulaciones anteriores) y una nota de guía; nada más.</li></ul></div>
           <div><h4>P8 · Fondo vivo con propósito</h4><span class="src">Inspirado en: el hero animado de Aura Studio</span><ul><li>Lo que se mueve es el producto: agentes que derivan y deliberan, no una textura decorativa.</li><li>Gris; violeta solo para agentes activos; líneas de 1 px.</li><li>Canvas 2D liviano; se pausa con la pestaña oculta; estático con <code>prefers-reduced-motion</code>.</li><li>El texto nunca queda sobre el fondo sin la capa translúcida de la página.</li></ul></div>
+        </div>
+        <div class="pattern">
+          <div><h4>P9 · Estados de certeza</h4><span class="src">Inspirado en: el feedback externo y los niveles de evidencia de la investigación</span><ul><li>Tres estados discretos en lugar de porcentajes: <b>verificada</b> (cita textual; línea continua, verde), <b>cita cercana</b> (revisar; línea discontinua, rojo apagado), <b>sin respaldo</b> (no afirmar; punteada, rojo).</li><li>Replican los estados que el motor ya calcula por afirmación; "cita cercana" significa que la cita está cerca en el texto, no que varios agentes coincidan.</li><li>El estado también va escrito, no solo en color.</li></ul></div>
+          <div><h4>P10 · Tarjeta de decisión</h4><span class="src">Inspirado en: el feedback externo y los informes de incidentes</span><ul><li>Un eje por tarjeta: estado, título, opción y rondas, agentes enfrentados, hallazgo, cita.</li><li>Acciones según el estado: preguntar al agente, bifurcar con otra condición, exportar la evidencia; "revisar la cita" en las cercanas.</li><li>Sin sombras ni fondos: una línea superior y una franja de estado a la izquierda.</li></ul></div>
+        </div>
+        <div class="pattern">
+          <div><h4>P11 · Textos elásticos en tres idiomas</h4><span class="src">Inspirado en: el feedback externo, con medición propia</span><ul><li>Ningún ancho fijo en contenedores con texto: <code>fit-content</code>, <code>minmax()</code> y <code>flex-wrap</code>.</li><li><code>text-wrap: balance</code> en títulos; <code>pretty</code> en párrafos.</li><li>Probar con los textos reales de cada idioma: en etiquetas cortas la variación va para los dos lados (tabla en 04).</li><li>El atributo <code>lang</code> de la pantalla sigue al idioma elegido.</li></ul></div>
+          <div><h4>P12 · Primero el resultado</h4><span class="src">Inspirado en: el feedback externo (diseño orientado a resultados)</span><ul><li>En la primera visita, "Ver una respuesta de ejemplo" abre un memo terminado, marcado como ejemplo.</li><li>Las preguntas sugeridas salen de lo que pasó en la corrida (cambios de postura, arquetipos inestables).</li></ul></div>
         </div>
       </section>
 
@@ -650,9 +816,23 @@
             <tr><td>Migración</td><td>Una pantalla por vez, igual que el rediseño actual: primero 03 Respuesta (más valor, menos backend), después 01 Brief, al final 02 Corrida.</td></tr>
             <tr><td>Rutas</td><td>Tres rutas principales y una ruta de modo experto que conserva las vistas actuales sin cambios.</td></tr>
             <tr><td>Mobile</td><td>Contenedores con <code>container queries</code>: la misma pantalla se apila por debajo de 640 px.</td></tr>
+            <tr><td>Idiomas</td><td>Español, portugués de Brasil e inglés con el sistema de i18n actual (hoy hay español, inglés y chino: falta portugués). Las claves de texto no se concatenan: cada frase es una clave completa.</td></tr>
             <tr><td>Accesibilidad</td><td>Matriz y ranking como tablas con encabezados; el estado de cada celda también en texto, no solo en color.</td></tr>
           </tbody>
         </table></div>
+
+        <p>Medición de etiquetas reales (caracteres). Contra lo que suele suponerse, en etiquetas cortas el español y el portugués no siempre son más largos que el inglés; en frases, sí.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Inglés</th><th>Español</th><th>Portugués (Brasil)</th><th>Nota</th></tr></thead>
+          <tbody>
+            <tr><td>Run (3)</td><td>Corrida (7)</td><td>Execução (8)</td><td>En PT, "corrida" evoca carrera o corrida bancaria: usar "execução".</td></tr>
+            <tr><td>Run 15 simulations (18)</td><td>Correr 15 simulaciones (22)</td><td>Executar 15 simulações (22)</td><td>El botón toma el ancho del texto.</td></tr>
+            <tr><td>Nearby quote · review (21)</td><td>Cita cercana · revisar (22)</td><td>Citação próxima · revisar (25)</td><td>Badge <code>inline-flex</code>, sin ancho fijo.</td></tr>
+            <tr><td>Executive report (16)</td><td>Informe (7)</td><td>Relatório (9)</td><td>Aquí el inglés es el más largo.</td></tr>
+            <tr><td>Compare before you decide. (26)</td><td>Compara antes de decidir. (25)</td><td>Compare antes de decidir. (25)</td><td>Titular de una línea en los tres.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Tono: español neutro y formal, sin regionalismos; portugués de Brasil con "você" consistente; inglés breve y con verbos de acción.</p>
       </section>
 
     </div>
@@ -765,6 +945,34 @@
       form.addEventListener('submit', function (e) { e.preventDefault(); tab = 'mock'; render(); window.scrollTo(0, 0); });
     }
     wireComposer(''); wireComposer('-m');
+    // Interface language: the mockup's copy in ES, PT-BR and EN, to test how each language fits.
+    var I18N = {"es": {"status": "Local · tus datos quedan en esta máquina", "heroH": "Compara antes de decidir.", "heroSub": "Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.", "buildBrief": "Armar brief", "prevRuns": "Simulaciones anteriores (7)", "sampleAnswer": "Ver una respuesta de ejemplo", "heroNote": "Recomendado: 2 o 3 opciones y 5 réplicas por opción. Una sola corrida no alcanza para decidir.", "stepBrief": "01 Brief", "stepRun": "02 Corrida", "stepAnswer": "03 Respuesta", "hDecision": "Decisión", "hOptions": "Opciones", "hAudience": "Audiencia", "hContext": "Contexto", "hWatch": "Qué observar", "hWillRun": "Lo que vas a correr", "runs15": "15 corridas", "sumAgents": "Agentes por corrida", "sumRounds": "Rondas", "sumTime": "Tiempo estimado", "sumCalls": "Llamadas al modelo", "sumLang": "Idioma de los agentes", "sumData": "Datos", "runBtn": "Correr 15 simulaciones", "hMatrix": "Condiciones × réplicas", "hHappening": "Qué está pasando", "xray": "Rayos X", "doneReps": "Réplicas completas", "timeLeft": "Tiempo restante", "pause": "Pausar lote", "hAsk": "Preguntarle a la audiencia", "planNext": "Planear la siguiente corrida", "exportMemo": "Exportar memo", "hLimits": "Qué no se puede afirmar", "hCards": "Tarjetas de decisión", "cardsHelp": "Cada afirmación lleva su estado de certeza. Ningún porcentaje de probabilidad.", "certV": "Verificada · cita textual", "certN": "Cita cercana · revisar", "certU": "Sin respaldo · no afirmar", "c1t": "El plazo de 90 días concentra la resistencia", "c1f": "En A, 7 de cada 10 posts de mandos medios y del sindicato mencionan el plazo; en B, casi ninguno.", "c2t": "Los analistas apoyan B si la formación es pagada", "c2f": "La frase citada aparece una ronda después de la indicada: el hallazgo es plausible, pero la cita hay que revisarla.", "c3t": "B reduciría la rotación del equipo", "c3f": "Ningún agente lo dijo: es una inferencia del informe. Se muestra como laguna, no como hallazgo.", "actAsk": "Preguntar al agente", "actBranch": "Bifurcar con otra condición", "actExport": "Exportar evidencia", "actReview": "Revisar la cita", "hSuggest": "Preguntas sugeridas", "suggestNote": "Salen de lo que pasó en la corrida, no de una lista fija.", "q1": "¿Por qué A-4 rechazó el plazo en la ronda 5?", "q1s": "A-4 cambió de postura en esa ronda", "q2": "¿Qué haría que A-1 prefiera B?", "q2s": "A-1 no se estabilizó entre réplicas", "q3": "¿Qué cambió en A-2 entre la ronda 2 y la 8?", "q3s": "El mayor cambio de tono de la corrida", "metaAgents": "Agentes", "metaRound": "Ronda", "metaActions": "Acciones", "metaFails": "Fallas", "ficha": "Ver ficha", "srcSeed": "de la constitución", "srcGen": "PSI generado", "wsGraph": "Grafo", "wsCast": "Elenco", "wsRun": "Corrida", "wsAnswer": "Respuesta", "wsQuestions": "Preguntas"}, "pt-BR": {"status": "Local · seus dados ficam nesta máquina", "heroH": "Compare antes de decidir.", "heroSub": "Descreva a decisão e envie sua constituição. O Sentientum monta o brief e o executa com o seu público sintético.", "buildBrief": "Montar o brief", "prevRuns": "Simulações anteriores (7)", "sampleAnswer": "Ver uma resposta de exemplo", "heroNote": "Recomendado: 2 ou 3 opções e 5 réplicas por opção. Uma única execução não basta para decidir.", "stepBrief": "01 Brief", "stepRun": "02 Execução", "stepAnswer": "03 Resposta", "hDecision": "Decisão", "hOptions": "Opções", "hAudience": "Público", "hContext": "Contexto", "hWatch": "O que observar", "hWillRun": "O que você vai executar", "runs15": "15 execuções", "sumAgents": "Agentes por execução", "sumRounds": "Rodadas", "sumTime": "Tempo estimado", "sumCalls": "Chamadas ao modelo", "sumLang": "Idioma dos agentes", "sumData": "Dados", "runBtn": "Executar 15 simulações", "hMatrix": "Condições × réplicas", "hHappening": "O que está acontecendo", "xray": "Raio X", "doneReps": "Réplicas concluídas", "timeLeft": "Tempo restante", "pause": "Pausar lote", "hAsk": "Perguntar ao público", "planNext": "Planejar a próxima execução", "exportMemo": "Exportar memorando", "hLimits": "O que não se pode afirmar", "hCards": "Cartões de decisão", "cardsHelp": "Cada afirmação traz seu estado de certeza. Nenhuma porcentagem de probabilidade.", "certV": "Verificada · citação literal", "certN": "Citação próxima · revisar", "certU": "Sem respaldo · não afirmar", "c1t": "O prazo de 90 dias concentra a resistência", "c1f": "Em A, 7 de cada 10 posts de gerentes e do sindicato citam o prazo; em B, quase nenhum.", "c2t": "Os analistas apoiam B se a formação for paga", "c2f": "A frase citada aparece uma rodada depois da indicada: o achado é plausível, mas a citação precisa ser revisada.", "c3t": "B reduziria a rotatividade da equipe", "c3f": "Nenhum agente disse isso: é uma inferência do relatório. Aparece como lacuna, não como achado.", "actAsk": "Perguntar ao agente", "actBranch": "Ramificar com outra condição", "actExport": "Exportar evidências", "actReview": "Revisar a citação", "hSuggest": "Perguntas sugeridas", "suggestNote": "Vêm do que aconteceu na execução, não de uma lista fixa.", "q1": "Por que A-4 rejeitou o prazo na rodada 5?", "q1s": "A-4 mudou de posição nessa rodada", "q2": "O que faria A-1 preferir B?", "q2s": "A-1 não se estabilizou entre réplicas", "q3": "O que mudou em A-2 entre as rodadas 2 e 8?", "q3s": "A maior mudança de tom da execução", "metaAgents": "Agentes", "metaRound": "Rodada", "metaActions": "Ações", "metaFails": "Falhas", "ficha": "Ver ficha", "srcSeed": "da constituição", "srcGen": "PSI gerado", "wsGraph": "Grafo", "wsCast": "Elenco", "wsRun": "Execução", "wsAnswer": "Resposta", "wsQuestions": "Perguntas"}, "en": {"status": "Local · your data stays on this machine", "heroH": "Compare before you decide.", "heroSub": "Describe the decision and upload your constitution. Sentientum builds the brief and runs it against your synthetic audience.", "buildBrief": "Build the brief", "prevRuns": "Previous simulations (7)", "sampleAnswer": "See a sample answer", "heroNote": "Recommended: 2 or 3 options and 5 replicates each. A single run is not enough to decide.", "stepBrief": "01 Brief", "stepRun": "02 Run", "stepAnswer": "03 Answer", "hDecision": "Decision", "hOptions": "Options", "hAudience": "Audience", "hContext": "Context", "hWatch": "What to watch", "hWillRun": "What you will run", "runs15": "15 runs", "sumAgents": "Agents per run", "sumRounds": "Rounds", "sumTime": "Estimated time", "sumCalls": "Model calls", "sumLang": "Agent language", "sumData": "Data", "runBtn": "Run 15 simulations", "hMatrix": "Conditions × replicates", "hHappening": "What is happening", "xray": "X-ray", "doneReps": "Completed replicates", "timeLeft": "Time remaining", "pause": "Pause batch", "hAsk": "Ask the audience", "planNext": "Plan the next run", "exportMemo": "Export memo", "hLimits": "What cannot be claimed", "hCards": "Decision cards", "cardsHelp": "Every claim carries its certainty state. No probability percentages.", "certV": "Verified · direct quote", "certN": "Nearby quote · review", "certU": "Unsupported · do not claim", "c1t": "The 90-day deadline drives the resistance", "c1f": "In A, 7 in 10 posts from middle managers and the union cite the deadline; in B, almost none.", "c2t": "Analysts back B if training is paid", "c2f": "The quoted line appears one round after the cited one: the finding is plausible, but the quote needs review.", "c3t": "B would reduce team turnover", "c3f": "No agent said this: it is the report's inference. Shown as a gap, not a finding.", "actAsk": "Ask the agent", "actBranch": "Branch with a new condition", "actExport": "Export evidence", "actReview": "Review the quote", "hSuggest": "Suggested questions", "suggestNote": "Drawn from what happened in the run, not from a fixed list.", "q1": "Why did A-4 reject the deadline in round 5?", "q1s": "A-4 changed position in that round", "q2": "What would make A-1 prefer B?", "q2s": "A-1 did not stabilize across replicates", "q3": "What changed for A-2 between rounds 2 and 8?", "q3s": "The largest shift in tone in the run", "metaAgents": "Agents", "metaRound": "Round", "metaActions": "Actions", "metaFails": "Failures", "ficha": "View profile", "srcSeed": "from the constitution", "srcGen": "PSI generated", "wsGraph": "Graph", "wsCast": "Cast", "wsRun": "Run", "wsAnswer": "Answer", "wsQuestions": "Questions"}};
+    var lang = 'es';
+    function applyLang() {
+      var dict = I18N[lang] || I18N.es;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var text = dict[el.getAttribute('data-i18n')];
+        if (text) el.textContent = text;
+      });
+      document.querySelectorAll('.screen').forEach(function (el) { el.setAttribute('lang', lang); });
+      document.querySelectorAll('#lang-seg button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+      try { localStorage.setItem('sentientum-redesign-lang', lang); } catch (e) {}
+    }
+    try { lang = localStorage.getItem('sentientum-redesign-lang') || lang; } catch (e) {}
+    document.querySelectorAll('#lang-seg button').forEach(function (b) {
+      b.addEventListener('click', function () { lang = b.getAttribute('data-lang'); applyLang(); });
+    });
+    applyLang();
+
+    // "See a sample answer" opens the finished answer screen: the result first.
+    document.querySelectorAll('a[href="#respuesta"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault(); tab = 'mock'; render();
+        var target = device === 'mobile' ? document.querySelectorAll('#phones .phone')[3] : document.getElementById('screen-answer');
+        if (target) target.scrollIntoView({ block: 'start' });
+      });
+    });
+
     document.querySelectorAll('a[href="#flujo"]').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); tab = 'mock'; render(); window.scrollTo(0, 0); });
     });
@@ -776,6 +984,7 @@
       views.guide.hidden = tab !== 'guide';
       intro.hidden = tab === 'guide';
       document.getElementById('device-seg').hidden = tab === 'guide';
+      document.getElementById('lang-seg').hidden = tab === 'guide';
       ['home', 'mock', 'guide'].forEach(function (t) { document.getElementById('tab-' + t).setAttribute('aria-pressed', String(tab === t)); });
       document.getElementById('btn-desktop').setAttribute('aria-pressed', String(device === 'desktop'));
       document.getElementById('btn-mobile').setAttribute('aria-pressed', String(device === 'mobile'));
