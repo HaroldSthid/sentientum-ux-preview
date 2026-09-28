@@ -1060,7 +1060,7 @@
             <div class="attached" id="home-attached-e"><span><b>constitucion_adopcion_ia.md</b></span><span class="ok">4 arquetipos · vectores OCEAN y PSI detectados</span></div>
           </div>
         </div>
-        <div class="ref"><b>Inspirado en</b> el fondo de Aura, una espiral de fibras. · <b>Diferencia</b> aquí no hay pelo: son filamentos continuos y muy juntos, como cables tendidos, que siguen ondas descentradas; las crestas se iluminan y los valles se apagan. · <b>Significado</b> cada hilo es una línea de conversación; los pocos hilos en el color activo son agentes deliberando en este momento. · <b>Color</b> no tiene paleta propia: cambia con los selectores de Paleta y Tema (Basil y Potting Soil en Pantone y Fondo Basil; grises cálidos y violeta en la paleta actual). · <b>Accesibilidad</b> es un dibujo estático; el centro se aclara para que el titular conserve su contraste.</div>
+        <div class="ref"><b>Inspirado en</b> el fondo de Aura, una espiral de fibras. · <b>Diferencia</b> aquí no hay pelo: son filamentos continuos y muy juntos, como cables tendidos, que siguen ondas descentradas; las crestas se iluminan y los valles se apagan. · <b>Significado</b> cada hilo es una línea de conversación; los pocos hilos en el color activo son agentes deliberando en este momento. · <b>Color</b> no tiene paleta propia: cambia con los selectores de Paleta y Tema (Basil y Potting Soil en Pantone y Fondo Basil; grises cálidos y violeta en la paleta actual). · <b>Movimiento</b> las crestas avanzan despacio (un ciclo cada 14 s) fundiendo tres capas precalculadas: dos imágenes por cuadro, a 24 cuadros por segundo como máximo, y en pausa fuera de pantalla. · <b>Accesibilidad</b> con <i>reduced motion</i> queda quieto; el centro se aclara para que el titular conserve su contraste.</div>
       </article>
       <p class="reco"><b>Recomendación:</b> A como Home. B no es una pantalla aparte: es lo que ocurre al adjuntar en A (la lista de arquetipos detectados aparece bajo el compositor). C es el estado vacío de A para quien entra por primera vez. D es una exploración de color para comparar: se puede ver toda la maqueta con esa paleta desde el selector "Pantone".</p>
     </div>
@@ -1669,63 +1669,99 @@
 
     // The crowd: head-and-shoulder silhouettes in rows that grow toward the viewer.
     // Duotone from --crowd-a / --crowd-b; agents that are deliberating take the accent.
-    // Home E: dense filaments along an off-centre swirl. Drawn once per size/theme; no animation.
+    // Home E: dense filaments along an off-centre swirl. Three phases of the crest pattern are rendered
+    // once into offscreen layers; the animation only cross-fades two of them (2 drawImage per frame).
     function filaments(canvas) {
-      var ctx = canvas.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), col = {};
+      var ctx = canvas.getContext('2d'), col = {}, layers = [], W = 0, H = 0, ldpr = 1, vdpr = 1;
+      var PHASES = 3, PERIOD = 14000, FRAME = 1000 / 24, visible = true, raf = null, last = 0, t0 = performance.now(), gen = 0;
       function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
       function readColors() {
         var cs = getComputedStyle(canvas);
         col = { a: cs.getPropertyValue('--fil-a').trim(), b: cs.getPropertyValue('--fil-b').trim(), hot: cs.getPropertyValue('--fil-hot').trim(), glow: cs.getPropertyValue('--fil-glow').trim(), bg: cs.getPropertyValue('--wf-bg-page').trim() };
       }
-      function draw() {
-        var w = canvas.clientWidth, h = canvas.clientHeight;
-        if (!w || !h) return;
-        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.fillStyle = col.bg || '#000'; ctx.fillRect(0, 0, w, h);
-        var cx = w * 0.64, cy = h * 0.56, R = Math.hypot(w, h);
-        function field(x, y) {
-          var dx = x - cx, dy = y - cy, r = Math.hypot(dx, dy) + 1e-3, th = Math.atan2(dy, dx);
-          return th + Math.PI / 2 + 0.16 + 0.22 * Math.sin(r * 0.011 + th * 2.0);
-        }
-        function ridge(x, y) {
-          var dx = x - cx, dy = y - cy, r = Math.hypot(dx, dy), th = Math.atan2(dy, dx);
-          var v = 0.5 + 0.5 * Math.sin(r * 0.052 - th * 1.0 + 0.6 * Math.sin(th * 3));
-          return Math.pow(v, 1.6) * Math.min(1, 0.35 + r / (R * 0.35));
-        }
+      // Geometry is computed once per size; each layer only changes the crest phase.
+      var lines = [];
+      function buildLines(w, h) {
+        var cx = w * 0.64, cy = h * 0.56;
+        function field(x, y) { var dx = x - cx, dy = y - cy, r = Math.hypot(dx, dy) + 1e-3, th = Math.atan2(dy, dx); return th + Math.PI / 2 + 0.16 + 0.22 * Math.sin(r * 0.011 + th * 2.0); }
         var rand = rng(20260928), n = Math.round(w * h / 520), step = 2.4, steps = 70;
-        ctx.lineCap = 'round';
+        lines = [];
         for (var k = 0; k < n; k++) {
           var sx = rand() * w, sy = rand() * h, hot = rand() < 0.012;
           [1, -1].forEach(function (dir) {
             var x = sx, y = sy, seg = [[x, y]];
             for (var t = 0; t < steps; t++) {
-              var a = field(x, y);
-              x += Math.cos(a) * step * dir; y += Math.sin(a) * step * dir;
+              var a = field(x, y); x += Math.cos(a) * step * dir; y += Math.sin(a) * step * dir;
               if (x < -10 || y < -10 || x > w + 10 || y > h + 10) break;
               seg.push([x, y]);
             }
             for (var c = 0; c + 1 < seg.length; c += 8) {
-              var end = Math.min(seg.length - 1, c + 8), mid = seg[(c + end) >> 1], rv = ridge(mid[0], mid[1]);
-              ctx.beginPath(); ctx.moveTo(seg[c][0], seg[c][1]);
-              for (var q = c + 1; q <= end; q++) ctx.lineTo(seg[q][0], seg[q][1]);
-              if (hot) { ctx.strokeStyle = col.hot; ctx.globalAlpha = 0.35 + 0.6 * rv; ctx.lineWidth = 1.1; }
-              else { ctx.strokeStyle = rv > 0.5 ? col.b : col.a; ctx.globalAlpha = 0.1 + 0.55 * rv; ctx.lineWidth = 0.7; }
-              ctx.stroke();
+              var e = Math.min(seg.length - 1, c + 8), mid = seg[(c + e) >> 1], dx = mid[0] - cx, dy = mid[1] - cy;
+              lines.push({ pts: seg.slice(c, e + 1), r: Math.hypot(dx, dy), th: Math.atan2(dy, dx), hot: hot });
             }
           });
         }
-        ctx.globalAlpha = 1;
-        // A soft clearing behind the headline keeps its contrast.
-        var g = ctx.createRadialGradient(w / 2, h * 0.5, 0, w / 2, h * 0.5, Math.max(w, h) * 0.42);
-        g.addColorStop(0, col.glow); g.addColorStop(0.55, col.glow.replace(/[\d.]+\)$/, '0.55)')); g.addColorStop(1, col.glow.replace(/[\d.]+\)$/, '0)'));
-        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
       }
-      readColors(); draw();
+      function renderLayer(phase, w, h) {
+        var cv = document.createElement('canvas'), c = cv.getContext('2d'), R = Math.hypot(w, h);
+        cv.width = Math.round(w * ldpr); cv.height = Math.round(h * ldpr); c.setTransform(ldpr, 0, 0, ldpr, 0, 0);
+        c.fillStyle = col.bg || '#000'; c.fillRect(0, 0, w, h); c.lineCap = 'round';
+        lines.forEach(function (L) {
+          var v = 0.5 + 0.5 * Math.sin(L.r * 0.052 - L.th + phase + 0.6 * Math.sin(L.th * 3));
+          var rv = Math.pow(v, 1.6) * Math.min(1, 0.35 + L.r / (R * 0.35));
+          c.beginPath(); c.moveTo(L.pts[0][0], L.pts[0][1]);
+          for (var q = 1; q < L.pts.length; q++) c.lineTo(L.pts[q][0], L.pts[q][1]);
+          if (L.hot) { c.strokeStyle = col.hot; c.globalAlpha = 0.35 + 0.6 * rv; c.lineWidth = 1.1; }
+          else { c.strokeStyle = rv > 0.5 ? col.b : col.a; c.globalAlpha = 0.1 + 0.55 * rv; c.lineWidth = 0.7; }
+          c.stroke();
+        });
+        c.globalAlpha = 1;
+        var g = c.createRadialGradient(w / 2, h * 0.5, 0, w / 2, h * 0.5, Math.max(w, h) * 0.42);
+        g.addColorStop(0, col.glow); g.addColorStop(0.55, col.glow.replace(/[\d.]+\)$/, '0.55)')); g.addColorStop(1, col.glow.replace(/[\d.]+\)$/, '0)'));
+        c.fillStyle = g; c.fillRect(0, 0, w, h);
+        return cv;
+      }
+      function paint(now) {
+        if (!layers.length) return;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        if (reduce || layers.length < PHASES) { ctx.globalAlpha = 1; ctx.drawImage(layers[0], 0, 0, canvas.width, canvas.height); return; }
+        var u = ((now - t0) / PERIOD * PHASES) % PHASES, i = Math.floor(u), f = u - i;
+        f = f * f * (3 - 2 * f);
+        ctx.globalAlpha = 1; ctx.drawImage(layers[i], 0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = f; ctx.drawImage(layers[(i + 1) % PHASES], 0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
+      }
+      function loop(now) {
+        raf = null;
+        if (!visible || document.hidden || reduce || layers.length < PHASES) return;
+        if (now - last >= FRAME) { last = now; paint(now); }
+        raf = requestAnimationFrame(loop);
+      }
+      function start() { if (!raf && visible && !document.hidden && !reduce && layers.length === PHASES) raf = requestAnimationFrame(loop); }
+      function rebuild() {
+        var w = canvas.clientWidth, h = canvas.clientHeight, my = ++gen;
+        if (!w || !h) return;
+        W = w; H = h; vdpr = Math.min(window.devicePixelRatio || 1, 2); ldpr = Math.min(vdpr, 1.5);
+        canvas.width = Math.round(w * vdpr); canvas.height = Math.round(h * vdpr);
+        readColors(); buildLines(w, h);
+        layers = [renderLayer(0, w, h)]; paint(performance.now());
+        if (reduce) return;
+        // The other phases are rendered one per idle slot so the page never stalls.
+        var k = 1;
+        (function next() {
+          if (my !== gen) return;
+          if (k >= PHASES) { start(); return; }
+          layers.push(renderLayer(k * 2 * Math.PI / PHASES, w, h)); k++;
+          setTimeout(next, 60);
+        })();
+      }
+      rebuild();
       var timer = null;
-      function later() { clearTimeout(timer); timer = setTimeout(function () { readColors(); draw(); }, 120); }
-      if (window.ResizeObserver) new ResizeObserver(later).observe(canvas);
+      function later() { clearTimeout(timer); timer = setTimeout(rebuild, 150); }
+      if (window.ResizeObserver) new ResizeObserver(function () { if (canvas.clientWidth !== W || canvas.clientHeight !== H) later(); }).observe(canvas);
       new MutationObserver(later).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-palette'] });
+      if (window.IntersectionObserver) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) start(); }, { rootMargin: '80px' }).observe(canvas);
+      document.addEventListener('visibilitychange', start);
     }
     function crowd(canvas) {
       var ctx = canvas.getContext('2d');
