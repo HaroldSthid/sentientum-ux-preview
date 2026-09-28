@@ -825,6 +825,58 @@
   .run-gap-list { margin: 0; padding-left: 18px; display: grid; gap: 8px; font-size: 13px; color: var(--wf-text-secondary); line-height: 1.55; max-width: 90ch; }
   .run-gap-list b { color: var(--wf-text-primary); }
   @container (max-width: 820px) { .run-main { grid-template-columns: 1fr; } .run-xray { position: static; max-height: none; } }
+
+  /* ---------- Group colours (validated categorical set; always shown with the A-n code) ---------- */
+  :root { --grp-1: #00968A; --grp-2: #D0601A; --grp-3: #3566C8; --grp-4: #B8327A; --grp-5: #6E8B00; --grp-def: #8A8580; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --grp-1: #16A396; --grp-2: #D96C2C; --grp-3: #5B8DEF; --grp-4: #E0609E; --grp-5: #7F9C12; --grp-def: #8F8A84; } }
+  :root[data-theme="dark"] { --grp-1: #16A396; --grp-2: #D96C2C; --grp-3: #5B8DEF; --grp-4: #E0609E; --grp-5: #7F9C12; --grp-def: #8F8A84; }
+  .code[data-grp] { color: var(--grp-c); }
+  /* ---------- Corrida real v2 ---------- */
+  .run-req { background: var(--wf-bg-card-strong); border-left: 3px solid var(--wf-accent); padding: 10px 14px; color: var(--wf-text-primary); font-size: 13px; line-height: 1.6; }
+  .run-req .rq-l { display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wf-text-muted); margin-bottom: 2px; }
+  .run-graph .r-node.grp circle { fill: color-mix(in srgb, var(--grp-c) 28%, var(--wf-bg-page)); stroke: var(--grp-c); }
+  .run-graph .r-node.def circle { fill: var(--wf-bg-page); stroke: var(--grp-def); stroke-dasharray: 3 2; }
+  .run-gkey i.gk { border: 0; background: var(--grp-c); }
+  .run-gkey i.gk.def { background: none; border: 1.5px dashed var(--grp-def); border-radius: 50%; }
+  .x-who { display: inline-flex; align-items: center; gap: 6px; }
+  .x-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--grp-c); flex: none; }
+  .x-dot.def { background: none; border: 1.5px dashed var(--grp-def); }
+  .x-code { font: 700 11px var(--s-display); color: var(--grp-c); }
+  .x-del { background: var(--wf-bg-card-strong); border-left: 2px solid var(--psi-gold); padding: 8px 10px; display: grid; gap: 6px; }
+  .x-del .x-dl { font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .x-del ul { margin: 0; padding-left: 16px; display: grid; gap: 3px; font-size: 11.5px; line-height: 1.5; color: var(--wf-text-secondary); }
+  .x-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .x-tags span { font: 700 10px var(--s-display); padding: 1px 7px; border: 1px solid var(--wf-border-strong); color: var(--wf-text-secondary); }
+  .x-tags small { font-size: 9.5px; color: var(--wf-text-muted); align-self: center; }
+  .run-xray details summary { cursor: pointer; font-size: 11px; color: var(--wf-accent-text); width: fit-content; }
+  .run-feed { max-height: 520px; overflow: auto; border-top: 1px solid var(--wf-border-subtle); }
+  .run-feed .f-hour { position: sticky; top: 0; z-index: 1; background: var(--wf-bg-page); font: 700 11px var(--s-display); color: var(--wf-text-muted); padding: 8px 0 6px; border-bottom: 1px solid var(--wf-border-subtle); letter-spacing: 0.04em; }
+  .run-feed .f-post { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 4px 10px; padding: 8px 6px 8px 0; border-bottom: 1px solid var(--wf-border-subtle); cursor: pointer; border-left: 3px solid transparent; padding-left: 6px; }
+  .run-feed .f-post:hover { background: var(--wf-bg-inset); }
+  .run-feed .f-post.on { border-left-color: var(--grp-c); background: var(--wf-bg-inset); }
+  .run-feed.has-sel .f-post:not(.on) { opacity: 0.38; }
+  .run-feed .f-post .x-dot { margin-top: 4px; }
+  .run-feed .f-meta { font-size: 11px; color: var(--wf-text-muted); }
+  .run-feed .f-meta b { color: var(--wf-text-primary); }
+  .run-feed .f-text { grid-column: 2; margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--wf-text-secondary); }
+  .run-heat text.nm { font-weight: 700; }
+  .run-heat text.hr { fill: var(--wf-text-muted); }
+  .run-bars { display: grid; gap: 10px; }
+  .rb-row { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: center; }
+  .rb-row > span { font: 700 12px var(--s-display); }
+  .rb-row.on > span { color: var(--wf-accent-text); }
+  .rb-track { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .rb-bar { display: flex; height: 22px; gap: 2px; }
+  .rb-bar i { display: block; height: 100%; background: var(--grp-c); min-width: 2px; }
+  .rb-bar i.def { background: repeating-linear-gradient(45deg, var(--grp-def) 0 3px, transparent 3px 6px); border: 1px solid var(--grp-def); }
+  .rb-tot { font: 700 12px var(--s-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .rb-key { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11px; color: var(--wf-text-muted); }
+  .rb-key i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; background: var(--grp-c); }
+  .rb-key i.def { background: repeating-linear-gradient(45deg, var(--grp-def) 0 2px, transparent 2px 4px); border: 1px solid var(--grp-def); }
+  /* Flujo alignment: the deliberation line in 02 Corrida uses the same surface as the real run */
+  .feed .think { background: var(--wf-bg-card-strong); border-left: 2px solid var(--psi-gold); padding: 6px 10px; font-size: 12px; font-style: normal; }
+  .goto-run { justify-self: start; border: 1px solid var(--wf-accent-border); background: var(--wf-accent-soft); color: var(--wf-accent-text); font: 700 12px var(--s-display); padding: 6px 12px; cursor: pointer; }
+  .goto-run:hover { border-color: var(--wf-accent); }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -1106,6 +1158,7 @@
               <div class="s-sec">
                 <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3"><span data-i18n="xray">Rayos X</span> · A · R5</h3></div>
                 <p class="s-help">Lo que piensa cada agente y lo que publica. Cada línea abre su traza.</p>
+                <button type="button" class="goto-run" data-goto-run>Ver una corrida real, con su traza →</button>
                 <div class="feed">
                   <article><div class="who"><span><b>Mónica E.</b> · A-2 Mando medio</span><span class="tag state">ronda 7</span></div><p class="think">Pienso: si no me certifico pierdo el bono, pero nadie dijo quién revisa lo que la IA reporta.</p><p>"¿Quién responde cuando el reporte automático se equivoca? Noventa días no alcanzan."</p></article>
                   <article><div class="who"><span><b>Javier R.</b> · A-3 Analista</span><span class="tag">ronda 7</span></div><p class="think">Pienso: esto me da trabajo, pero el plazo va a quemar a los equipos.</p><p>"Bien que se automatice el reporte. Mal que se haga con amenaza."</p></article>
@@ -1338,24 +1391,29 @@
           <div class="run-main">
             <section class="run-graph-sec">
               <div class="s-sec-h"><span class="s-num">01</span><h3 class="s-h3">Quién pudo leer a quién</h3></div>
-              <p class="run-help">Cada punto es un agente (tamaño = cuántos posts publicó). Punteado: el post de otro agente estaba en su feed al terminar. Dorado: un like real. Haz clic en un agente para ver sus posts y lo que pensó antes de escribirlos.</p>
+              <p class="run-help">Cada punto es un agente, con el color de su grupo (tamaño = cuántos posts publicó). Punteado: el post de otro agente estaba en su feed al terminar. Dorado: un like real. Haz clic en un agente para ver sus posts y lo que pensó antes de escribirlos.</p>
               <div class="g-scroll run-graph"></div>
-              <div class="g-key run-key"><span><i class="k-arch"></i>agente de un arquetipo</span><span><i class="k-person"></i>entidad por defecto del grafo</span><span><i class="k-feed"></i>en su feed al final</span><span><i class="k-like"></i>like</span></div>
+              <div class="g-key run-key run-gkey"></div>
             </section>
             <aside class="run-xray" aria-live="polite"></aside>
           </div>
           <section class="run-sec">
-            <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3">Quién habló en cada ronda</h3></div>
-            <p class="run-help">Filas: los 20 agentes, agrupados por origen. Columnas: rondas 0 a 12. Más oscuro, más posts. Haz clic en una celda para abrir ese momento.</p>
+            <div class="s-sec-h"><span class="s-num">02</span><h3 class="s-h3">La corrida en orden</h3></div>
+            <p class="run-help">Todos los posts de la condición, hora por hora, como un feed. No hay hilos: ningún post responde a otro, por eso la conversación se lee como una lista. Haz clic en un post para abrirlo en rayos X.</p>
+            <div class="run-feed"></div>
+          </section>
+          <section class="run-sec">
+            <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Quién habló a cada hora</h3></div>
+            <p class="run-help">Filas: los 20 agentes, con el color de su grupo. Columnas: la hora simulada de cada ronda. El reloj arranca a las 09:00 y la corrida termina a las 20:00: quien solo está activo de noche aparece al final.</p>
             <div class="run-heat"></div>
           </section>
           <section class="run-sec">
-            <div class="s-sec-h"><span class="s-num">03</span><h3 class="s-h3">Las tres condiciones, lado a lado</h3></div>
-            <p class="run-help">Posts por grupo de agentes en cada condición. Mismos 20 agentes, distinto estímulo.</p>
-            <div class="table-scroll"><table class="run-cmp"></table></div>
+            <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3">Las tres condiciones, lado a lado</h3></div>
+            <p class="run-help">Cada barra es una condición; su largo, el total de posts; cada tramo, un grupo de agentes. Pasa el mouse por un tramo para ver su valor. Ojo: la actividad de cada agente se regenera en cada corrida, así que parte de la diferencia puede venir de esa configuración y no del estímulo.</p>
+            <div class="run-bars"></div>
           </section>
           <section class="run-sec run-gaps">
-            <div class="s-sec-h"><span class="s-num">04</span><h3 class="s-h3">Lo que esta corrida todavía no puede mostrar</h3></div>
+            <div class="s-sec-h"><span class="s-num">05</span><h3 class="s-h3">Lo que esta corrida todavía no puede mostrar</h3></div>
             <ul class="run-gap-list">
               <li><b>Conversación entre agentes.</b> 0 respuestas, 0 citas y 0 comentarios en las tres condiciones: los agentes publican, pero no se contestan. Sin eso no hay difusión de ideas que medir.</li>
               <li><b>Likes confiables.</b> La traza marca 3 likes en «Consulta»; en la base de OASIS existe 1. El clasificador convierte textos que dicen «like» o «me gusta» en likes.</li>
@@ -1421,7 +1479,7 @@
           <div><h4>P15 · Card de agente con radar</h4><span class="src">Inspirado en: cartas coleccionables y el ecualizador de un mezclador</span><ul><li>Frente: retrato ilustrado y sonriente, código, rol y de dónde salen sus rasgos. Al pasar el mouse o dar foco, el retrato saluda en un loop de 3 s (WebP animado); con <i>reduced motion</i> queda la imagen fija. Dorso: radar con OCEAN (5 ejes) y PSI (3 ejes, en dorado) superpuestos.</li><li>La línea punteada es lo que dice la constitución; el área es el valor actual. Editar muestra la diferencia, nunca la oculta.</li><li>Solo se ecualizan los agentes que salen de un arquetipo, y el cambio aplica a todo el arquetipo. Las entidades del grafo se ven, no se editan, y la card dice por qué.</li><li>En la card y en la ficha del Brief, el mismo radar con dos capas: OCEAN en el color activo y PSI superpuesto en dorado translúcido (22 %), con sus 3 ejes entre los de OCEAN. El dorado identifica la serie PSI, no un estado. Las barras debajo dan el valor exacto. El avatar circular es la única excepción al «sin radio»: es contenido, no contenedor.</li><li>«Ver ficha» invita a abrirla: mini avatar con un anillo dorado que late, borde izquierdo en semicírculo concéntrico con el avatar (se detiene al abrir y con <i>reduced motion</i>), color activo, pista «OCEAN · PSI» y una flecha que gira. Abierta dice «Ocultar ficha».</li><li>Sin sombra ni radio: la card es una celda de la grilla separada por 1 px. El giro respeta <i>reduced motion</i> y la cara oculta queda inerte.</li></ul></div>
           <div><h4>P16 · Hack en audio por paso</h4><span class="src">Inspirado en: las audioguías de un museo</span><ul><li>Un consejo corto (menos de 40 s) donde más se equivoca la gente. El primero: cómo escribir la constitución, en 01 Brief · Audiencia.</li><li>Vive en la navegación: un botón «Ayuda» en la barra de pasos abre un panel <b>no modal</b> (acoplado a la derecha en desktop, hoja inferior en el teléfono). No oscurece ni bloquea: se sigue revisando el paso mientras se escucha.</li><li>El audio sigue aunque se cierre el panel: la barra muestra un mini reproductor con pausa y un anillo dorado de progreso. Esc cierra el panel y el foco vuelve al botón que lo abrió.</li><li>Hay un hack por paso donde más se duda: la constitución (01 Brief) y el grafo de origen (03 Respuesta · Grafo, solo en español por ahora). Para ahorrar, los hacks nuevos se graban con la voz clonada en el modelo más económico.</li><li>El panel es contextual: muestra el hack del paso actual. En la sección donde aplica queda una entrada compacta («Hack en audio») que abre el mismo panel. El anillo dorado late hasta la primera escucha.</li><li>El selector de idioma cambia la voz y el texto. Un solo reproductor para toda la página: nunca suenan dos a la vez.</li><li>Siempre con «Leer en texto»: el mismo consejo, con la estructura del audio (una idea guía, tres reglas numeradas y un cierre), para quien no puede o no quiere escuchar.</li><li>El guion se escribe para el oído: oraciones cortas, números dichos («Uno… Dos… Tres…») y una pausa antes de cada regla. En la maqueta se comparan dos voces: una de biblioteca (Mentor) y una clonada.</li></ul></div>
           <div><h4>P17 · Grafo de origen</h4><span class="src">Inspirado en: los diagramas de linaje de datos</span><ul><li>Grafo flotante (d3-force, como el grafo del producto): cada perfil de Audiencia, con su cara, rodeado de los 10 agentes que genera. Las personas del documento también llevan cara. Se puede arrastrar.</li><li>El color es la organización (identidad, no estado): una envolvente suave agrupa a sus miembros; el anillo naranja marca a quien también está afiliado al sindicato. El medio es una etiqueta. Paleta validada para daltonismo en los dos temas.</li><li>Cada arista dice qué es: escribe en, cubre, negocia con, trabaja en, afiliados a, genera 10.</li><li>Debajo, un perfil y dos de sus personas lado a lado (una con biografía completa): los radares casi iguales y las vidas distintas se ven de un vistazo.</li><li>Diferencias chicas, escala propia: ±0,05 no se ve en un radar de 0 a 1. Se muestran como desvíos por rasgo sobre una escala ampliada y rotulada (−0,05 a +0,05), con una referencia de escala entre perfiles.</li><li>Al elegir una persona se abre un panel lateral con su biografía como la muestra el producto: edad, género, país y MBTI aparentes, biografía completa (nunca cortada), temas de la semilla y trasfondo.</li><li>Un contador arriba hace la cuenta: 40 de 4 arquetipos + 2 personas del documento = 42. Las organizaciones quedan como contexto, sin agente.</li><li>La forma dice el tipo (círculo persona, cuadrado organización, rombo medio); el color activo marca lo que genera agentes.</li><li>Al pasar sobre un arquetipo se iluminan sus 10 agentes. Al elegir un agente, su radar se dibuja sobre el del arquetipo: la diferencia es de ±0,05 como máximo. Mismos rasgos, distinta vida.</li></ul></div>
-          <div><h4>P18 · Corrida real, sin retoques</h4><span class="src">Inspirado en: los tableros de observabilidad y el «rayos X» de una traza</span><ul><li>Se dibuja solo lo que la traza puede probar: quién pudo leer a quién (feed), likes confirmados y posts por ronda. Lo que no se registró se dice en una lista aparte.</li><li>Rayos X: al elegir un agente o una celda del mapa se ven sus posts ronda por ronda, cada uno con la deliberación que lo precedió; los que no tienen deliberación enlazada se marcan.</li><li>Los números que no cuadran se muestran como alerta: likes de la traza contra likes de la base, respuestas entre agentes en cero.</li><li>Las tres condiciones se comparan con los mismos grupos de agentes, en una tabla, no en tres pantallas.</li></ul></div>
+          <div><h4>P18 · Corrida real, sin retoques</h4><span class="src">Inspirado en: los tableros de observabilidad y el «rayos X» de una traza</span><ul><li>Se dibuja solo lo que la traza puede probar: quién pudo leer a quién (feed), likes confirmados y posts por ronda. Lo que no se registró se dice en una lista aparte.</li><li>Rayos X: al elegir un agente o una celda del mapa se ven sus posts ronda por ronda, cada uno con la deliberación que lo precedió; los que no tienen deliberación enlazada se marcan.</li><li>Los números que no cuadran se muestran como alerta: likes de la traza contra likes de la base, respuestas entre agentes en cero.</li><li>Las tres condiciones se comparan en barras apiladas horizontales: el largo es el total de posts, cada tramo un grupo; el valor aparece al pasar el mouse. Con la advertencia de que la actividad se regenera por corrida.</li><li>Cada grupo tiene su color en todo el producto (A-1 a A-5, validado para daltonismo) y siempre va con su código escrito; el contexto va en gris punteado.</li><li>El mapa de actividad usa la hora simulada (R0 inicio, R1 09:00 … R12 20:00) y el feed de la corrida se lee en orden cronológico. Sin respuestas no hay hilos: se muestra una lista, no una conversación inventada.</li><li>La deliberación va en su propia superficie, más chica, en viñetas por oración y con etiquetas por palabras del texto (presión social, acuerdo, desacuerdo, miedo, duda). No se inventan citas: ninguna deliberación nombra a otro agente.</li></ul></div>
         </div>
       </section>
 
@@ -2339,33 +2397,45 @@
     var runIdx = 2, runSel = null, runRound = null;
     var GROUPS = ['A-1', 'A-2', 'A-3', 'A-4', 'A-5', 'def'];
     function grpOf(a) { return a.arch || 'def'; }
-    function grpName(g, r) { if (g === 'def') return 'Entidades por defecto'; var a = r.agents.filter(function (x) { return x.arch === g; })[0]; return g + (a && a.etype ? ' · ' + a.etype : ''); }
+    function gc(g) { return g === 'def' ? 'var(--grp-def)' : 'var(--grp-' + g.split('-')[1] + ')'; }
+    function hourOf(r) { return r === 0 ? 'posts iniciales' : String(8 + r).padStart(2, '0') + ':00'; }
+    function grpName(g, r) { if (g === 'def') return 'Contexto · entidades por defecto'; var a = r.agents.filter(function (x) { return x.arch === g; })[0]; return g + (a && a.etype ? ' · ' + a.etype : ''); }
     function agentName(a) { return a.name || ((a.arch || a.etype) + ' · ' + a.id); }
     function postsOf(r, id) { return r.posts.filter(function (x) { return x.a === id; }); }
+    var TAGS = [['presión social', /presi[oó]n social|me siento presionad/i], ['de acuerdo', /de acuerdo|comparto|me parece (bien|acertad|positiv|un buen)|apoyo/i],
+      ['en desacuerdo', /desacuerdo|rechaz|no me convence|en contra/i], ['miedo', /miedo|temor|me preocupa|preocupaci/i], ['duda', /dud[ao]|dividid|incertidumbre|no estoy segur/i]];
+    function delibHtml(t, open) {
+      var tags = TAGS.filter(function (x) { return x[1].test(t); }).map(function (x) { return '<span>' + x[0] + '</span>'; }).join('');
+      var bullets = t.split(/(?<=[.!?…])\s+/).filter(Boolean).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+      return '<details' + (open ? ' open' : '') + '><summary>Qué pensó antes (deliberación)</summary><div class="x-del"><span class="x-dl">Deliberación · texto original, separado por oraciones</span>' +
+        (tags ? '<div class="x-tags">' + tags + '<small>según palabras del texto</small></div>' : '') + '<ul>' + bullets + '</ul></div></details>';
+    }
+    function whoHtml(a) { var g = grpOf(a); return '<span class="x-who" style="--grp-c:' + gc(g) + '"><i class="x-dot' + (g === 'def' ? ' def' : '') + '"></i><b>' + esc(agentName(a)) + '</b> <span class="x-code">' + (a.arch || 'contexto') + '</span></span>'; }
     function renderRun(root) {
       var r = RUN_DATA[runIdx];
       root.querySelector('.run-topic').textContent = RUN_META.topic;
-      root.querySelector('.run-req').textContent = r.req ? 'Estímulo: ' + r.req : '';
+      root.querySelector('.run-req').innerHTML = r.req ? '<span class="rq-l">Estímulo · ' + r.label + '</span>' + esc(r.req) : '';
       root.querySelector('.run-cond').innerHTML = RUN_DATA.map(function (x, i) { return '<button type="button" data-run="' + i + '" aria-pressed="' + (i === runIdx) + '">' + x.label + '</button>'; }).join('');
       var active = {}; r.posts.forEach(function (x) { active[x.a] = 1; });
       var k = [['Posts', r.posts.length, r.acts + ' acciones en la traza'], ['Agentes que publicaron', Object.keys(active).length + ' de ' + r.agents.length, ''],
         ['Respuestas entre agentes', r.comments + r.quotes, 'comentarios + citas', 'warn'], ['Likes', r.likes.length, r.likeClaims !== r.likes.length ? r.likeClaims + ' en la traza, ' + r.likes.length + ' en OASIS' : 'en OASIS', r.likeClaims !== r.likes.length ? 'warn' : ''],
         ['Con deliberación enlazada', Math.round(100 * r.linked / r.acts) + ' %', r.linked + ' de ' + r.acts + ' acciones']];
       root.querySelector('.run-kpis').innerHTML = k.map(function (x) { return '<div class="' + (x[3] || '') + '"><span>' + x[0] + '</span><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('');
+      root.querySelector('.run-gkey').innerHTML = GROUPS.map(function (g) { return '<span style="--grp-c:' + gc(g) + '"><i class="gk' + (g === 'def' ? ' def' : '') + '"></i>' + esc(grpName(g, r)) + '</span>'; }).join('') + '<span><i class="k-feed"></i>en su feed al final</span><span><i class="k-like"></i>like</span>';
       runGraph(root.querySelector('.run-graph'), r);
+      runFeed(root.querySelector('.run-feed'), r);
       runHeat(root.querySelector('.run-heat'), r);
-      runCmp(root.querySelector('.run-cmp'));
+      runBars(root.querySelector('.run-bars'));
       runXray(root, r);
     }
     function runGraph(host, r) {
-      host.innerHTML = '';
       var W = 720, H = 460, counts = {};
       r.posts.forEach(function (x) { counts[x.a] = (counts[x.a] || 0) + 1; });
       var nodes = r.agents.map(function (a) { return { id: a.id, a: a, g: grpOf(a), r: 7 + Math.sqrt(counts[a.id] || 0) * 2.6 }; });
       var byId = {}; nodes.forEach(function (n) { byId[n.id] = n; });
       var anchors = {}; GROUPS.forEach(function (g, i) { var ang = -Math.PI / 2 + i * 2 * Math.PI / GROUPS.length; anchors[g] = [W / 2 + Math.cos(ang) * 230, H / 2 + Math.sin(ang) * 150]; });
-      var feed = r.rec.filter(function (e) { return e[0] !== e[1] && byId[e[0]] && byId[e[1]]; }).map(function (e) { return { source: e[0], target: e[1], kind: 'feed' }; });
-      var likes = r.likes.map(function (e) { return { source: e[0], target: e[1], kind: 'like' }; });
+      var feed = r.rec.filter(function (e) { return e[0] !== e[1] && byId[e[0]] && byId[e[1]]; }).map(function (e) { return { source: e[0], target: e[1] }; });
+      var likes = r.likes.map(function (e) { return { source: e[0], target: e[1] }; });
       if (window.d3) {
         var sim = d3.forceSimulation(nodes).randomSource(d3.randomLcg(11))
           .force('link', d3.forceLink(feed.concat(likes)).id(function (d) { return d.id; }).distance(120).strength(0.02))
@@ -2380,74 +2450,89 @@
       }
       nodes.forEach(function (d) { d.x = Math.max(d.r + 40, Math.min(W - d.r - 40, d.x)); d.y = Math.max(d.r + 20, Math.min(H - d.r - 26, d.y)); });
       var o = [];
-      GROUPS.forEach(function (g) {
-        var an = anchors[g], mem = nodes.filter(function (n) { return n.g === g; });
-        var top = Math.min.apply(null, mem.map(function (n) { return n.y - n.r; })), bot = Math.max.apply(null, mem.map(function (n) { return n.y + n.r; }));
-        var y = an[1] < H / 2 ? Math.max(12, top - 10) : Math.min(H - 6, bot + 34);
-        o.push('<text class="r-grp" x="' + an[0].toFixed(1) + '" y="' + y.toFixed(1) + '" text-anchor="middle">' + esc(grpName(g, r)) + '</text>');
-      });
-      function curve(l, bend) { var s = l.source, e = l.target, mx = (s.x + e.x) / 2 - (e.y - s.y) * bend, my = (s.y + e.y) / 2 + (e.x - s.x) * bend; return 'M' + s.x.toFixed(1) + ',' + s.y.toFixed(1) + ' Q' + mx.toFixed(1) + ',' + my.toFixed(1) + ' ' + e.x.toFixed(1) + ',' + e.y.toFixed(1); }
+      function curve(l, bend) { var s0 = l.source, e = l.target, mx = (s0.x + e.x) / 2 - (e.y - s0.y) * bend, my = (s0.y + e.y) / 2 + (e.x - s0.x) * bend; return 'M' + s0.x.toFixed(1) + ',' + s0.y.toFixed(1) + ' Q' + mx.toFixed(1) + ',' + my.toFixed(1) + ' ' + e.x.toFixed(1) + ',' + e.y.toFixed(1); }
       feed.forEach(function (l) { o.push('<path class="r-feed" data-s="' + l.source.id + '" data-t="' + l.target.id + '" d="' + curve(l, 0.12) + '"/>'); });
       likes.forEach(function (l) { o.push('<path class="r-like" data-s="' + l.source.id + '" data-t="' + l.target.id + '" d="' + curve(l, -0.2) + '"/>'); });
       nodes.forEach(function (n) {
         var nm = agentName(n.a).split(' ')[0];
-        o.push('<g class="r-node ' + (n.a.arch ? 'arch' : 'def') + (runSel === n.id ? ' sel' : '') + '" data-ragent="' + n.id + '" tabindex="0" role="button" aria-label="' + esc(agentName(n.a)) + ', ' + (counts[n.id] || 0) + ' posts" transform="translate(' + n.x.toFixed(1) + ',' + n.y.toFixed(1) + ')">' +
-          '<circle r="' + n.r.toFixed(1) + '"/><text y="' + (n.r + 11).toFixed(1) + '" text-anchor="middle">' + esc(nm) + '</text><text class="sub" y="' + (n.r + 21).toFixed(1) + '" text-anchor="middle">' + (counts[n.id] || 0) + ' posts</text></g>');
+        o.push('<g class="r-node ' + (n.a.arch ? 'grp' : 'def') + (runSel === n.id ? ' sel' : '') + '" style="--grp-c:' + gc(n.g) + '" data-ragent="' + n.id + '" tabindex="0" role="button" aria-label="' + esc(agentName(n.a)) + ', ' + (n.a.arch || 'contexto') + ', ' + (counts[n.id] || 0) + ' posts" transform="translate(' + n.x.toFixed(1) + ',' + n.y.toFixed(1) + ')">' +
+          '<circle r="' + n.r.toFixed(1) + '"/><text y="' + (n.r + 11).toFixed(1) + '" text-anchor="middle">' + esc(nm) + '</text><text class="sub" y="' + (n.r + 21).toFixed(1) + '" text-anchor="middle">' + (n.a.arch || 'ctx') + ' · ' + (counts[n.id] || 0) + '</text></g>');
       });
-      host.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Grafo de la corrida ' + r.label + ': 20 agentes, ' + feed.length + ' vínculos de feed y ' + likes.length + ' likes">' + o.join('') + '</svg>';
+      host.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Grafo de la corrida ' + r.label + ': 20 agentes por grupo, ' + feed.length + ' vínculos de feed y ' + likes.length + ' likes">' + o.join('') + '</svg>';
+    }
+    function runFeed(host, r) {
+      var byId = {}; r.agents.forEach(function (a) { byId[a.id] = a; });
+      var out = [], last = -1;
+      r.posts.forEach(function (q, i) {
+        if (q.r !== last) { out.push('<div class="f-hour">R' + q.r + ' · ' + hourOf(q.r) + '</div>'); last = q.r; }
+        var a = byId[q.a], g = grpOf(a);
+        out.push('<div class="f-post' + (runSel === q.a ? ' on' : '') + '" style="--grp-c:' + gc(g) + '" data-ragent="' + q.a + '" data-rround="' + q.r + '" tabindex="0" role="button">' +
+          '<i class="x-dot' + (g === 'def' ? ' def' : '') + '"></i><span class="f-meta"><b>' + esc(agentName(a)) + '</b> · <span class="x-code">' + (a.arch || 'contexto') + '</span> · ' + (q.pf === 't' ? 'Twitter' : 'Reddit') + (q.l ? '' : ' · sin deliberación') + '</span>' +
+          '<p class="f-text">' + (q.t ? esc(q.t.length > 240 ? q.t.slice(0, 240).replace(/\s+\S*$/, '') + '…' : q.t) : 'Texto disponible en la versión privada.') + '</p></div>');
+      });
+      host.classList.toggle('has-sel', runSel != null);
+      host.innerHTML = out.join('');
     }
     function runHeat(host, r) {
-      var rows = [], rounds = 13, cw = 34, rh = 17, L = 176, T = 22, o = [], max = 1, cnt = {};
+      var rows = [], rounds = 13, cw = 44, rh = 17, L = 196, T = 30, o = [], max = 1, cnt = {};
       GROUPS.forEach(function (g) { r.agents.filter(function (a) { return grpOf(a) === g; }).forEach(function (a) { rows.push(a); }); });
       r.posts.forEach(function (x) { var k = x.a + ':' + x.r; cnt[k] = (cnt[k] || 0) + 1; if (cnt[k] > max) max = cnt[k]; });
-      for (var c = 0; c < rounds; c++) o.push('<text x="' + (L + c * cw + cw / 2) + '" y="14" text-anchor="middle">R' + c + '</text>');
+      for (var c = 0; c < rounds; c++) {
+        o.push('<text x="' + (L + c * cw + cw / 2) + '" y="12" text-anchor="middle">R' + c + '</text>');
+        o.push('<text class="hr" x="' + (L + c * cw + cw / 2) + '" y="24" text-anchor="middle">' + (c === 0 ? 'inicio' : hourOf(c)) + '</text>');
+      }
       var lastG = null;
       rows.forEach(function (a, i) {
         var y = T + i * rh, g = grpOf(a);
         if (g !== lastG) { o.push('<line x1="4" x2="' + (L + rounds * cw) + '" y1="' + (y - 1) + '" y2="' + (y - 1) + '" stroke="var(--wf-border-subtle)"/>'); lastG = g; }
-        o.push('<text x="' + (L - 8) + '" y="' + (y + 11) + '" text-anchor="end">' + esc(agentName(a)).slice(0, 22) + ' · ' + (a.arch || 'def') + '</text>');
+        o.push('<text class="nm" style="fill:' + gc(g) + '" x="' + (L - 8) + '" y="' + (y + 11) + '" text-anchor="end">' + esc(agentName(a)).slice(0, 22) + ' · ' + (a.arch || 'ctx') + '</text>');
         for (var c2 = 0; c2 < rounds; c2++) {
-          var v = cnt[a.id + ':' + c2] || 0, op = v ? 0.25 + 0.75 * v / max : 0.06;
-          o.push('<rect class="c' + (runSel === a.id && runRound === c2 ? ' sel' : '') + '" data-ragent="' + a.id + '" data-rround="' + c2 + '" x="' + (L + c2 * cw + 1) + '" y="' + y + '" width="' + (cw - 2) + '" height="' + (rh - 2) + '" style="fill:' + (v ? 'var(--wf-accent)' : 'var(--wf-text-muted)') + ';fill-opacity:' + op.toFixed(2) + '"><title>' + esc(agentName(a)) + ' · ronda ' + c2 + ' · ' + v + ' posts</title></rect>');
+          var v = cnt[a.id + ':' + c2] || 0, op = v ? 0.35 + 0.65 * v / max : 0.07;
+          o.push('<rect class="c' + (runSel === a.id && runRound === c2 ? ' sel' : '') + '" data-ragent="' + a.id + '" data-rround="' + c2 + '" x="' + (L + c2 * cw + 1) + '" y="' + y + '" width="' + (cw - 2) + '" height="' + (rh - 2) + '" style="fill:' + (v ? gc(g) : 'var(--wf-text-muted)') + ';fill-opacity:' + op.toFixed(2) + '"><title>' + esc(agentName(a)) + ' · ' + (a.arch || 'contexto') + ' · R' + c2 + ' ' + hourOf(c2) + ' · ' + v + ' posts</title></rect>');
         }
       });
-      host.innerHTML = '<svg viewBox="0 0 ' + (L + rounds * cw + 6) + ' ' + (T + rows.length * rh + 6) + '" role="img" aria-label="Posts por agente y por ronda">' + o.join('') + '</svg>';
+      host.innerHTML = '<svg viewBox="0 0 ' + (L + rounds * cw + 6) + ' ' + (T + rows.length * rh + 6) + '" role="img" aria-label="Posts por agente y por hora simulada">' + o.join('') + '</svg>';
     }
-    function runCmp(table) {
-      var head = '<tr><th>Grupo</th>' + RUN_DATA.map(function (x, i) { return '<th>' + x.label + (i === runIdx ? ' ·' : '') + '</th>'; }).join('') + '</tr>';
-      var max = 1, rows = GROUPS.map(function (g) {
-        var vals = RUN_DATA.map(function (r) { var ids = {}; r.agents.forEach(function (a) { if (grpOf(a) === g) ids[a.id] = 1; }); return r.posts.filter(function (x) { return ids[x.a]; }).length; });
-        vals.forEach(function (v) { if (v > max) max = v; }); return [g, vals];
-      });
-      var body = rows.map(function (row) {
-        return '<tr><td>' + esc(grpName(row[0], RUN_DATA[runIdx])) + '</td>' + row[1].map(function (v, i) { return '<td class="n' + (i === runIdx ? ' on' : '') + '"><i style="width:' + Math.round(70 * v / max) + 'px"></i>' + v + '</td>'; }).join('') + '</tr>';
+    function runBars(host) {
+      var maxT = Math.max.apply(null, RUN_DATA.map(function (r) { return r.posts.length; }));
+      var rows = RUN_DATA.map(function (r, i) {
+        var tot = r.posts.length, segs = GROUPS.map(function (g) {
+          var ids = {}; r.agents.forEach(function (a) { if (grpOf(a) === g) ids[a.id] = 1; });
+          var v = r.posts.filter(function (x) { return ids[x.a]; }).length;
+          return '<i class="' + (g === 'def' ? 'def' : '') + '" style="--grp-c:' + gc(g) + ';width:' + (100 * v / maxT).toFixed(2) + '%" title="' + esc(grpName(g, r)) + ': ' + v + ' posts (' + Math.round(100 * v / tot) + ' %)"></i>';
+        }).join('');
+        return '<div class="rb-row' + (i === runIdx ? ' on' : '') + '"><span>' + r.label + '</span><div class="rb-track"><div class="rb-bar" style="width:' + (100 * tot / maxT).toFixed(2) + '%">' + segs.replace(/width:([\d.]+)%/g, function (m, w) { return 'width:' + (100 * (+w) / (100 * tot / maxT)).toFixed(2) + '%'; }) + '</div><span class="rb-tot">' + tot + '</span></div></div>';
       }).join('');
-      var tot = '<tr class="tot"><td>Total</td>' + RUN_DATA.map(function (r, i) { return '<td class="n' + (i === runIdx ? ' on' : '') + '">' + r.posts.length + '</td>'; }).join('') + '</tr>';
-      table.innerHTML = '<thead>' + head + '</thead><tbody>' + body + tot + '</tbody>';
+      var key = '<div class="rb-key">' + GROUPS.map(function (g) { return '<span style="--grp-c:' + gc(g) + '"><i class="' + (g === 'def' ? 'def' : '') + '"></i>' + esc(grpName(g, RUN_DATA[runIdx])) + '</span>'; }).join('') + '</div>';
+      host.innerHTML = rows + key;
     }
     function runXray(root, r) {
       var x = root.querySelector('.run-xray');
-      if (runSel == null) { x.innerHTML = '<h4>Rayos X</h4><p class="x-empty">Elige un agente en el grafo o una celda del mapa: aquí aparecen sus posts, ronda por ronda, con lo que pensó antes de escribir cada uno.</p>'; return; }
+      if (runSel == null) { x.innerHTML = '<h4>Rayos X</h4><p class="x-empty">Elige un agente en el grafo, un post del feed o una celda del mapa: aquí aparecen sus posts, hora por hora, con lo que pensó antes de escribir cada uno.</p>'; return; }
       var a = r.agents.filter(function (q) { return q.id === runSel; })[0], ps = postsOf(r, runSel);
-      var meta = [a.arch ? a.arch + (a.etype ? ' · ' + a.etype : '') : 'entidad por defecto · ' + a.etype, a.age ? a.age + ' años' : '', a.prof || ''].filter(Boolean).join(' · ');
+      var meta = [a.arch ? (a.etype || '') : 'entidad por defecto · ' + a.etype, a.age ? a.age + ' años' : '', a.prof || ''].filter(Boolean).join(' · ');
       var list = ps.map(function (q) {
         var body = q.t ? '<p class="x-post">' + esc(q.t) + '</p>' : '<p class="x-post">Texto disponible en la versión privada.</p>';
-        var del = q.l ? (q.d ? '<details' + (runRound === q.r ? ' open' : '') + '><summary>Qué pensó antes (deliberación)</summary><p>' + esc(q.d) + '</p></details>' : '<span class="x-meta">Con deliberación enlazada.</span>') : '<span class="x-nolink">Sin deliberación enlazada.</span>';
-        return '<li class="' + (runRound === q.r ? 'hl' : '') + '"><span class="x-r">Ronda ' + q.r + ' · ' + (q.pf === 't' ? 'Twitter' : 'Reddit') + '</span>' + body + del + '</li>';
+        var del = q.l ? (q.d ? delibHtml(q.d, runRound === q.r) : '<span class="x-meta">Con deliberación enlazada.</span>') : '<span class="x-nolink">Sin deliberación enlazada.</span>';
+        return '<li class="' + (runRound === q.r ? 'hl' : '') + '"><span class="x-r">R' + q.r + ' · ' + hourOf(q.r) + ' · ' + (q.pf === 't' ? 'Twitter' : 'Reddit') + '</span>' + body + del + '</li>';
       }).join('');
-      x.innerHTML = '<h4>' + esc(agentName(a)) + '</h4><p class="x-meta">' + esc(meta) + ' · ' + ps.length + ' posts</p>' + (ps.length ? '<ol>' + list + '</ol>' : '<p class="x-empty">No publicó en esta condición.</p>');
+      x.innerHTML = '<h4>' + whoHtml(a) + '</h4><p class="x-meta">' + esc(meta) + (meta ? ' · ' : '') + ps.length + ' posts</p>' + (ps.length ? '<ol>' + list + '</ol>' : '<p class="x-empty">No publicó en esta condición.</p>');
       var hl = x.querySelector('li.hl'); if (hl) hl.scrollIntoView({ block: 'nearest' });
     }
     function runRoots() { return document.querySelectorAll('.runv'); }
     runRoots().forEach(renderRun);
     document.addEventListener('click', function (e) {
+      var go = e.target.closest && e.target.closest('[data-goto-run]');
+      if (go) { tab = 'run'; render(); window.scrollTo(0, 0); return; }
       var c = e.target.closest && e.target.closest('.run-cond [data-run]');
       if (c) { runIdx = +c.getAttribute('data-run'); runRoots().forEach(renderRun); return; }
       var n = e.target.closest && e.target.closest('.runv [data-ragent]');
       if (!n) return;
       runSel = +n.getAttribute('data-ragent');
       runRound = n.hasAttribute('data-rround') ? +n.getAttribute('data-rround') : null;
+      var feedY = n.closest('.run-feed') ? n.closest('.run-feed').scrollTop : null;
       runRoots().forEach(renderRun);
+      if (feedY != null) document.querySelectorAll('.run-feed').forEach(function (f) { f.scrollTop = feedY; });
     });
     document.addEventListener('keydown', function (e) {
       var n = e.target.closest && e.target.closest('.runv [data-ragent]');
@@ -2459,6 +2544,14 @@
       var n = e.target.closest('.r-node'), id = n ? n.getAttribute('data-ragent') : null;
       svg.querySelectorAll('.r-feed, .r-like').forEach(function (l) { l.classList.toggle('dim', !!id && l.getAttribute('data-s') !== id && l.getAttribute('data-t') !== id); });
     });
+    // Same group colour for an archetype code everywhere in the product (A-1 ... A-5).
+    function tintCodes() {
+      document.querySelectorAll('.code').forEach(function (el) {
+        var m = /^A-([1-5])$/.exec(el.textContent.trim());
+        if (m) { el.setAttribute('data-grp', m[1]); el.style.setProperty('--grp-c', 'var(--grp-' + m[1] + ')'); }
+      });
+    }
+    tintCodes();
 
     function render() {
       views.home.hidden = !(tab === 'home' && device === 'desktop');
