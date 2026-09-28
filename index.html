@@ -884,6 +884,18 @@
   .scapder-logo { display: inline-block; height: 20px; aspect-ratio: 164 / 58; background-color: currentColor;
     -webkit-mask: var(--scapder-logo) no-repeat left center / contain; mask: var(--scapder-logo) no-repeat left center / contain; vertical-align: middle; }
   @media (forced-colors: active) { .scapder-logo { background-color: CanvasText; } }
+
+  /* ---------- Home E · Los hilos ---------- */
+  :root { --fil-a: #9A948C; --fil-b: #3A3631; --fil-hot: #6D4AE8; --fil-glow: rgba(250, 250, 248, 0.94); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --fil-a: #4A4640; --fil-b: #D6CFC4; --fil-hot: #A78BFA; --fil-glow: rgba(10, 10, 11, 0.9); } }
+  :root[data-theme="dark"] { --fil-a: #4A4640; --fil-b: #D6CFC4; --fil-hot: #A78BFA; --fil-glow: rgba(10, 10, 11, 0.9); }
+  :root[data-palette="pantone"] { --fil-a: #A9B7A6; --fil-b: #54392D; --fil-hot: #C8392A; --fil-glow: rgba(242, 244, 239, 0.94); }
+  @media (prefers-color-scheme: dark) { :root[data-palette="pantone"]:not([data-theme="light"]) { --fil-a: #3B4A39; --fil-b: #A7BDA3; --fil-hot: #F26B5B; --fil-glow: rgba(28, 20, 17, 0.9); } }
+  :root[data-palette="pantone"][data-theme="dark"] { --fil-a: #3B4A39; --fil-b: #A7BDA3; --fil-hot: #F26B5B; --fil-glow: rgba(28, 20, 17, 0.9); }
+  :root[data-palette="basil"] { --fil-a: #6F876C; --fil-b: #2E1F19; --fil-hot: #C8392A; --fil-glow: rgba(135, 159, 132, 0.95); }
+  @media (prefers-color-scheme: dark) { :root[data-palette="basil"]:not([data-theme="light"]) { --fil-a: #3A4E38; --fil-b: #B7CDB0; --fil-hot: #FF7A6B; --fil-glow: rgba(36, 48, 36, 0.9); } }
+  :root[data-palette="basil"][data-theme="dark"] { --fil-a: #3A4E38; --fil-b: #B7CDB0; --fil-hot: #FF7A6B; --fil-glow: rgba(36, 48, 36, 0.9); }
+  .hero canvas.filaments { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -1027,6 +1039,28 @@
           <div class="swatch"><i style="background:#E94B3C"></i><span><b>Cherry Tomato</b>17-1563 TCX · ≈ #E94B3C · activo, foco</span></div>
         </div>
         <div class="ref"><b>Inspirado en</b> un afiche con una multitud en duotono y tipografía roja, y en la paleta Pantone Basil · Potting Soil · Cherry Tomato. · <b>Las cabezas son la audiencia</b>: cada silueta es un agente; en rojo, los que están deliberando en ese momento. La multitud ocupa la mitad inferior para no competir con el titular. · <b>Mapeo a tokens</b> estructura y botón en Potting Soil; completado en Basil (texto #4B6A4E, 5,5:1); activo en Cherry Tomato (relleno #C8392A con texto blanco, 5,2:1; texto #B8321F, 5,4:1). Los hex son equivalencias sRGB aproximadas de Pantone TCX. · <b>Tensión</b> con un acento rojo, "activo" y "falla" compiten: el error pasa a carmesí (#8E1B2B) y el estado siempre va escrito. · Tipografías sin cambios.</div>
+      </article>
+      <article class="screen-block" data-screen="00 Home · E" id="home-e">
+        <div class="screen-label"><span>Home · Propuesta E · Los hilos</span><span>Exploración · adicional</span></div>
+        <div class="screen hero">
+          <canvas class="filaments" aria-hidden="true"></canvas>
+          <div class="hero-top">
+            <div class="s-brand"><b>sentientum</b><span class="s-by">por <i class="scapder-logo" role="img" aria-label="Scapder"></i></span></div>
+            <div class="s-tools"><a href="#flujo">Simulaciones</a> · Ajustes</div>
+          </div>
+          <div class="hero-center">
+            <span class="hero-status"><i></i><span data-i18n="status">Local · tus datos quedan en esta máquina</span></span>
+            <h2 class="hero-h" data-i18n="heroH">Compara antes de decidir.</h2>
+            <p class="hero-sub" data-i18n="heroSub">Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.</p>
+            <form class="composer" id="home-composer-e">
+              <label class="attach" title="Adjuntar constitución o contexto (.md, .pdf, .txt)">+<input type="file" id="home-file-e" accept=".md,.pdf,.txt"></label>
+              <textarea id="home-decision-e" rows="2" aria-label="Decisión" placeholder="¿Qué necesitas decidir?">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</textarea>
+              <button class="s-btn" type="submit"><span data-i18n="buildBrief">Armar brief</span> <span>→</span></button>
+            </form>
+            <div class="attached" id="home-attached-e"><span><b>constitucion_adopcion_ia.md</b></span><span class="ok">4 arquetipos · vectores OCEAN y PSI detectados</span></div>
+          </div>
+        </div>
+        <div class="ref"><b>Inspirado en</b> el fondo de Aura, una espiral de fibras. · <b>Diferencia</b> aquí no hay pelo: son filamentos continuos y muy juntos, como cables tendidos, que siguen ondas descentradas; las crestas se iluminan y los valles se apagan. · <b>Significado</b> cada hilo es una línea de conversación; los pocos hilos en el color activo son agentes deliberando en este momento. · <b>Color</b> no tiene paleta propia: cambia con los selectores de Paleta y Tema (Basil y Potting Soil en Pantone y Fondo Basil; grises cálidos y violeta en la paleta actual). · <b>Accesibilidad</b> es un dibujo estático; el centro se aclara para que el titular conserve su contraste.</div>
       </article>
       <p class="reco"><b>Recomendación:</b> A como Home. B no es una pantalla aparte: es lo que ocurre al adjuntar en A (la lista de arquetipos detectados aparece bajo el compositor). C es el estado vacío de A para quien entra por primera vez. D es una exploración de color para comparar: se puede ver toda la maqueta con esa paleta desde el selector "Pantone".</p>
     </div>
@@ -1635,6 +1669,64 @@
 
     // The crowd: head-and-shoulder silhouettes in rows that grow toward the viewer.
     // Duotone from --crowd-a / --crowd-b; agents that are deliberating take the accent.
+    // Home E: dense filaments along an off-centre swirl. Drawn once per size/theme; no animation.
+    function filaments(canvas) {
+      var ctx = canvas.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), col = {};
+      function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+      function readColors() {
+        var cs = getComputedStyle(canvas);
+        col = { a: cs.getPropertyValue('--fil-a').trim(), b: cs.getPropertyValue('--fil-b').trim(), hot: cs.getPropertyValue('--fil-hot').trim(), glow: cs.getPropertyValue('--fil-glow').trim(), bg: cs.getPropertyValue('--wf-bg-page').trim() };
+      }
+      function draw() {
+        var w = canvas.clientWidth, h = canvas.clientHeight;
+        if (!w || !h) return;
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.fillStyle = col.bg || '#000'; ctx.fillRect(0, 0, w, h);
+        var cx = w * 0.64, cy = h * 0.56, R = Math.hypot(w, h);
+        function field(x, y) {
+          var dx = x - cx, dy = y - cy, r = Math.hypot(dx, dy) + 1e-3, th = Math.atan2(dy, dx);
+          return th + Math.PI / 2 + 0.16 + 0.22 * Math.sin(r * 0.011 + th * 2.0);
+        }
+        function ridge(x, y) {
+          var dx = x - cx, dy = y - cy, r = Math.hypot(dx, dy), th = Math.atan2(dy, dx);
+          var v = 0.5 + 0.5 * Math.sin(r * 0.052 - th * 1.0 + 0.6 * Math.sin(th * 3));
+          return Math.pow(v, 1.6) * Math.min(1, 0.35 + r / (R * 0.35));
+        }
+        var rand = rng(20260928), n = Math.round(w * h / 520), step = 2.4, steps = 70;
+        ctx.lineCap = 'round';
+        for (var k = 0; k < n; k++) {
+          var sx = rand() * w, sy = rand() * h, hot = rand() < 0.012;
+          [1, -1].forEach(function (dir) {
+            var x = sx, y = sy, seg = [[x, y]];
+            for (var t = 0; t < steps; t++) {
+              var a = field(x, y);
+              x += Math.cos(a) * step * dir; y += Math.sin(a) * step * dir;
+              if (x < -10 || y < -10 || x > w + 10 || y > h + 10) break;
+              seg.push([x, y]);
+            }
+            for (var c = 0; c + 1 < seg.length; c += 8) {
+              var end = Math.min(seg.length - 1, c + 8), mid = seg[(c + end) >> 1], rv = ridge(mid[0], mid[1]);
+              ctx.beginPath(); ctx.moveTo(seg[c][0], seg[c][1]);
+              for (var q = c + 1; q <= end; q++) ctx.lineTo(seg[q][0], seg[q][1]);
+              if (hot) { ctx.strokeStyle = col.hot; ctx.globalAlpha = 0.35 + 0.6 * rv; ctx.lineWidth = 1.1; }
+              else { ctx.strokeStyle = rv > 0.5 ? col.b : col.a; ctx.globalAlpha = 0.1 + 0.55 * rv; ctx.lineWidth = 0.7; }
+              ctx.stroke();
+            }
+          });
+        }
+        ctx.globalAlpha = 1;
+        // A soft clearing behind the headline keeps its contrast.
+        var g = ctx.createRadialGradient(w / 2, h * 0.5, 0, w / 2, h * 0.5, Math.max(w, h) * 0.42);
+        g.addColorStop(0, col.glow); g.addColorStop(0.55, col.glow.replace(/[\d.]+\)$/, '0.55)')); g.addColorStop(1, col.glow.replace(/[\d.]+\)$/, '0)'));
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+      }
+      readColors(); draw();
+      var timer = null;
+      function later() { clearTimeout(timer); timer = setTimeout(function () { readColors(); draw(); }, 120); }
+      if (window.ResizeObserver) new ResizeObserver(later).observe(canvas);
+      new MutationObserver(later).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-palette'] });
+    }
     function crowd(canvas) {
       var ctx = canvas.getContext('2d');
       var heads = [], w = 0, h = 0, colors = {}, dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1694,7 +1786,7 @@
 
     // Mobile view is built from the same screens (Home A and D first), so they never drift apart.
     var phones = document.getElementById('phones');
-    var blocks = [document.querySelector('#home-screens .screen-block'), document.getElementById('home-d')].concat([].slice.call(document.querySelectorAll('#screens .screen-block')));
+    var blocks = [document.querySelector('#home-screens .screen-block'), document.getElementById('home-d'), document.getElementById('home-e')].concat([].slice.call(document.querySelectorAll('#screens .screen-block')));
     blocks.forEach(function (block) {
       var phone = document.createElement('div'); phone.className = 'phone' + (block.classList.contains('pal-pantone') ? ' pal-pantone' : '');
       var cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = block.getAttribute('data-screen');
@@ -1707,6 +1799,7 @@
     });
     document.querySelectorAll('canvas.society').forEach(society);
     document.querySelectorAll('canvas.crowd').forEach(crowd);
+    document.querySelectorAll('canvas.filaments').forEach(filaments);
 
     // The composer behaves like the real one: attaching shows the file; submitting opens the Brief.
     function wireComposer(suffix) {
@@ -1723,7 +1816,7 @@
       });
       form.addEventListener('submit', function (e) { e.preventDefault(); tab = 'mock'; render(); window.scrollTo(0, 0); });
     }
-    wireComposer(''); wireComposer('-m'); wireComposer('-d'); wireComposer('-d-m');
+    wireComposer(''); wireComposer('-m'); wireComposer('-d'); wireComposer('-d-m'); wireComposer('-e'); wireComposer('-e-m');
     // Palette: the current one, or the Pantone exploration over the same tokens.
     var palette = 'actual';
     function applyPalette() {
