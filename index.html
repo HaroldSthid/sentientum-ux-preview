@@ -896,6 +896,24 @@
   @media (prefers-color-scheme: dark) { :root[data-palette="basil"]:not([data-theme="light"]) { --fil-a: #3A4E38; --fil-b: #B7CDB0; --fil-hot: #FF7A6B; --fil-glow: rgba(36, 48, 36, 0.9); } }
   :root[data-palette="basil"][data-theme="dark"] { --fil-a: #3A4E38; --fil-b: #B7CDB0; --fil-hot: #FF7A6B; --fil-glow: rgba(36, 48, 36, 0.9); }
   .hero canvas.filaments { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+  /* ---------- Home F · El retrato compuesto ---------- */
+  .hf .hf-body { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); gap: 32px; padding: 12px 28px 32px; align-items: center; }
+  .hf .hf-copy { display: grid; gap: 16px; justify-items: start; text-align: left; min-width: 0; }
+  .hf .hf-copy .hero-h { text-align: left; }
+  .hf .hf-copy .composer { width: 100%; }
+  .hf-fig { margin: 0; display: grid; gap: 8px; justify-items: stretch; min-width: 0; max-width: 460px; justify-self: end; width: 100%; }
+  .hf-meta { display: flex; justify-content: space-between; gap: 8px; font: 400 10px var(--s-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--wf-text-muted); }
+  .hf-kicker { color: var(--wf-accent-text); font-weight: 700; }
+  .hf-canvas { display: block; width: 100%; aspect-ratio: 3 / 4; max-width: 100%; border: 1px solid var(--wf-border-subtle); background: var(--wf-bg-inset); }
+  .hf-data { display: block; width: 100%; height: auto; }
+  .hf-data text { font: 400 8.5px var(--s-mono); fill: var(--wf-text-muted); letter-spacing: 0.06em; }
+  .hf-data text.psi { fill: var(--psi-gold); }
+  .hf-data rect { fill: var(--wf-text-muted); fill-opacity: 0.35; }
+  .hf-data rect.soft { fill: var(--wf-accent); fill-opacity: 0.45; }
+  .hf-data rect.hl { fill: var(--wf-accent); fill-opacity: 1; }
+  .hf-cap { font-size: 11px; color: var(--wf-text-muted); line-height: 1.5; }
+  @container (max-width: 760px) { .hf .hf-body { grid-template-columns: 1fr; padding: 8px 18px 24px; } .hf-fig { justify-self: stretch; max-width: none; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -1061,6 +1079,35 @@
           </div>
         </div>
         <div class="ref"><b>Inspirado en</b> el fondo de Aura, una espiral de fibras. · <b>Diferencia</b> aquí no hay pelo: son filamentos continuos y muy juntos, como cables tendidos, que siguen ondas descentradas; las crestas se iluminan y los valles se apagan. · <b>Significado</b> cada hilo es una línea de conversación; los pocos hilos en el color activo son agentes deliberando en este momento. · <b>Color</b> no tiene paleta propia: cambia con los selectores de Paleta y Tema (Basil y Potting Soil en Pantone y Fondo Basil; grises cálidos y violeta en la paleta actual). · <b>Movimiento</b> las crestas avanzan despacio (un ciclo cada 14 s) fundiendo tres capas precalculadas: dos imágenes por cuadro, a 24 cuadros por segundo como máximo, y en pausa fuera de pantalla. · <b>Accesibilidad</b> con <i>reduced motion</i> queda quieto; el centro se aclara para que el titular conserve su contraste.</div>
+      </article>
+      <article class="screen-block" data-screen="00 Home · F" id="home-f">
+        <div class="screen-label"><span>Home · Propuesta F · El retrato compuesto</span><span>Exploración · adicional</span></div>
+        <div class="screen hero hf">
+          <div class="hero-top">
+            <div class="s-brand"><b>sentientum</b><span class="s-by">por <i class="scapder-logo" role="img" aria-label="Scapder"></i></span></div>
+            <div class="s-tools"><a href="#flujo">Simulaciones</a> · Ajustes</div>
+          </div>
+          <div class="hf-body">
+            <div class="hf-copy">
+              <span class="hero-status"><i></i><span data-i18n="status">Local · tus datos quedan en esta máquina</span></span>
+              <h2 class="hero-h" data-i18n="heroH">Compara antes de decidir.</h2>
+              <p class="hero-sub" data-i18n="heroSub">Describe la decisión y sube tu constitución. Sentientum arma el brief y lo corre contra tu audiencia sintética.</p>
+              <form class="composer" id="home-composer-f">
+                <label class="attach" title="Adjuntar constitución o contexto (.md, .pdf, .txt)">+<input type="file" id="home-file-f" accept=".md,.pdf,.txt"></label>
+                <textarea id="home-decision-f" rows="2" aria-label="Decisión" placeholder="¿Qué necesitas decidir?">¿Qué programa de adopción de IA lanzamos para los mandos medios de operaciones?</textarea>
+                <button class="s-btn" type="submit"><span data-i18n="buildBrief">Armar brief</span> <span>→</span></button>
+              </form>
+              <div class="attached" id="home-attached-f"><span><b>constitucion_adopcion_ia.md</b></span><span class="ok">4 arquetipos · vectores OCEAN y PSI detectados</span></div>
+            </div>
+            <figure class="hf-fig">
+              <div class="hf-meta"><span class="hf-kicker">Retrato compuesto</span><span class="hf-count"></span></div>
+              <canvas class="hf-canvas" role="img" aria-label="Un rostro armado con fragmentos de los retratos de ocho agentes; cada rectángulo dice de quién es"></canvas>
+              <svg class="hf-data" role="img" aria-label="Rasgos OCEAN y PSI de los 40 agentes; resaltados, los que forman el rostro"></svg>
+              <figcaption class="hf-cap">Una persona hecha de muchas: cada rectángulo sale del retrato de otra persona, en la misma zona de la cara. Abajo, los rasgos de los 40 agentes de la audiencia; en color, los que aparecen en el rostro (Lorena y Diego). Los retratos A-1 a A-4 son perfiles, no agentes.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="ref"><b>Inspirado en</b> «UVA», visuales en vivo de Iván Puñal: un retrato cortado en rectángulos que se desplazan, con líneas finas y datos diminutos. · <b>Diferencia</b> aquí los fragmentos son de ocho agentes distintos de la audiencia, y cada uno lleva su nombre y código; el panel de datos no es decorativo: son los rasgos de los 40 agentes, con los del rostro resaltados. · <b>Movimiento</b> cada 2,6 s algunos rectángulos cambian de agente; se pausa fuera de pantalla y queda quieto con <i>reduced motion</i>. · <b>Reglas</b> líneas de 1 px, sin sombras ni radios; los colores salen de la paleta y el tema activos.</div>
       </article>
       <p class="reco"><b>Recomendación:</b> A como Home. B no es una pantalla aparte: es lo que ocurre al adjuntar en A (la lista de arquetipos detectados aparece bajo el compositor). C es el estado vacío de A para quien entra por primera vez. D es una exploración de color para comparar: se puede ver toda la maqueta con esa paleta desde el selector "Pantone".</p>
     </div>
@@ -1822,7 +1869,7 @@
 
     // Mobile view is built from the same screens (Home A and D first), so they never drift apart.
     var phones = document.getElementById('phones');
-    var blocks = [document.querySelector('#home-screens .screen-block'), document.getElementById('home-d'), document.getElementById('home-e')].concat([].slice.call(document.querySelectorAll('#screens .screen-block')));
+    var blocks = [document.querySelector('#home-screens .screen-block'), document.getElementById('home-d'), document.getElementById('home-e'), document.getElementById('home-f')].concat([].slice.call(document.querySelectorAll('#screens .screen-block')));
     blocks.forEach(function (block) {
       var phone = document.createElement('div'); phone.className = 'phone' + (block.classList.contains('pal-pantone') ? ' pal-pantone' : '');
       var cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = block.getAttribute('data-screen');
@@ -1852,7 +1899,7 @@
       });
       form.addEventListener('submit', function (e) { e.preventDefault(); tab = 'mock'; render(); window.scrollTo(0, 0); });
     }
-    wireComposer(''); wireComposer('-m'); wireComposer('-d'); wireComposer('-d-m'); wireComposer('-e'); wireComposer('-e-m');
+    wireComposer(''); wireComposer('-m'); wireComposer('-d'); wireComposer('-d-m'); wireComposer('-e'); wireComposer('-e-m'); wireComposer('-f'); wireComposer('-f-m');
     // Palette: the current one, or the Pantone exploration over the same tokens.
     var palette = 'actual';
     function applyPalette() {
@@ -2688,6 +2735,94 @@
       });
     }
     tintCodes();
+
+    // Home F: a face assembled from the audience's portraits. Redraws a few rectangles every 2.6 s (cheap
+    // drawImage crops, no per-frame loop); paused off screen, static with reduced motion.
+    function homeF(root) {
+      var canvas = root.querySelector('.hf-canvas'), svg = root.querySelector('.hf-data'), count = root.querySelector('.hf-count');
+      if (!canvas || !svg) return;
+      var ctx = canvas.getContext('2d'), col = {}, rects = [], visible = true, timer = null, seed = 20260928;
+      function rnd() { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+      var SRC = AGENTS.map(function (a) { return { id: a.kind === 'zep' ? a.code : a.code, label: a.code + ' · ' + a.name.split(' ')[0], face: a.face, arch: a.kind === 'zep' ? null : a.code, agent: null }; })
+        .concat([{ id: 'A-2:2', label: 'A-2 · Lorena', face: FEAT_FACE.lorena, arch: 'A-2', agent: 'A-2:2' }, { id: 'A-2:1', label: 'A-2 · Diego', face: FEAT_FACE.diego, arch: 'A-2', agent: 'A-2:1' }]);
+      var BASE = 1, imgs = [], loaded = 0;
+      SRC.forEach(function (sx, k) { var im = new Image(); im.onload = function () { if (++loaded === SRC.length) { build(); draw(); dataPanel(); start(); } }; im.src = sx.face; imgs[k] = im; });
+      function readColors() { var cs = getComputedStyle(canvas); ['--wf-bg-page', '--wf-border-strong', '--wf-text-muted', '--wf-accent', '--wf-accent-text', '--wf-text-primary'].forEach(function (k) { col[k] = cs.getPropertyValue(k).trim(); }); }
+      function pickSrc() { var k; do { k = Math.floor(rnd() * SRC.length); } while (k === BASE); return k; }
+      function build() {
+        rects = [{ x: 0.19, y: 0.07, w: 0.62, h: 0.76 }];
+        while (rects.length < 26) {
+          rects.sort(function (a, b) { return b.w * b.h - a.w * a.h; });
+          var r = rects.shift(), thin = rnd() < 0.25, f = thin ? (rnd() < 0.5 ? 0.12 : 0.88) : 0.3 + rnd() * 0.4;
+          if (r.w * 0.75 > r.h ? true : r.w > r.h * 0.6 && rnd() < 0.35) { rects.push({ x: r.x, y: r.y, w: r.w * f, h: r.h }, { x: r.x + r.w * f, y: r.y, w: r.w * (1 - f), h: r.h }); }
+          else { rects.push({ x: r.x, y: r.y, w: r.w, h: r.h * f }, { x: r.x, y: r.y + r.h * f, w: r.w, h: r.h * (1 - f) }); }
+        }
+        rects.forEach(assign);
+      }
+      function assign(r) {
+        r.src = rnd() < 0.3 ? BASE : pickSrc();
+        r.ox = (rnd() - 0.5) * 0.04; r.oy = (rnd() - 0.5) * 0.035;
+        r.smear = rnd() < 0.14; r.label = r.w > 0.15 && r.h > 0.05 && rnd() < 0.5;
+      }
+      function draw() {
+        var w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
+        if (!w || !h) return;
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        readColors();
+        ctx.fillStyle = col['--wf-bg-page']; ctx.fillRect(0, 0, w, h);
+        var base = imgs[BASE]; ctx.drawImage(base, 0, 0, w, h);
+        rects.forEach(function (r) {
+          if (r.src === BASE && !r.smear) return;
+          var im = imgs[r.src], iw = im.naturalWidth, ih = im.naturalHeight;
+          var sx = Math.max(0, Math.min(1 - r.w, r.x + r.ox)), sy = Math.max(0, Math.min(1 - r.h, r.y + r.oy));
+          var sw = r.smear ? Math.max(0.006, r.w * 0.03) : r.w;
+          ctx.drawImage(im, sx * iw, sy * ih, sw * iw, r.h * ih, r.x * w, r.y * h, r.w * w, r.h * h);
+        });
+        ctx.lineWidth = 1; ctx.strokeStyle = col['--wf-border-strong']; ctx.globalAlpha = 0.95;
+        rects.forEach(function (r) { ctx.strokeRect(Math.round(r.x * w) + 0.5, Math.round(r.y * h) + 0.5, Math.round(r.w * w) - 1, Math.round(r.h * h) - 1); });
+        ctx.globalAlpha = 1; ctx.font = '8.5px ' + getComputedStyle(canvas).getPropertyValue('--s-mono');
+        rects.forEach(function (r) {
+          if (!r.label) return;
+          var t = SRC[r.src].label, tw = ctx.measureText(t).width;
+          ctx.fillStyle = col['--wf-bg-page']; ctx.globalAlpha = 0.82; ctx.fillRect(r.x * w + 3, r.y * h + 3, tw + 8, 13);
+          ctx.globalAlpha = 1; ctx.fillStyle = r.src === BASE ? col['--wf-text-muted'] : col['--wf-accent-text']; ctx.fillText(t, r.x * w + 7, r.y * h + 12.5);
+        });
+        ctx.fillStyle = col['--wf-text-primary']; ctx.globalAlpha = 0.75;
+        ctx.fillText('BASE ' + SRC[BASE].label.toUpperCase(), 8, h - 8);
+        ctx.globalAlpha = 1;
+        var used = {}; rects.forEach(function (r) { used[r.src] = 1; }); used[BASE] = 1;
+        count.textContent = Object.keys(used).length + ' agentes · ' + rects.length + ' cortes';
+      }
+      function dataPanel() {
+        var used = {}; rects.forEach(function (r) { used[r.src] = 1; }); used[BASE] = 1;
+        var strong = {}, soft = {};
+        Object.keys(used).forEach(function (k) { var s0 = SRC[k]; if (s0.agent) strong[s0.agent] = 1; else if (s0.arch) soft[s0.arch] = 1; });
+        var W = 440, colW = W / 8, rowH = 2.6, top = 14, o = [], all = [];
+        G_ARCH.forEach(function (a) { a.agents.forEach(function (ag, i) { all.push({ id: a.code + ':' + i, arch: a.code, vec: ag.vec }); }); });
+        AXES.forEach(function (ax, c) {
+          var x0 = c * colW + 2;
+          o.push('<text class="' + (c > 4 ? 'psi' : '') + '" x="' + x0 + '" y="9">' + ax[0].toUpperCase() + '</text>');
+          all.slice().sort(function (p1, p2) { return p2.vec[c] - p1.vec[c]; }).forEach(function (ag, i) {
+            var cls = strong[ag.id] ? 'hl' : '';
+            o.push('<rect class="' + cls + '" x="' + x0 + '" y="' + (top + i * rowH).toFixed(1) + '" width="' + (ag.vec[c] * (colW - 8)).toFixed(1) + '" height="1.6"/>');
+          });
+        });
+        svg.setAttribute('viewBox', '0 0 ' + W + ' ' + (top + all.length * rowH + 4));
+        svg.innerHTML = o.join('');
+      }
+      function step() {
+        for (var k = 0; k < 4; k++) assign(rects[Math.floor(rnd() * rects.length)]);
+        draw(); dataPanel();
+      }
+      function start() { if (!timer && !reduce && visible && !document.hidden) timer = setInterval(function () { if (!visible || document.hidden) { stop(); return; } step(); }, 2600); }
+      function stop() { clearInterval(timer); timer = null; }
+      var rt = null;
+      if (window.ResizeObserver) new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(draw, 120); }).observe(canvas);
+      new MutationObserver(function () { setTimeout(draw, 60); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-palette'] });
+      if (window.IntersectionObserver) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) start(); else stop(); }, { rootMargin: '60px' }).observe(canvas);
+      document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+    }
+    document.querySelectorAll('.hf').forEach(homeF);
 
     function render() {
       views.home.hidden = !(tab === 'home' && device === 'desktop');
